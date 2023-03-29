@@ -74,6 +74,8 @@ group :test do
   gem "webdrivers"
 end
 
-gem 'devise'
+gem "devise"
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem "foreman"
