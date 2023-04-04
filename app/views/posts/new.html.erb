@@ -1,8 +1,9 @@
-<% if flash[:notice ] %>
-  <p><%= flash[:notice] %></p>
-<% end %>
 <div>
   <%= form_with model: @post do |f| %>
+    <div>
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+    </div>
     <div>
       <%= f.label :title %>
       <%= f.text_field :title %>
