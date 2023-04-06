@@ -65,6 +65,7 @@ group :development do
   # gem "spring"
 
   gem 'rubocop-airbnb'
+  gem 'pry-rails'
 end
 
 group :test do
