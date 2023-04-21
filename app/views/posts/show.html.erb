@@ -19,12 +19,8 @@
         <div id="speed-dial-menu-dropdown" class="flex flex-col justify-end hidden py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm">
           <ul class="text-sm text-gray-500">
             <li>
-              <%= link_to edit_post_path, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900" do %>
-                <span class="text-sm font-medium">編集</span>
-              <% end %>
-              <a href="#" class="flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900">
-                <span class="text-sm font-medium">削除</span>
-              </a>
+              <%= link_to "編集", edit_post_path, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
+              <%= button_to "削除", post_path, method: :delete, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
             </li>
           </ul>
         </div>

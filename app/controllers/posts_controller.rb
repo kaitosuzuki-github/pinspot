@@ -32,6 +32,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    flash[:notice] = "投稿を削除しました"
+    redirect_to root_path
+  end
+
   private
 
   def post_params
