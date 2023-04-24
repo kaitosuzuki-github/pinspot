@@ -3,6 +3,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @user = @post.user
   end
 
   def new
@@ -11,6 +12,7 @@ class PostsController < ApplicationController
 
   def create
     post = Post.new(post_params)
+    post.user_id = current_user.id
     if post.save
       flash[:notice] = "登録しました"
       redirect_to new_post_path
