@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :show
+  before_action :limit_current_user, only: %i[edit update destroy]
 
   def show
     @post = Post.find(params[:id])
@@ -54,5 +55,12 @@ class PostsController < ApplicationController
       :longitude,
       :image,
     )
+  end
+
+  def limit_current_user
+    if Post.find(params[:id]).user_id != current_user.id
+      flash[:notice] = "アクセスできません"
+      redirect_to post_path
+    end
   end
 end
