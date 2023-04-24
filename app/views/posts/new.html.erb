@@ -2,7 +2,6 @@
   <%= javascript_import_module_tag "posts/new_googlemap" %>
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV["GOOGLE_MAP_API_KEY"]}&callback=initMap", defer: true %>
 <% end %>
-
 <div class="bg-white">
   <div class="mx-auto max-w-7xl">
     <%= form_with model: @post do |f| %>
