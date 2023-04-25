@@ -6,7 +6,9 @@
   <div class="bg-white m-auto max-w-7xl">
     <div class="bg-black bg-opacity-80 p-6 grid gap-6 grid-cols-1 relative sm:grid-cols-2">
       <div class="flex justify-center items-center">
-        <%= image_tag @post.image.variant(resize_to_limit: [1000, 1000]), id: "image", class:"h-auto max-w-full shadow-lg object-contain max-h-500" %>
+        <% if @post.image.present? %>
+          <%= image_tag @post.image.variant(resize_to_limit: [1000, 1000]), id: "image", class:"h-auto max-w-full shadow-lg object-contain max-h-500" %>
+        <% end %>
       </div>
       <div class="flex justify-center items-center">
         <div id="map" class="w-500 h-96 md:h-500 rounded-lg shadow-lg max-w-full" data-latitude=<%= @post.latitude %> data-longitude=<%= @post.longitude %>></div>
