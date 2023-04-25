@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.save
       flash[:notice] = "登録しました"
-      redirect_to new_post_path
+      redirect_to @post
     else
       flash.now[:notice] = "登録できませんでした"
       render :new
@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = "変更しました"
-      redirect_to post_path
+      redirect_to @post
     else
       flash.now[:notice] = "変更できませんでした"
       render :edit
@@ -59,9 +59,10 @@ class PostsController < ApplicationController
   end
 
   def limit_current_user
-    if Post.find(params[:id]).user_id != current_user.id
+    post = Post.find(params[:id])
+    if post.user_id != current_user.id
       flash[:notice] = "アクセスできません"
-      redirect_to post_path
+      redirect_to post
     end
   end
 end
