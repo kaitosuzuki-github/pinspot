@@ -1,7 +1,3 @@
-<% content_for :js do %>
-  <%= javascript_import_module_tag "posts/show_googlemap" %>
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV["GOOGLE_MAP_API_KEY"]}&callback=initMap", defer: true %>
-<% end %>
 <div class="bg-gray-100 p-4">
   <div class="bg-white m-auto max-w-7xl">
     <div class="bg-black bg-opacity-80 p-6 grid gap-6 grid-cols-1 relative sm:grid-cols-2">
