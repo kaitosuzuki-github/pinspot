@@ -1,7 +1,3 @@
-<% content_for :js do %>
-  <%= javascript_import_module_tag "posts/new_googlemap" %>
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV["GOOGLE_MAP_API_KEY"]}&callback=initMap", defer: true %>
-<% end %>
 <div class="bg-white">
   <div class="mx-auto max-w-7xl">
     <%= form_with model: @post do |f| %>
@@ -20,7 +16,7 @@
       <div>
         <%= f.label :location %>
         <%= f.text_field :location, id: "address" %>
-        <button type="button" onclick="codeAddress()">地図で検索</button>
+        <button type="button" id="mapSearch">地図で検索</button>
         <div id="map" class="h-72 md:h-600"></div>
         <%= f.hidden_field :latitude, id: "lat" %>
         <%= f.hidden_field :longitude, id: "lng" %>

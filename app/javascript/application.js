@@ -3,4 +3,5 @@ import "@hotwired/turbo-rails";
 import "controllers";
 
 import "flowbite";
-Turbo.session.drive = false;
+import "custom/google_map";
+import "custom/image_preview";
