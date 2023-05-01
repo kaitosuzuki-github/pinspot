@@ -18,7 +18,7 @@
           <ul class="text-sm text-gray-500">
             <li>
               <%= link_to "編集", edit_post_path, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
-              <%= button_to "削除", @post, method: :delete, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
+              <%= button_to "削除", @post, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
             </li>
           </ul>
         </div>
