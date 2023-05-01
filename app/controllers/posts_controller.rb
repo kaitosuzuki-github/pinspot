@@ -19,7 +19,7 @@ class PostsController < ApplicationController
       redirect_to @post
     else
       flash.now[:notice] = "登録できませんでした"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
