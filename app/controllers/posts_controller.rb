@@ -34,7 +34,7 @@ class PostsController < ApplicationController
       redirect_to @post
     else
       flash.now[:notice] = "変更できませんでした"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
