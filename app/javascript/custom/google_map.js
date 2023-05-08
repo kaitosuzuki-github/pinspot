@@ -23,7 +23,17 @@ function initMap(mapDisplay) {
       center: { lat: 36.204824, lng: 138.252924 },
       zoom: 4,
     });
-    marker = null;
+    const posts = mapDisplay.dataset.posts;
+    if (posts == undefined) {
+      marker = null;
+    } else {
+      JSON.parse(posts).forEach(function (post) {
+        marker = new google.maps.Marker({
+          map: map,
+          position: { lat: post.latitude, lng: post.longitude },
+        });
+      });
+    }
   } else {
     const floatLat = parseFloat(lat);
     const floatLng = parseFloat(lng);
