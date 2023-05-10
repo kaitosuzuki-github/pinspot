@@ -6,4 +6,7 @@
   .field_with_errors {
     display: contents;
   }
+  input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
 }

@@ -83,3 +83,4 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "foreman"
 gem 'rails-i18n', '~> 7.0.0'
 gem 'devise-i18n'
+gem 'ransack'
