@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :limit_current_user, only: %i[edit update destroy]
+  before_action :authenticate_user!, except: %i(show search fresh)
+  before_action :limit_current_user, only: %i(edit update destroy)
 
   def show
     @post = Post.find(params[:id])
@@ -43,6 +43,14 @@ class PostsController < ApplicationController
     post.destroy
     flash[:notice] = "投稿を削除しました"
     redirect_to root_path
+  end
+
+  def search
+    @posts = @q.result(distinct: true)
+  end
+
+  def fresh
+    @posts = Post.order(created_at: :DESC).all
   end
 
   private
