@@ -7,4 +7,5 @@ class User < ApplicationRecord
          :rememberable,
          :validatable
   has_many :posts, dependent: :destroy
+  has_one :profile, dependent: :destroy
 end
