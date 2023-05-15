@@ -1,0 +1,47 @@
+<div class="bg-white">
+  <div class="p-6 max-w-2xl mx-auto">
+    <h2 class="mb-4 text-xl font-bold text-gray-900">プロフィール編集</h2>
+    <%= form_with model: @profile, class: "space-y-6" do |f| %>
+      <%= render "posts/shared/error", model: f.object %>
+      <div class="relative h-fit">
+        <div class="absolute w-full h-full flex items-center justify-center">
+          <%= f.label :cover, class:"inline-block cursor-pointer rounded-full bg-white py-2 px-4 border-0 text-sm font-semibold text-gray-900 hover:bg-gray-100" do %>
+            カバー画像の変更
+          <% end %>
+          <%= f.file_field :cover, class:"hidden" %>
+        </div>
+        <div class="bg-gray-100 aspect-[4/1] overflow-hidden">
+          <% if @profile.cover.present? %>
+            <%= image_tag @profile.cover.variant(resize_to_limit: [1000, 1000]), class: "h-full  w-full object-cover" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="text-center">
+        <%= f.label :avatar, class: "inline-block cursor-pointer" do %>
+          <% if @profile.avatar.present? %>
+            <div class="w-16 h-16 rounded-full overflow-hidden">
+              <%= image_tag @profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
+            </div>
+          <% else %>
+            <svg class="w-16 h-16 text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"></path>
+            </svg>
+          <% end %>
+        <% end %>
+        <%= f.file_field :avatar, class:"hidden" %>
+      </div>
+      <div>
+        <%= f.label :name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= f.text_field :name, class: "w-full p-2.5 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600" %>
+      </div>
+      <div>
+        <%= f.label :introduction, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= f.text_area :introduction, rows: "8", class: "w-full p-2.5 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600" %>
+      </div>
+      <div class="flex items-center gap-4">
+        <%= f.submit "変更", class: "cursor-pointer text-white bg-gray-700 rounded-lg text-sm px-5 py-2.5 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300" %>
+        <%= link_to "キャンセル", @profile, class: "text-gray-900" %>
+      </div>
+    <% end %>
+  </div>
+</div>
