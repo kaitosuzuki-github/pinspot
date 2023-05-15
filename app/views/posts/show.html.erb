@@ -3,7 +3,7 @@
     <div class="bg-black bg-opacity-80 p-6 grid gap-6 grid-cols-1 relative sm:grid-cols-2">
       <div class="flex justify-center items-center">
         <% if @post.image.present? %>
-          <%= image_tag @post.image.variant(resize_to_limit: [1000, 1000]), id: "image", class:"h-auto max-w-full shadow-lg object-contain max-h-500" %>
+          <%= image_tag @post.image.variant(resize_to_limit: [1000, 1000]), class:"h-auto max-w-full shadow-lg object-contain max-h-500" %>
         <% end %>
       </div>
       <div class="flex justify-center items-center">
