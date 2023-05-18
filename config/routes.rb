@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
   resources :posts do
     resources :likes, only: [:create, :destroy]
+    resources :bookmarks, only: [:create, :destroy]
     collection do
       get "search"
       get "fresh"
