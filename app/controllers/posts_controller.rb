@@ -66,6 +66,7 @@ class PostsController < ApplicationController
       :latitude,
       :longitude,
       :image,
+      category_ids: []
     )
   end
 
