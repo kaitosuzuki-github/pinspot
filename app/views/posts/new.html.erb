@@ -30,6 +30,17 @@
         <%= f.label :description, class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= f.text_area :description, rows: "8", class: "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500" %>
       </div>
+      <div class="mb-6">
+        <%= f.label :categories, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <div class="flex flex-wrap gap-3">
+          <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+            <div>
+              <%= b.check_box class: "rounded bg-gray-50 border border-gray-300" %>
+              <%= b.label class: "text-gray-900"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
       <div class="flex items-center space-x-4">
         <%= f.submit "投稿", class: "cursor-pointer text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
         <%= link_to "キャンセル", root_path, class: "text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>

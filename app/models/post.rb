@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_many :post_category_relations, dependent: :destroy
+  has_many :categories, through: :post_category_relations
 
   validates :image, presence: true
   validates :location, presence: true
