@@ -9,12 +9,14 @@
       <div class="flex justify-center items-center">
         <div id="map" class="w-500 h-96 md:h-500 rounded-lg shadow-lg max-w-full" data-latitude=<%= @post.latitude %> data-longitude=<%= @post.longitude %>></div>
       </div>
-      <div data-dial-init class="absolute top-4 right-4">
-        <button type="button" data-collapse-toggle="speed-dial-menu-dropdown" aria-controls="speed-dial-menu-dropdown" aria-expanded="false" class="flex items-center justify-center ml-auto hover:opacity-60">
-          <svg aria-hidden="true" class="w-8 h-8 fill-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+      <div id="dropdownWrap" class="absolute top-4 right-4">
+        <button id="dropdownToggle" type="button" aria-controls="speed-dial-menu-dropdown" aria-expanded="false" class="flex items-center justify-center ml-auto hover:opacity-60">
+          <svg aria-hidden="true" class="w-8 h-8 fill-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+          </svg>
           <span class="sr-only">Open actions menu</span>
         </button>
-        <div id="speed-dial-menu-dropdown" class="flex flex-col justify-end hidden py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm">
+        <div id="dropdownMenu" class="justify-end py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm duration-100 dropdown-invisible">
           <ul class="text-sm text-gray-500">
             <li>
               <%= link_to "編集", edit_post_path, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
