@@ -3,7 +3,7 @@ document.addEventListener("turbo:render", imagePreview, false);
 
 function imagePreview() {
   const fileInput = Array.from(document.querySelectorAll('input[type="file"]'));
-  if (fileInput == null) {
+  if (fileInput.length == 0) {
     return;
   }
   fileInput.forEach(function (element) {
