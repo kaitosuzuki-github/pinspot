@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :edit, :update]
   root "home#index"
   resources :posts do
+    resources :comments, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
     resources :bookmarks, only: [:create, :destroy]
     collection do

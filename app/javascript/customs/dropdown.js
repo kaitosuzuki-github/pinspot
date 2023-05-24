@@ -1,9 +1,14 @@
 document.addEventListener("turbo:load", dropdown, false);
 
 function dropdown() {
-  const dropdownToggle = document.getElementById("dropdownToggle");
-  if (dropdownToggle != null) {
-    const dropdownMenu = document.getElementById("dropdownMenu");
+  const dropdownWrapList = document.querySelectorAll("#dropdownWrap");
+  if (dropdownWrapList.length == 0) {
+    return;
+  }
+  const dropdownMenuList = [];
+  dropdownWrapList.forEach(function (element) {
+    const dropdownToggle = element.querySelector("#dropdownToggle");
+    const dropdownMenu = element.querySelector("#dropdownMenu");
     dropdownToggle.addEventListener(
       "click",
       () => {
@@ -12,14 +17,17 @@ function dropdown() {
       },
       false
     );
-    document.addEventListener(
-      "click",
-      (e) => {
-        if (!e.target.closest("#dropdownWrap")) {
-          dropdownMenu.classList.add("dropdown-invisible");
-        }
-      },
-      false
-    );
-  }
+    dropdownMenuList.push(dropdownMenu);
+  });
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (!e.target.closest("#dropdownWrap")) {
+        dropdownMenuList.forEach(function (element) {
+          element.classList.add("dropdown-invisible");
+        });
+      }
+    },
+    false
+  );
 }
