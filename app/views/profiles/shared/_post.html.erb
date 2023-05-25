@@ -1,0 +1,6 @@
+<%= link_to post, class:"group relative flex items-end inline-block shadow bg-gray-100 overflow-hidden h-72", data: { turbo_frame: "_top" } do %>
+  <%= image_tag post.image.variant(resize_to_limit: [500, 500]), class: "h-full w-full object-cover object-center" %>
+  <div class="absolute opacity-0 w-full p-2 bg-gradient-to-t from-gray-900 transition duration-100 group-hover:opacity-100">
+    <span class="text-sm text-white"><%= post.title %></span>
+  </div>
+<% end %>

@@ -10,7 +10,9 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
   has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
   has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_posts, through: :bookmarks, source: :post
   has_many :relationships, dependent: :destroy
   has_many :followings, through: :relationships, source: :follow
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy

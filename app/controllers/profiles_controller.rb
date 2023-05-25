@@ -21,6 +21,18 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def show_likes
+    @profile = Profile.find(params[:id])
+    @posts = current_user.like_posts
+    render :show
+  end
+
+  def show_bookmarks
+    @profile = Profile.find(params[:id])
+    @posts = current_user.bookmark_posts
+    render :show
+  end
+
   private
 
   def profile_params
