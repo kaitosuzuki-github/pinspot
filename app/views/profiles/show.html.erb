@@ -43,17 +43,12 @@
     </div>
     <hr>
     <div class="p-4">
-      <h2 class="text-center text-xl font-semibold text-gray-900 pb-3">投稿</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-        <% @posts.each do |post| %>
-          <%= link_to post, class:"group relative flex items-end inline-block shadow bg-gray-100 overflow-hidden h-72" do %>
-            <%= image_tag post.image.variant(resize_to_limit: [500, 500]), class: "h-full w-full object-cover object-center" %>
-            <div class="absolute opacity-0 w-full p-2 bg-gradient-to-t from-gray-900 transition duration-100 group-hover:opacity-100">
-              <span class="text-sm text-white"><%= post.title %></span>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
+      <%= turbo_frame_tag "profile_posts" do %>
+        <%= render "profiles/shared/post_tab", profile_id: @profile.id %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+          <%= render partial: "profiles/shared/post", collection: @posts %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
