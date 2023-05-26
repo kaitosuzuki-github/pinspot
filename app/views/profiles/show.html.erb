@@ -32,7 +32,7 @@
       </div>
       <% if @profile.introduction.present? %>
         <div class="flex justify-center">
-          <p class="text-sm text-gray-900 tracking-wide leading-relaxed"><%= safe_join(@profile.introduction.split("\n"),tag(:br)) %></p>
+          <p class="text-sm text-gray-900 tracking-wide leading-relaxed"><%= safe_join(@profile.introduction.split("\n"), tag(:br)) %></p>
         </div>
       <% end %>
     </div>

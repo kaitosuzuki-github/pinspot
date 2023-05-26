@@ -27,7 +27,7 @@
             <% end %>
             <p class="text-sm text-gray-900"><%= comment.user.profile.name %></p>
           </div>
-          <p class="text-gray-900"><%= safe_join(comment.content.split("\n"),tag(:br)) %></p>
+          <p class="text-gray-900"><%= safe_join(comment.content.split("\n"), tag(:br)) %></p>
           <p class="text-gray-600 text-sm"><%= l comment.updated_at, format: :long %></p>
         </div>
         <div id="dropdownWrap" class="absolute top-3 right-0">
