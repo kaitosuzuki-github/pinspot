@@ -1,0 +1,65 @@
+<header class="bg-white">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6">
+    <div class="flex items-center">
+      <%= link_to root_path, class: "p-1.5 hover:text-green-400" do %>
+        <span class="sr-only">Your App</span>
+        <p class="font-bold text-3xl">Pinspot</p>
+      <% end %>
+      <%= link_to "探す", search_posts_path, class:"hidden lg:block text-sm font-medium leading-6 text-gray-900 mx-10 hover:text-green-400" %>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:justify-end lg:items-center lg:space-x-5">
+      <%= search_form_for q, url: search_posts_path, class: "flex items-center" do |f| %>
+        <%= f.label :title_or_location_cont, class: "sr-only" %>
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <%= f.search_field :title_or_location_cont, class: "bg-gray-100 border-none text-sm rounded-full block w-full pl-10 p-2.5 focus:ring-0", placeholder: "Search Pinspot", required: true %>
+        </div>
+      <% end %>
+      <% if user_signed_in? %>
+        <div id="dropdownWrap" class="relative flex items-center justify-center">
+          <button id="dropdownToggle" type="button">
+            <% if current_user.profile.avatar.present? %>
+              <div class="w-8 h-8 rounded-full overflow-hidden">
+                <%= image_tag current_user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
+              </div>
+            <% else %>
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path clip-rule="evenodd" fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"></path>
+              </svg>
+            <% end %>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdownMenu" class="absolute z-10 top-full mt-4 bg-white rounded-lg shadow w-44 duration-100 dropdown-invisible">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "block px-4 py-2 hover:bg-gray-100" %>
+              </li>
+              <li>
+                <%= link_to "アカウント設定", users_show_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+              </li>
+              <li>
+                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 hover:bg-gray-100" %>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <%= link_to "投稿する", new_post_path, class: "py-1 px-4 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-900 duration-100 hover:text-green-400 ml-2" %>
+      <% else %>
+        <%= link_to "ログイン", new_user_session_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "py-1 px-4 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-900 hover:text-green-400 ml-2" %>
+      <% end %>
+    </div>
+  </nav>
+</header>
