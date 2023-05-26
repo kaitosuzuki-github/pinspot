@@ -36,7 +36,7 @@
           <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
             <div>
               <%= b.check_box class: "rounded bg-gray-50 border border-gray-300" %>
-              <%= b.label class: "text-gray-900"%>
+              <%= b.label class: "text-gray-900" %>
             </div>
           <% end %>
         </div>
