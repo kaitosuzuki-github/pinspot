@@ -15,10 +15,10 @@ class Post < ApplicationRecord
   validates :description, presence: true, length: { maximum: 1000 }
 
   def self.ransackable_attributes(auth_object)
-    ["location", "title"]
+    ["location", "title", "created_at"]
   end
 
   def self.ransackable_associations(auth_object)
-    ["image_attachment", "image_blob", "user"]
+    ["categories"]
   end
 end

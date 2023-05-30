@@ -50,11 +50,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = @q.result(distinct: true)
-  end
-
-  def fresh
-    @posts = Post.order(created_at: :DESC).all
+    @posts = @q.result(distinct: true).includes(:categories)
   end
 
   private

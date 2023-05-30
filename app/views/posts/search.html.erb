@@ -1,14 +1,5 @@
-<div class="p-5 sm:p-8">
-  <h2 class="text-xl font-bold text-gray-800 lg:text-2xl mb-4">キーワード検索</h2>
-  <%= search_form_for @q, url: search_posts_path, class: "mb-4" do |f| %>
-    <%= f.label :title_or_location_cont, class: "mb-2 text-sm font-medium text-gray-900 sr-only" %>
-    <div class="relative">
-      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        <%= render "shared/icons/search", class_list: "w-5 h-5 fill-gray-500" %>
-      </div>
-      <%= f.search_field :title_or_location_cont, class: "block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-400 focus:border-green-400", placeholder: "Search Pinspot", required: true %>
-      <%= f.submit class: "text-white absolute right-2.5 bottom-2.5 bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2" %>
-    </div>
-  <% end %>
-  <%= render "posts/shared/image_layout" %>
+<div class="p-5 sm:p-8 max-w-7xl mx-auto">
+  <h2 class="text-xl font-bold text-gray-800 lg:text-2xl mb-4">検索</h2>
+  <%= render "posts/shared/search_form", q: @q %>
+  <%= render "posts/shared/image_layout", posts: @posts %>
 </div>

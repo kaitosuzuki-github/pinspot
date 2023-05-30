@@ -7,7 +7,7 @@
     <div class="p-6">
       <div class="mb-6 flex items-center justify-between">
         <h2 class="text-xl font-bold text-gray-800 lg:text-2xl">新着投稿</h2>
-        <%= link_to "さらに表示", fresh_posts_path, class: "inline-block rounded-lg border bg-white px-4 py-2 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:px-8 md:py-3 md:text-base" %>
+        <%= link_to "さらに表示", search_posts_path, class: "inline-block rounded-lg border bg-white px-4 py-2 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:px-8 md:py-3 md:text-base" %>
       </div>
       <div class="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
         <% @posts.each_with_index do |post, i| %>

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   def set_search
     @q = Post.ransack(params[:q])
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
   end
 
   def configure_permitted_parameters

@@ -5,29 +5,28 @@ function dropdown() {
   if (dropdownWrapList.length == 0) {
     return;
   }
-  const dropdownMenuList = [];
-  dropdownWrapList.forEach(function (element) {
+  dropdownWrapList.forEach(function (element, index) {
     const dropdownToggle = element.querySelector("#dropdownToggle");
     const dropdownMenu = element.querySelector("#dropdownMenu");
+    const dropdownNum = "dropdown" + index;
     dropdownToggle.addEventListener(
       "click",
       () => {
         dropdownMenu.classList.toggle("dropdown-invisible");
         dropdownMenu.classList.toggle("dropdown-visible");
+        element.classList.add(dropdownNum);
       },
       false
     );
-    dropdownMenuList.push(dropdownMenu);
+
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (!e.target.closest("." + dropdownNum)) {
+          dropdownMenu.classList.add("dropdown-invisible");
+        }
+      },
+      false
+    );
   });
-  document.addEventListener(
-    "click",
-    (e) => {
-      if (!e.target.closest("#dropdownWrap")) {
-        dropdownMenuList.forEach(function (element) {
-          element.classList.add("dropdown-invisible");
-        });
-      }
-    },
-    false
-  );
 }
