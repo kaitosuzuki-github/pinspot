@@ -15,7 +15,6 @@ Rails.application.routes.draw do
     resources :bookmarks, only: [:create, :destroy]
     collection do
       get "search"
-      get "fresh"
     end
   end
   devise_for :users, controllers: { registrations: 'users/registrations' }

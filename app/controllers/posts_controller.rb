@@ -53,10 +53,6 @@ class PostsController < ApplicationController
     @posts = @q.result(distinct: true).includes(:categories)
   end
 
-  def fresh
-    @posts = Post.order(created_at: :DESC).all
-  end
-
   private
 
   def post_params
