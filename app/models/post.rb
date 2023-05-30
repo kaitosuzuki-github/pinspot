@@ -19,6 +19,6 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object)
-    ["image_attachment", "image_blob", "user"]
+    ["categories"]
   end
 end
