@@ -1,4 +1,7 @@
-<%= search_form_for q, url: search_posts_path, html: { data: { turbo_frame: "image_layout" } }, class: "mb-4 flex gap-4 flex-wrap" do |f| %>
+<%= search_form_for q, url: search_posts_path, html: { data: { turbo_frame: "image_layout" } }, class: "mb-4 flex gap-4 flex-wrap justify-between" do |f| %>
   <%= render "posts/shared/search_bar", f: f %>
-  <%= render "posts/shared/category_menu", f: f %>
+  <div class="flex gap-4">
+    <%= render "posts/shared/category_menu", f: f %>
+    <%= render "posts/shared/sorts", f: f %>
+  </div>
 <% end %>
