@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts, only: [:new, :create]
   resources :users, only: [] do
     resources :relationships, only: [:create, :destroy]
   end

@@ -1,0 +1,23 @@
+<div class="bg-white">
+  <div class="p-6 max-w-2xl mx-auto">
+    <h2 class="mb-4 text-xl font-bold text-gray-900">お問い合わせ</h2>
+    <%= form_with model: @contact, class: "space-y-6" do |f| %>
+      <%= render "posts/shared/error", model: f.object %>
+      <div>
+        <%= f.label :email, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= f.text_field :email, class: "w-full p-2.5 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600" %>
+      </div>
+      <div>
+        <%= f.label :subject, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= f.text_field :subject, class: "w-full p-2.5 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600" %>
+      </div>
+      <div>
+        <%= f.label :message, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= f.text_area :message, rows: "8", class: "w-full p-2.5 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600" %>
+      </div>
+      <div>
+        <%= f.submit '送信する', class: "cursor-pointer text-white bg-gray-700 rounded-lg text-sm px-5 py-2.5 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300" %>
+      </div>
+    <% end %>
+  </div>
+</div>

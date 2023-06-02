@@ -6,3 +6,7 @@ ja:
         introduction: 紹介
         cover: カバー画像
         avatar: アバター画像
+      contact:
+        email: Eメール
+        subject: 件名
+        message: 内容

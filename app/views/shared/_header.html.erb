@@ -41,6 +41,9 @@
                 <%= link_to "アカウント設定", users_show_path, class: "block px-4 py-2 hover:bg-gray-100" %>
               </li>
               <li>
+                <%= link_to "お問い合わせ", new_contact_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+              </li>
+              <li>
                 <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 hover:bg-gray-100" %>
               </li>
             </ul>
