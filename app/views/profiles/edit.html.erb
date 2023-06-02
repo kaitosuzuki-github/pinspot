@@ -2,7 +2,7 @@
   <div class="p-6 max-w-2xl mx-auto">
     <h2 class="mb-4 text-xl font-bold text-gray-900">プロフィール編集</h2>
     <%= form_with model: @profile, class: "space-y-6" do |f| %>
-      <%= render "posts/shared/error", model: f.object %>
+      <%= render "shared/error", model: f.object %>
       <div class="relative h-fit">
         <div class="absolute w-full h-full flex items-center justify-center">
           <%= f.label :cover, class:"inline-block cursor-pointer rounded-full bg-white py-2 px-4 border-0 text-sm font-semibold text-gray-900 hover:bg-gray-100" do %>
