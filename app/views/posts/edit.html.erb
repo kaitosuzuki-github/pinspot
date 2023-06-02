@@ -2,7 +2,7 @@
   <div class="max-w-2xl px-4 py-4 mx-auto lg:py-16">
     <h2 class="mb-4 text-xl font-bold text-gray-900">編集</h2>
     <%= form_with model: @post do |f| %>
-      <%= render "posts/shared/error", model: f.object %>
+      <%= render "shared/error", model: f.object %>
       <div class="mb-6">
         <%= f.label :image, class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= f.file_field :image, class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700" %>
