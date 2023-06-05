@@ -1,5 +1,6 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<div class="p-4 space-y-4">
+  <p class="text-sm">Pinspotへようこそ <%= @email %>!</p>
+  <p class="text-sm">アカウントメールの確認は、以下のリンクから行えます：</p>
+  <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), class:"inline-block text-sm font-semibold hover:text-green-400" %>
+</div>
