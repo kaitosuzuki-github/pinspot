@@ -1,15 +1,21 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation" data-turbo-cache="false">
-    <h2>
-      <%= I18n.t("errors.messages.not_saved",
-                 count: resource.errors.count,
-                 resource: resource.class.model_name.human.downcase)
-       %>
-    </h2>
-    <ul>
-      <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+  <div id="error_explanation" data-turbo-cache="false", class="w-full pb-4 mx-auto max-w-7xl">
+    <div class="p-6 border-l-4 border-red-600 rounded-r-xl bg-red-50">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <%= render "shared/icons/cross", class_list: "w-5 h-5 fill-red-400" %>
+        </div>
+        <div class="ml-3">
+          <h2 class="text-sm font-medium text-red-600">エラー</h2>
+          <div class="mt-2 text-sm text-red-600">
+            <ul>
+              <% resource.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
