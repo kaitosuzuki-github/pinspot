@@ -18,6 +18,13 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    flash[:notice] = "ゲストユーザーとしてログインしました"
+    redirect_to root_path
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
