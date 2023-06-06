@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", googleMap, false);
 document.addEventListener("turbo:render", googleMap, false);
 
 let map;
-let marker;
+let marker = [];
 
 function googleMap() {
   const mapDisplay = document.getElementById("map");
@@ -27,10 +27,23 @@ function initMap(mapDisplay) {
     if (posts == undefined) {
       marker = null;
     } else {
-      JSON.parse(posts).forEach(function (post) {
-        marker = new google.maps.Marker({
+      const infoWindow = new google.maps.InfoWindow({ maxWidth: 400 });
+      JSON.parse(posts).forEach(function (post, index) {
+        marker[index] = new google.maps.Marker({
           map: map,
           position: { lat: post.latitude, lng: post.longitude },
+          title: post.title,
+        });
+        const contentString =
+          `<div class="space-y-2">` +
+          `<h2 class="text-lg font-bold text-gray-900">${post.title}</h2>` +
+          `<p class="text-gray-900 text-sm"><span class="font-semibold">撮影スポット: </span>${post.location}</p>` +
+          `<a href="/posts/${post.id}" class="inline-block rounded px-3 py-1.5 bg-green-500 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white transition-all ease-out duration-300">投稿を見る</a>` +
+          `</div>`;
+        marker[index].addListener("click", () => {
+          infoWindow.close();
+          infoWindow.setContent(contentString);
+          infoWindow.open(marker[index].getMap(), marker[index]);
         });
       });
     }
