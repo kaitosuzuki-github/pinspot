@@ -33,4 +33,13 @@ class User < ApplicationRecord
   def same_user?(user_id)
     id == User.find(user_id).id
   end
+
+  def self.guest
+    find_or_create_by!(email: "guest@example.com") do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.confirmed_at = Time.now
+      user.build_profile
+      user.profile.name = "ゲスト"
+    end
+  end
 end
