@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     member do
       get "show_likes"
       get "show_bookmarks"
+      get "followers"
+      get "following"
     end
   end
   root "home#index"

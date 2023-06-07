@@ -51,8 +51,16 @@
           <% end %>
         </div>
         <div class="border-solid border-b border-gray-100 p-3 flex gap-2 items-center">
-          <%= render "shared/icons/user", class_list: "w-10 h-10 fill-current" %>
-          <h3 class="text-xl font-bold"><%= @post.user.profile.name %></h3>
+          <%= link_to @post.user.profile, class: "flex items-center gap-2" do %>
+            <% if @post.user.profile.avatar.present? %>
+              <div class="w-10 h-10 rounded-full overflow-hidden">
+                <%= image_tag @post.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
+              </div>
+            <% else %>
+              <%= render "shared/icons/user", class_list: "w-10 h-10 fill-current" %>
+            <% end %>
+            <h3 class="text-xl font-bold"><%= @post.user.profile.name %></h3>
+          <% end %>
           <%= render "shared/follow", user_id: @post.user.id %>
         </div>
         <div class="border-solid border-b border-gray-100 p-3">
@@ -61,9 +69,9 @@
             <p><span class="font-bold">撮影日: </span><%= l @post.created_at, format: :long %></p>
             <div class="flex gap-3">
               <% @post.categories.each do |category| %>
-                <div class="border border-gray-200 rounded-md px-3 py-1">
+                <%= link_to search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "border border-gray-200 rounded-md px-3 py-1" do %>
                   <p class="text-gray-700"><%= category.name %></p>
-                </div>
+                <% end %>
               <% end %>
             </div>
           </div>
