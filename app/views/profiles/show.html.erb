@@ -27,8 +27,8 @@
         <%= render "shared/follow", user_id: @profile.user.id %>
       </div>
       <div class="flex justify-center gap-4">
-        <p><%= @profile.user.followers.count %><span class="ml-2">フォロワー</span></p>
-        <p><%= @profile.user.followings.count %><span class="ml-2">フォロー中</span></p>
+        <p class="text-gray-900 hover:text-gray-700"><%= @profile.user.followers.count %><%= link_to "フォロワー", followers_profile_path, class: "ml-2" %></p>
+        <p class="text-gray-900 hover:text-gray-700"><%= @profile.user.followings.count %><%= link_to "フォロー中", following_profile_path, class: "ml-2" %></p>
       </div>
       <% if @profile.introduction.present? %>
         <div class="flex justify-center">
