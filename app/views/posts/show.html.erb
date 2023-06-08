@@ -28,7 +28,7 @@
         <div class="border-solid border-b border-gray-100 p-3 flex gap-2 items-center">
           <% if user_signed_in? %>
             <% if @like.present? %>
-              <%= link_to post_like_path(@post), data: { turbo_method: :delete } do %>
+              <%= link_to post_likes_path(@post), data: { turbo_method: :delete } do %>
                 <%= render "shared/icons/heart", class_list: "w-8 h-8 fill-current stroke-current" %>
               <% end %>
             <% else %>
@@ -37,7 +37,7 @@
               <% end %>
             <% end %>
             <% if @bookmark.present? %>
-              <%= link_to post_bookmark_path(@post), data: { turbo_method: :delete } do %>
+              <%= link_to post_bookmarks_path(@post), data: { turbo_method: :delete } do %>
                 <%= render "shared/icons/bookmark", class_list: "w-8 h-8 fill-current stroke-current" %>
               <% end %>
             <% else %>

@@ -1,6 +1,6 @@
 <div class="flex gap-5 justify-center mb-3 text-gray-500 font-medium">
-  <%= link_to profile_path(profile_id), class: "flex gap-1 items-center" do %>
-    <% if current_page?(profile_path(profile_id)) %>
+  <%= link_to profile_path, class: "flex gap-1 items-center" do %>
+    <% if current_page?(profile_path) %>
       <%= render "shared/icons/posts", class_list: "w-4 h-4 fill-gray-900" %>
       <p class="text-gray-900">投稿</p>
     <% else %>
@@ -8,8 +8,8 @@
       <p>投稿</p>
     <% end %>
   <% end %>
-  <%= link_to show_likes_profile_path(profile_id), class: "flex gap-1 items-center" do %>
-    <% if current_page?(show_likes_profile_path(profile_id)) %>
+  <%= link_to show_likes_profile_path, class: "flex gap-1 items-center" do %>
+    <% if current_page?(show_likes_profile_path) %>
       <%= render "shared/icons/heart", class_list: "w-4 h-4 fill-gray-900" %>
       <p class="text-gray-900">いいねした投稿</p>
     <% else %>
@@ -17,8 +17,8 @@
       <p>いいねした投稿</p>
     <% end %>
   <% end %>
-  <%= link_to show_bookmarks_profile_path(profile_id), class: "flex gap-1 items-center" do %>
-    <% if current_page?(show_bookmarks_profile_path(profile_id)) %>
+  <%= link_to show_bookmarks_profile_path, class: "flex gap-1 items-center" do %>
+    <% if current_page?(show_bookmarks_profile_path) %>
       <%= render "shared/icons/bookmark", class_list: "w-4 h-4 fill-gray-900" %>
       <p class="text-gray-900">保存した投稿</p>
     <% else %>
