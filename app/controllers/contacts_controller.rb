@@ -8,9 +8,8 @@ class ContactsController < ApplicationController
     if @contact.save
       ContactMailer.with(contact: @contact).contact_mail.deliver_now
       flash[:notice] = "お問い合わせを受け付けました"
-      redirect_to root_path
+      redirect_back(fallback_location: root_path)
     else
-      flash.now[:notice] = "お問い合わせを受け付けることができませんでした"
       render :new, status: :unprocessable_entity
     end
   end

@@ -1,14 +1,10 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: %i(show search fresh)
-  before_action :limit_current_user, only: %i(edit update destroy)
+  before_action :authenticate_user!, except: [:show, :search]
+  before_action :limit_user, only: [:edit, :update, :destroy]
 
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
-    if user_signed_in?
-      @like = @post.likes.find_by(user_id: current_user.id)
-      @bookmark = @post.bookmarks.find_by(user_id: current_user.id)
-    end
   end
 
   def new
@@ -19,10 +15,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      flash[:notice] = "登録しました"
+      flash[:notice] = "投稿しました"
       redirect_to @post
     else
-      flash.now[:notice] = "登録できませんでした"
       render :new, status: :unprocessable_entity
     end
   end
@@ -37,7 +32,6 @@ class PostsController < ApplicationController
       flash[:notice] = "変更しました"
       redirect_to @post
     else
-      flash.now[:notice] = "変更できませんでした"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -67,11 +61,10 @@ class PostsController < ApplicationController
     )
   end
 
-  def limit_current_user
+  def limit_user
     post = Post.find(params[:id])
-    if post.user_id != current_user.id
-      flash[:notice] = "アクセスできません"
-      redirect_to post
+    unless current_user.same_user?(post.user_id)
+      redirect_back(fallback_location: root_path)
     end
   end
 end

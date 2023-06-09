@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :limit_user!, only: [:destroy]
+  before_action :limit_user, only: [:destroy]
 
   def create
     comment = Comment.new(comment_params)
@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content)
   end
 
-  def limit_user!
+  def limit_user
     comment = Comment.find(params[:id])
     unless current_user.same_user?(comment.user_id)
       redirect_back(fallback_location: root_path)

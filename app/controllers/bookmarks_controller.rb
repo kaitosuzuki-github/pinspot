@@ -2,14 +2,17 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    bookmark = Bookmark.new(user_id: current_user.id, post_id: params[:post_id])
-    bookmark.save
-    redirect_to post_path(params[:post_id])
+    unless current_user.bookmarking?(params[:post_id])
+      current_user.bookmarks.create(post_id: params[:post_id])
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    bookmark = Bookmark.find_by(user_id: current_user.id, post_id: params[:post_id])
-    bookmark.destroy
-    redirect_to post_path(params[:post_id])
+    if current_user.bookmarking?(params[:post_id])
+      bookmark = current_user.bookmarks.find_by(post_id: params[:post_id])
+      bookmark.destroy
+    end
+    redirect_back(fallback_location: root_path)
   end
 end

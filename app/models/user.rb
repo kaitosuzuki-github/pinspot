@@ -27,7 +27,18 @@ class User < ApplicationRecord
   end
 
   def following?(user_id)
-    relationships.find_by(follow_id: user_id).present?
+    relationship = relationships.find_by(follow_id: user_id)
+    relationship.present?
+  end
+
+  def bookmarking?(post_id)
+    bookmark = bookmarks.find_by(post_id: post_id)
+    bookmark.present?
+  end
+
+  def like?(post_id)
+    like = likes.find_by(post_id: post_id)
+    like.present?
   end
 
   def same_user?(user_id)
