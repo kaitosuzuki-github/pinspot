@@ -1,0 +1,42 @@
+<div id="hamMenuToggle" class="lg:hidden">
+  <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+    <%= render "shared/icons/bar_menu", class_list: "h-8 w-8 fill-current" %>
+  </button>
+</div>
+<div id="hamMenuClose" class="hidden z-10">
+  <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+    <%= render "shared/icons/x_mark", class_list: "h-8 w-8 fill-current" %>
+  </button>
+</div>
+<div id="hamMenu" class="absolute bg-white z-10 top-full w-full left-0 p-6 space-y-2 duration-100 ease-in-out opacity-0">
+  <%= render "shared/search_bar", q: q %>
+  <ul class="space-y-2">
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to "投稿する", new_post_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+      <li>
+        <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+      <li>
+        <%= link_to "アカウント設定", users_show_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+      <li>
+        <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+    <% else %>
+      <li>
+        <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+      <li>
+        <%= link_to "ログイン", new_user_session_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+      <li>
+        <%= link_to "新規登録", new_user_registration_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to "お問い合わせ", new_contact_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
+    </li>
+  </ul>
+</div>
