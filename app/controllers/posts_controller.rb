@@ -5,10 +5,6 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
-    if user_signed_in?
-      @like = @post.likes.find_by(user_id: current_user.id)
-      @bookmark = @post.bookmarks.find_by(user_id: current_user.id)
-    end
   end
 
   def new

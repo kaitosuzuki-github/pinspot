@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :show_likes]
+  before_action :authenticate_user!, except: [:show]
   before_action :limit_user, only: [:edit, :update, :show_bookmarks]
 
   def show
