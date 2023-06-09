@@ -8,8 +8,8 @@ function hamburger_menu() {
   hamMenuToggle.addEventListener(
     "click",
     () => {
-      hamMenu.classList.toggle("opacity-0");
-      hamMenu.classList.toggle("opacity-100");
+      hamMenu.classList.toggle("fade-out");
+      hamMenu.classList.toggle("fade-in");
       hamMenuClose.classList.toggle("hidden");
       hamMenuToggle.classList.toggle("hidden");
     },
@@ -19,8 +19,8 @@ function hamburger_menu() {
   hamMenuClose.addEventListener(
     "click",
     () => {
-      hamMenu.classList.toggle("opacity-0");
-      hamMenu.classList.toggle("opacity-100");
+      hamMenu.classList.toggle("fade-out");
+      hamMenu.classList.toggle("fade-in");
       hamMenuClose.classList.toggle("hidden");
       hamMenuToggle.classList.toggle("hidden");
     },

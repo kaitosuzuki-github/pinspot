@@ -20,7 +20,7 @@
               <%= render "shared/icons/user", class_list: "h-8 w-8 fill-current" %>
             <% end %>
           </button>
-          <div id="dropdownMenu" class="absolute z-10 top-full mt-4 bg-white rounded-lg shadow w-44 duration-100 dropdown-invisible">
+          <div id="dropdownMenu" class="absolute z-10 top-full mt-4 bg-white rounded-lg shadow w-44 duration-100 fade-out">
             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
               <li>
                 <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "block px-4 py-2 hover:bg-gray-100" %>

@@ -3,7 +3,7 @@
     <span>カテゴリー</span>
     <%= render "shared/icons/expand", class_list: "h-4 w-4 fill-current" %>
   <% end %>
-  <div id="dropdownMenu" class="dropdown-invisible duration-100 absolute z-10 top-full mt-4 bg-white rounded-lg shadow p-4 w-96 grid grid-cols-2 gap-y-1 gap-x-10">
+  <div id="dropdownMenu" class="fade-out duration-100 absolute z-10 top-full mt-4 bg-white rounded-lg shadow p-4 w-96 grid grid-cols-2 gap-y-1 gap-x-10">
     <%= f.label :categories_id_in, class: "sr-only" %>
     <%= f.collection_check_boxes(:categories_id_in, Category.all, :id, :name) do |b| %>
       <%= button_tag class: "text-left pr-2 flex items-center gap-2" do %>

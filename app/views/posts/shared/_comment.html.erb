@@ -36,7 +36,7 @@
               <button id="dropdownToggle" type="button" class="flex items-center justify-center ml-auto hover:opacity-60">
                 <%= render "shared/icons/dot_menu", class_list: "w-6 h-6 fill-gray-900" %>
               </button>
-              <div id="dropdownMenu" class="justify-end py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm duration-100 dropdown-invisible">
+              <div id="dropdownMenu" class="justify-end py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm duration-100 fade-out">
                 <ul class="text-sm text-gray-500">
                   <li>
                     <%= button_to "削除", post_comment_path(post, comment), method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
