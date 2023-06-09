@@ -1,4 +1,4 @@
-<header class="bg-white">
+<header class="bg-white relative">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6">
     <div class="flex items-center">
       <%= link_to root_path, class: "p-1.5 hover:text-green-400" do %>
@@ -6,21 +6,9 @@
       <% end %>
       <%= link_to "探す", search_posts_path, class:"hidden lg:block text-sm font-medium leading-6 text-gray-900 mx-10 hover:text-green-400" %>
     </div>
-    <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-        <%= render "shared/icons/bar_menu", class_list: "h-8 w-8 fill-current" %>
-      </button>
-    </div>
-    <div class="hidden lg:flex lg:justify-end lg:items-center lg:space-x-5">
-      <%= search_form_for q, url: search_posts_path, class: "flex items-center" do |f| %>
-        <%= f.label :title_or_location_cont, class: "sr-only" %>
-        <div class="relative w-full">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <%= render "shared/icons/search", class_list: "h-5 w-5 fill-current" %>
-          </div>
-          <%= f.search_field :title_or_location_cont, class: "bg-gray-100 border-none text-sm rounded-full block w-full pl-10 p-2.5 focus:ring-0", placeholder: "Search Pinspot", required: true %>
-        </div>
-      <% end %>
+    <%= render "shared/hamburger_menu", q: q %>
+    <div class="lg:flex lg:justify-end lg:items-center lg:space-x-5 hidden">
+      <%= render "shared/search_bar", q: q %>
       <% if user_signed_in? %>
         <div id="dropdownWrap" class="relative flex items-center justify-center">
           <button id="dropdownToggle" type="button">
@@ -32,7 +20,7 @@
               <%= render "shared/icons/user", class_list: "h-8 w-8 fill-current" %>
             <% end %>
           </button>
-          <div id="dropdownMenu" class="absolute z-10 top-full mt-4 bg-white rounded-lg shadow w-44 duration-100 dropdown-invisible">
+          <div id="dropdownMenu" class="absolute z-10 top-full mt-4 bg-white rounded-lg shadow w-44 duration-100 fade-out">
             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
               <li>
                 <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "block px-4 py-2 hover:bg-gray-100" %>

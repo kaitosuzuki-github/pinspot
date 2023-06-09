@@ -12,8 +12,8 @@ function dropdown() {
     dropdownToggle.addEventListener(
       "click",
       () => {
-        dropdownMenu.classList.toggle("dropdown-invisible");
-        dropdownMenu.classList.toggle("dropdown-visible");
+        dropdownMenu.classList.toggle("fade-out");
+        dropdownMenu.classList.toggle("fade-in");
         element.classList.add(dropdownNum);
       },
       false
@@ -23,7 +23,7 @@ function dropdown() {
       "click",
       (e) => {
         if (!e.target.closest("." + dropdownNum)) {
-          dropdownMenu.classList.add("dropdown-invisible");
+          dropdownMenu.classList.add("fade-out");
         }
       },
       false

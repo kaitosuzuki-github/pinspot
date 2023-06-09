@@ -15,7 +15,7 @@
             <button id="dropdownToggle" type="button" class="flex items-center justify-center ml-auto hover:opacity-60">
               <%= render "shared/icons/dot_menu", class_list: "w-8 h-8 fill-white" %>
             </button>
-            <div id="dropdownMenu" class="justify-end py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm duration-100 dropdown-invisible">
+            <div id="dropdownMenu" class="justify-end py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm duration-100 fade-out">
               <ul class="text-sm text-gray-500">
                 <li>
                   <%= link_to "編集", edit_post_path, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>

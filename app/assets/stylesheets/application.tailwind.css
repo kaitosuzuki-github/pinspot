@@ -9,10 +9,10 @@
   input::-webkit-search-cancel-button {
     -webkit-appearance: none;
   }
-  .dropdown-visible {
+  .fade-in {
     @apply visible opacity-100;
   }
-  .dropdown-invisible {
+  .fade-out {
     @apply invisible opacity-0;
   }
 }
