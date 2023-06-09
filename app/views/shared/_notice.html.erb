@@ -1,0 +1,16 @@
+<% if notice.present? %>
+  <div class="bg-opacity-0 relative items-center w-full px-6 mx-auto max-w-7xl">
+    <div class="p-6 border-l-4 border-green-500 -6 rounded-r-xl bg-green-50">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <%= render "shared/icons/check_mark", class_list: "w-5 h-5 fill-green-400" %>
+        </div>
+        <div class="ml-3">
+          <div class="text-sm text-green-600">
+            <p><%= notice %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

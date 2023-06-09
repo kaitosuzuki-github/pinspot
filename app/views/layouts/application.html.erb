@@ -13,8 +13,8 @@
   </head>
   <body>
     <%= render "shared/header", q: @q %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render "shared/notice", notice: notice %>
+    <%= render "shared/alert", alert: alert %>
     <%= yield %>
     <%= render "shared/footer" %>
   </body>
