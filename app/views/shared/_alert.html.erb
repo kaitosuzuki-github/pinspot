@@ -1,0 +1,16 @@
+<% if alert.present? %>
+  <div class="bg-opacity-0 relative items-center w-full px-6 mx-auto max-w-7xl">
+    <div class="p-6 border-l-4 border-red-500 rounded-r-xl bg-red-50">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <%= render "shared/icons/cross", class_list: "w-5 h-5 fill-red-400" %>
+        </div>
+        <div class="ml-3">
+          <div class="text-sm text-red-600">
+            <p><%= alert %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -17,7 +17,6 @@ class ProfilesController < ApplicationController
       flash[:notice] = "変更しました"
       redirect_to @profile
     else
-      flash.now[:notice] = "変更できませんでした"
       render :edit, status: :unprocessable_entity
     end
   end
