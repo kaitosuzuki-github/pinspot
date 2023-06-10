@@ -1,5 +1,5 @@
 <div class="p-5 sm:p-8 max-w-7xl mx-auto">
   <h2 class="text-xl font-bold text-gray-800 lg:text-2xl mb-4">検索</h2>
-  <%= render "posts/shared/search_form", q: @q %>
+  <%= render "posts/shared/search_form", q: @q, categories: @categories %>
   <%= render "posts/shared/image_layout", posts: @posts %>
 </div>

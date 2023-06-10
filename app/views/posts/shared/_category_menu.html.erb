@@ -5,7 +5,7 @@
   <% end %>
   <div id="dropdownMenu" class="fade-out duration-100 absolute z-10 top-full mt-4 bg-white rounded-lg shadow p-4 w-96 grid grid-cols-2 gap-y-1 gap-x-10">
     <%= f.label :categories_id_in, class: "sr-only" %>
-    <%= f.collection_check_boxes(:categories_id_in, Category.all, :id, :name) do |b| %>
+    <%= f.collection_check_boxes(:categories_id_in, categories, :id, :name) do |b| %>
       <%= button_tag class: "text-left pr-2 flex items-center gap-2" do %>
         <%= b.check_box class: "pointer-events-none rounded bg-gray-50 border border-gray-300" %>
         <%= b.label class: "cursor-pointer w-full inline-block text-gray-700" %>
