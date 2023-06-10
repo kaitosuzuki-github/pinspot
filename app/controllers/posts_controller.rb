@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   before_action :limit_user, only: [:edit, :update, :destroy]
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.preload(comments: [user: [profile: [avatar_attachment: :blob]]]).find(params[:id])
+    @comments = @post.comments.sort_by { |x| -x.created_at.to_i }
     @comment = Comment.new
   end
 
@@ -44,7 +45,8 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = @q.result(distinct: true).includes(:categories)
+    @posts = @q.result(distinct: true).with_attached_image.eager_load(:categories)
+    @categories = Category.all
   end
 
   private

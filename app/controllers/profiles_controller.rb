@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-    @posts = @profile.user.posts
+    @posts = @profile.user.posts.with_attached_image
   end
 
   def edit
@@ -23,22 +23,22 @@ class ProfilesController < ApplicationController
 
   def show_likes
     @profile = Profile.find(params[:id])
-    @posts = @profile.user.like_posts
+    @posts = @profile.user.like_posts.with_attached_image
     render :show
   end
 
   def show_bookmarks
     @profile = Profile.find(params[:id])
-    @posts = @profile.user.bookmark_posts
+    @posts = @profile.user.bookmark_posts.with_attached_image
     render :show
   end
 
   def followers
-    @users = Profile.find(params[:id]).user.followers
+    @users = Profile.preload(user: [followers: [profile: [avatar_attachment: :blob]]]).find(params[:id]).user.followers
   end
 
   def following
-    @users = Profile.find(params[:id]).user.followings
+    @users = Profile.preload(user: [followings: [profile: [avatar_attachment: :blob]]]).find(params[:id]).user.followings
     render :followers
   end
 
