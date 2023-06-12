@@ -10,3 +10,9 @@ ja:
         email: Eメール
         subject: 件名
         message: 内容
+      post:
+        title: タイトル
+        description: 説明
+        location: 撮影スポット
+        image: 写真
+        categories: カテゴリー
