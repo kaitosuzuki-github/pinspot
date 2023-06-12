@@ -40,6 +40,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def show
+    if current_user.blank?
+      flash[:alert] = 'ログインもしくはアカウント登録してください。'
+      redirect_to new_user_session_path
+    end
+  end
+
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
