@@ -14,7 +14,6 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = current_user.id
     if @post.save
       flash[:notice] = "投稿しました"
       redirect_to @post
@@ -52,15 +51,8 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(
-      :title,
-      :description,
-      :location,
-      :latitude,
-      :longitude,
-      :image,
-      category_ids: []
-    )
+    params.require(:post).permit(:title, :description, :location, :latitude, :longitude, :image,
+    category_ids: []).merge(user_id: current_user.id)
   end
 
   def limit_user
