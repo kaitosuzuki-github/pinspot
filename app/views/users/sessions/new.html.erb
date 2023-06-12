@@ -9,11 +9,11 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4 md:space-y-6" }) do |f| %>
           <div class="field">
             <%= f.label :email, class: "block mb-2 text-sm font-medium text-gray-900" %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5", placeholder: "name@company.com" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5" %>
           </div>
           <div class="field">
             <%= f.label :password, class: "block mb-2 text-sm font-medium text-gray-900" %>
-            <%= f.password_field :password, autocomplete: "current-password", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5", placeholder: "••••••••" %>
+            <%= f.password_field :password, autocomplete: "current-password", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5" %>
           </div>
           <div class="flex items-center justify-between">
             <% if devise_mapping.rememberable? %>
