@@ -7,7 +7,9 @@ class Post < ApplicationRecord
   has_many :categories, through: :post_category_relations
   has_many :comments, dependent: :destroy
 
-  validates :image, presence: true
+  validates :image, attached: true, content_type: ['image/png', 'image/jpeg'],
+                    size: { less_than: 15.megabytes },
+                    dimension: { width: { min: 400 }, height: { min: 400 } }
   validates :location, presence: true, length: { maximum: 255 }
   validates :latitude, numericality: true
   validates :longitude, numericality: true

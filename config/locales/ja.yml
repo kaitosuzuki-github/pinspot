@@ -16,3 +16,6 @@ ja:
         location: 撮影スポット
         image: 写真
         categories: カテゴリー
+  errors:
+    messages:
+      content_type_invalid: "のファイル形式が間違っています"
