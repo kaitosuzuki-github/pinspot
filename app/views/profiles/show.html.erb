@@ -1,14 +1,14 @@
 <div class="bg-white">
   <div class="px-6 max-w-7xl mx-auto">
     <div class="bg-gray-100 aspect-[4/1] overflow-hidden">
-      <% if @profile.cover.present? %>
+      <% if @profile.cover.attached? %>
         <%= image_tag @profile.cover.variant(resize_to_limit: [1500, 1500]), class: "w-full h-full object-cover" %>
       <% end %>
     </div>
     <div class="p-4 space-y-4">
       <div class="relative">
         <div class="flex items-center justify-start md:justify-center gap-4">
-          <% if @profile.avatar.present? %>
+          <% if @profile.avatar.attached? %>
             <div class="w-16 h-16 rounded-full overflow-hidden">
               <%= image_tag @profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
             </div>
