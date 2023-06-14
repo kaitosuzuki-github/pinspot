@@ -46,11 +46,9 @@
             <p class="pb-2"><span class="font-bold">撮影スポット: </span><%= @post.location %></p>
             <p><span class="font-bold">撮影日: </span><%= l @post.created_at, format: :long %></p>
             <div class="flex gap-3">
-              <% if @post.categories.present? %>
-                <% @post.categories.each do |category| %>
-                  <%= link_to search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "border border-gray-200 rounded-md px-3 py-1" do %>
-                    <p class="text-gray-700"><%= category.name %></p>
-                  <% end %>
+              <% @post.categories.each do |category| %>
+                <%= link_to search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "border border-gray-200 rounded-md px-3 py-1" do %>
+                  <p class="text-gray-700"><%= category.name %></p>
                 <% end %>
               <% end %>
             </div>
