@@ -2,18 +2,18 @@
   <div class="flex justify-center gap-24 py-8 px-6 md:py-24">
     <div class="bg-white p-6 sm:max-w-md w-full rounded-lg">
       <div class="space-y-4">
-        <h2 class="text-xl font-bold text-gray-900">アカウント設定</h2>
+        <h2>アカウント設定</h2>
         <div>
-          <h3 class="mb-2 text-sm font-medium text-gray-900">Eメール</h3>
-          <p class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg p-2.5"><%= current_user.email %></p>
+          <p class="mb-2 font-medium">Eメール</p>
+          <p><%= current_user.email %></p>
         </div>
         <div>
-          <h3 class="mb-2 text-sm font-medium text-gray-900">パスワード</h3>
-          <p class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg p-2.5">••••••••</p>
+          <p class="mb-2 font-medium">パスワード</p>
+          <p>••••••••</p>
         </div>
-        <div>
-          <%= link_to "変更", edit_user_registration_path, class: "block text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" %>
-          <%= button_to "削除", user_registration_path, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "block w-full text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+        <div class="flex gap-2">
+          <%= link_to "変更", edit_user_registration_path, class: "link-button" %>
+          <%= button_to "削除", user_registration_path, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "delete-button" %>
         </div>
       </div>
     </div>

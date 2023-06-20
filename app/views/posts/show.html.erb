@@ -9,15 +9,15 @@
       </div>
       <% if user_signed_in? %>
         <% if current_user.same_user?(@post.user_id) %>
-          <div id="dropdownWrap" class="absolute top-4 right-4">
-            <button id="dropdownToggle" type="button" class="flex items-center justify-center ml-auto hover:opacity-60">
-              <%= render "shared/icons/dot_menu", class_list: "w-8 h-8 fill-white" %>
+          <div id="dropdownWrap" class="absolute top-4 right-4 z-10">
+            <button id="dropdownToggle" type="button" class="flex ml-auto text-white hover:text-gray-200">
+              <%= render "shared/icons/dot_menu", class_list: "w-8 h-8 fill-current" %>
             </button>
-            <div id="dropdownMenu" class="justify-end py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm duration-100 fade-out">
-              <ul class="text-sm text-gray-500">
+            <div id="dropdownMenu" class="dropdown-menu fade-out py-1">
+              <ul>
                 <li>
-                  <%= link_to "編集", edit_post_path, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
-                  <%= button_to "削除", @post, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "flex items-center px-5 py-2 hover:bg-gray-100 hover:text-gray-900 text-sm font-medium" %>
+                  <%= link_to "編集", edit_post_path, class: "li-link" %>
+                  <%= button_to "削除", @post, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "li-link" %>
                 </li>
               </ul>
             </div>
@@ -37,7 +37,7 @@
             <% else %>
               <%= render "shared/icons/user", class_list: "w-10 h-10 fill-current" %>
             <% end %>
-            <h3 class="text-xl font-bold"><%= @post.user.profile.name %></h3>
+            <h2><%= @post.user.profile.name %></h2>
           <% end %>
           <%= render "shared/follow", user_id: @post.user_id %>
         </div>
@@ -47,9 +47,7 @@
             <p><span class="font-bold">撮影日: </span><%= l @post.created_at, format: :long %></p>
             <div class="flex gap-3">
               <% @post.categories.each do |category| %>
-                <%= link_to search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "border border-gray-200 rounded-md px-3 py-1" do %>
-                  <p class="text-gray-700"><%= category.name %></p>
-                <% end %>
+                <%= link_to category.name, search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "category-button" %>
               <% end %>
             </div>
           </div>

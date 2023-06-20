@@ -1,15 +1,15 @@
 <div class="p-4 space-y-4">
-  <p class="text-sm">お世話になっております。Pinspotサポートです。<br>
+  <p>お世話になっております。Pinspotサポートです。<br>
     この度は、お問い合わせいただきありがとうございます。</p>
   <div class="space-y-2 p-4 border-dashed border-y-2 border-black w-96">
-    <h3 class="font-bold">【お問い合わせ】</h3>
+    <h3>【お問い合わせ】</h3>
     <div class="pl-4">
-      <p class="text-sm font-medium"><span class="font-semibold">件名: </span><%= @contact.subject %></p>
-      <p class="text-sm font-medium"><span class="font-semibold">内容: <br>
-        </span><%= safe_join(@contact.message.split("\n"), tag(:br)) %></p>
+      <p><span class="font-semibold">件名: </span><%= @contact.subject %></p>
+      <p><span class="font-semibold">内容: </span><br>
+        <%= safe_join(@contact.message.split("\n"), tag(:br)) %></p>
     </div>
   </div>
-  <p class="text-sm">ご返答まで時間がかかることがありますのでご了承ください。</p>
-  <p class="text-sm">今後ともよろしくお願いいたします。</p>
-  <%= link_to "Pinspot", root_url, target: :_blank, rel: "noopener noreferrer", class:"inline-block text-sm font-semibold hover:text-green-400" %>
+  <p>ご返答まで時間がかかることがありますのでご了承ください。</p>
+  <p>今後ともよろしくお願いいたします。</p>
+  <%= link_to "Pinspot", root_url, target: :_blank, rel: "noopener noreferrer", class: "normal-link" %>
 </div>

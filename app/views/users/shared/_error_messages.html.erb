@@ -6,11 +6,11 @@
           <%= render "shared/icons/cross", class_list: "w-5 h-5 fill-red-400" %>
         </div>
         <div class="ml-3">
-          <h2 class="text-sm font-medium text-red-600">エラー</h2>
-          <div class="mt-2 text-sm text-red-600">
-            <ul>
+          <h3 class="text-red-600">エラー</h3>
+          <div class="mt-2">
+            <ul class="pl-5 space-y-1 list-disc">
               <% resource.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
+                <li class="text-red-600"><%= message %></li>
               <% end %>
             </ul>
           </div>
