@@ -2,9 +2,9 @@
   <div class="mx-auto max-w-lg">
     <div class="p-4 space-y-4">
       <% if current_page?(followers_profile_path) %>
-        <h2 class="text-gray-900 text-xl font-bold">フォロワー</h2>
+        <h2>フォロワー</h2>
       <% else %>
-        <h2 class="text-gray-900 text-xl font-bold">フォロー中</h2>
+        <h2>フォロー中</h2>
       <% end %>
       <div class="space-y-2">
         <% @users.each do |user| %>
@@ -17,7 +17,7 @@
               <% else %>
                 <%= render "shared/icons/user", class_list: "w-10 h-10 fill-current" %>
               <% end %>
-              <p class="break-all max-w-xs text-gray-900"><%= user.profile.name %></p>
+              <p class="break-all max-w-xs"><%= user.profile.name %></p>
             <% end %>
             <%= render "shared/follow", user_id: user.id %>
           </div>

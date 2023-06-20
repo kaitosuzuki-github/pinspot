@@ -6,12 +6,12 @@
           <%= render "shared/icons/cross", class_list: "w-5 h-5 fill-red-400" %>
         </div>
         <div class="ml-3">
-          <h3 class="text-sm font-medium text-red-600">エラー</h3>
-          <div class="mt-2 text-sm text-red-600">
-            <ul role="list" class="pl-5 space-y-1 list-disc">
+          <h3 class="text-red-600">エラー</h3>
+          <div class="mt-2">
+            <ul class="pl-5 space-y-1 list-disc">
               <% model.errors.each do |error| %>
                 <% if error.attribute != :latitude && error.attribute != :longitude %>
-                  <li><%= error.full_message %></li>
+                  <li class="text-red-600"><%= error.full_message %></li>
                 <% end %>
               <% end %>
             </ul>

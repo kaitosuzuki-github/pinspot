@@ -1,13 +1,13 @@
 <header class="bg-white relative">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6">
-    <div class="flex items-center">
-      <%= link_to root_path, class: "p-1.5 hover:text-green-400" do %>
-        <p class="font-bold text-3xl">Pinspot</p>
+    <div class="flex items-center gap-10">
+      <%= link_to root_path, class: "normal-link" do %>
+        <h1>Pinspot</h1>
       <% end %>
-      <%= link_to "探す", search_posts_path, class:"hidden lg:block text-sm font-medium leading-6 text-gray-900 mx-10 hover:text-green-400" %>
+      <%= link_to "探す", search_posts_path, class:"normal-link hidden lg:block" %>
     </div>
     <%= render "shared/hamburger_menu", q: q %>
-    <div class="lg:flex lg:justify-end lg:items-center lg:space-x-5 hidden">
+    <div class="lg:flex lg:justify-end lg:items-center lg:gap-x-5 hidden">
       <%= render "shared/search_bar", q: q %>
       <% if user_signed_in? %>
         <div id="dropdownWrap" class="relative flex items-center justify-center">
@@ -20,28 +20,28 @@
               <%= render "shared/icons/user", class_list: "h-8 w-8 fill-current" %>
             <% end %>
           </button>
-          <div id="dropdownMenu" class="absolute z-10 top-full mt-4 bg-white rounded-lg shadow w-44 duration-100 fade-out">
-            <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+          <div id="dropdownMenu" class="dropdown-menu fade-out absolute z-10 top-full mt-4 w-44 py-2">
+            <ul>
               <li>
-                <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "block px-4 py-2 hover:bg-gray-100" %>
+                <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "li-link" %>
               </li>
               <li>
-                <%= link_to "アカウント設定", users_show_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+                <%= link_to "アカウント設定", users_show_path, class: "li-link" %>
               </li>
               <li>
-                <%= link_to "お問い合わせ", new_contact_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+                <%= link_to "お問い合わせ", new_contact_path, class: "li-link" %>
               </li>
               <li>
-                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 hover:bg-gray-100" %>
+                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "li-link" %>
               </li>
             </ul>
           </div>
         </div>
-        <%= link_to "投稿する", new_post_path, class: "py-1 px-4 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-900 duration-100 hover:text-green-400 ml-2" %>
+        <%= link_to "投稿する", new_post_path, class: "new-button" %>
       <% else %>
-        <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
-        <%= link_to "ログイン", new_user_session_path, class: "text-sm font-medium leading-6 text-gray-900 hover:text-green-400" %>
-        <%= link_to "新規登録", new_user_registration_path, class: "py-1 px-4 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-900 hover:text-green-400 ml-2" %>
+        <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "normal-link" %>
+        <%= link_to "ログイン", new_user_session_path, class: "normal-link" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "new-button" %>
       <% end %>
     </div>
   </nav>

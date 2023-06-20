@@ -2,16 +2,146 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: Montserrat, Noto Sans Japanese;
+  }
+
+  body {
+    @apply text-sm font-normal text-gray-800;
+  }
+
+  h1 {
+    @apply text-2xl font-bold lg:text-3xl;
+  }
+
+  h2 {
+    @apply text-lg font-semibold lg:text-xl;
+  }
+
+  h3 {
+    @apply text-base font-medium;
+  }
+
+  a {
+    @apply font-medium transition duration-200;
+  }
+
+  button {
+    @apply font-medium transition duration-200;
+  }
+
+  label {
+    @apply font-medium;
+  }
+}
+@layer components {
+  .normal-link {
+    @apply hover:text-green-700;
+  }
+
+  .new-button {
+    @apply px-5 py-2.5 bg-green-700 rounded-full text-white hover:bg-green-800;
+  }
+
+  .see-more-button {
+    @apply px-5 py-2.5 bg-white rounded-lg border border-gray-300 text-gray-500 font-semibold hover:bg-gray-100 active:bg-gray-200;
+  }
+
+  .li-link {
+    @apply block w-full text-left px-4 py-2 text-gray-500 hover:bg-gray-100;
+  }
+
+  .footer-link {
+    @apply text-gray-400 hover:text-gray-500;
+  }
+
+  .follow-button {
+    @apply text-base text-green-700 hover:text-green-800;
+  }
+
+  .cancel-button {
+    @apply px-5 py-2.5 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 active:bg-gray-200;
+  }
+
+  .link-button {
+    @apply px-5 py-2.5 bg-gray-800 rounded-lg text-white hover:bg-gray-700;
+  }
+
+  .delete-button {
+    @apply px-5 py-2.5 bg-red-700 rounded-lg text-white hover:bg-red-800;
+  }
+
+  .category-button {
+    @apply px-4 py-1.5 bg-white rounded-lg border border-gray-300 text-gray-500 active:bg-gray-200;
+  }
+
+  .title-base {
+    @apply w-full p-2 bg-gradient-to-t from-gray-800 bg-opacity-30;
+  }
+
+  .dropdown-menu {
+    @apply bg-white rounded-lg border border-gray-100 shadow transition duration-200;
+  }
+
+  .search-dropdown-button {
+    @apply px-4 py-1.5 bg-white rounded-full border border-gray-300 text-gray-500 flex items-center whitespace-nowrap hover:bg-gray-100;
+  }
+
+  .search-detail-button {
+    @apply w-fit pr-2 text-left flex items-center gap-2 cursor-default;
+  }
+
+  .search-bar {
+    @apply block w-full p-4 pl-10 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-600 focus:border-gray-600 placeholder:text-sm;
+  }
+
+  .header-search-bar {
+    @apply block w-full p-2.5 pl-10 bg-gray-100 rounded-full border-none focus:ring-0 placeholder:text-sm;
+  }
+
+  .cover-image-button {
+    @apply px-4 py-1.5 bg-white rounded-full font-semibold cursor-pointer hover:bg-gray-100 active:bg-gray-200;
+  }
+
+  .map-button {
+    @apply px-5 py-2.5 bg-gray-800 rounded-lg text-white whitespace-nowrap hover:bg-gray-700;
+  }
+
+  .text-field {
+    @apply w-full p-2.5 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-600 focus:border-gray-600 placeholder:text-sm;
+  }
+
+  .file-field {
+    @apply w-full bg-gray-50 rounded-lg border border-gray-300 cursor-pointer file:mr-4 file:py-2.5 file:px-5 file:border-none file:font-semibold file:bg-gray-800 file:text-white focus:outline-none hover:file:bg-gray-700;
+  }
+
+  .check-box {
+    @apply w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-0;
+  }
+
+  .radio-button {
+    @apply w-4 h-4 bg-gray-50 border border-gray-300 focus:ring-0;
+  }
+
+  .submit-button {
+    @apply px-5 py-2.5 bg-green-700 rounded-lg text-white cursor-pointer hover:bg-green-800 transition duration-200;
+  }
+}
+
 @layer utilities {
   .field_with_errors {
-    display: contents;
+    @apply contents;
   }
+
   input::-webkit-search-cancel-button {
     -webkit-appearance: none;
   }
+
   .fade-in {
     @apply visible opacity-100;
   }
+
   .fade-out {
     @apply invisible opacity-0;
   }
