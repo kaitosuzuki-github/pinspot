@@ -4,7 +4,7 @@
     <hr>
     <div class="p-4">
       <%= turbo_frame_tag "profile_posts" do %>
-        <%= render "post_tab", user_id: @profile.user_id %>
+        <%= render "posts_tab", user_id: @profile.user_id %>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
           <%= render partial: "post", collection: @posts %>
         </div>
