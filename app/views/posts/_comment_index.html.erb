@@ -1,0 +1,9 @@
+<div class="p-3 space-y-2">
+  <h2>コメント (<%= comments.size %>)</h2>
+  <% if user_signed_in? %>
+    <%= render "comment_form", post: post, new_comment: new_comment %>
+  <% end %>
+  <div class="space-y-2 divide-y">
+    <%= render partial: "comment", collection: comments, locals: { post_id: post.id } %>
+  </div>
+</div>

@@ -1,43 +1,23 @@
-<div class="p-3 space-y-2">
-  <h2>コメント (<%= comments.size %>)</h2>
-  <% if user_signed_in? %>
-    <div>
-      <%= form_with model: [post, new_comment] do |f| %>
-        <div>
-          <%= f.label :content, class: "sr-only" %>
-          <%= f.text_area :content, row: "2", class: "text-field", placeholder: "コメントを追加..." %>
-        </div>
-        <div>
-          <%= f.submit "コメントする", class: "cursor-pointer font-medium hover:text-green-700" %>
-        </div>
+<div class="relative mx-2 py-2">
+  <div class="space-y-1">
+    <div class="flex justify-between">
+      <%= link_to comment.user.profile, class: "flex items-center gap-2 w-fit" do %>
+        <% if comment.user.profile.avatar.attached? %>
+          <div class="w-8 h-8 rounded-full overflow-hidden">
+            <%= image_tag comment.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
+          </div>
+        <% else %>
+          <%= render "shared/icons/user", class_list: "w-8 h-8 fill-current" %>
+        <% end %>
+        <h3><%= comment.user.profile.name %></h3>
+      <% end %>
+      <% if user_signed_in? %>
+        <% if current_user.same_user?(comment.user_id) %>
+          <%= render "comment_dropdown", post_id: post_id, comment_id: comment.id %>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
-  <div class="space-y-2 divide-y">
-    <% comments.each do |comment| %>
-      <div class="relative mx-2 py-2">
-        <div class="space-y-1">
-          <div class="flex justify-between">
-            <%= link_to comment.user.profile, class: "flex items-center gap-2 w-fit" do %>
-              <% if comment.user.profile.avatar.attached? %>
-                <div class="w-8 h-8 rounded-full overflow-hidden">
-                  <%= image_tag comment.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
-                </div>
-              <% else %>
-                <%= render "shared/icons/user", class_list: "w-8 h-8 fill-current" %>
-              <% end %>
-              <h3><%= comment.user.profile.name %></h3>
-            <% end %>
-            <% if user_signed_in? %>
-              <% if current_user.same_user?(comment.user_id) %>
-                <%= render "comment_dropdown", post_id: post.id, comment_id: comment.id %>
-              <% end %>
-            <% end %>
-          </div>
-          <p><%= safe_join(comment.content.split("\n"), tag(:br)) %></p>
-          <p class="text-gray-500"><%= l comment.updated_at, format: :long %></p>
-        </div>
-      </div>
-    <% end %>
+    <p><%= safe_join(comment.content.split("\n"), tag(:br)) %></p>
+    <p class="text-gray-500"><%= l comment.updated_at, format: :long %></p>
   </div>
 </div>
