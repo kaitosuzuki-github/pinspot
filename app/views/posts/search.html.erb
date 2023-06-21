@@ -1,5 +1,9 @@
 <div class="p-5 sm:p-8 max-w-7xl mx-auto">
   <h2 class="mb-4">検索</h2>
   <%= render "search_form", q: @q, categories: @categories %>
-  <%= render "images_layout", posts: @posts %>
+  <%= turbo_frame_tag "images_layout" do %>
+    <div class="columns-1 gap-2 sm:columns-2 lg:columns-4 [&>a:not(:first-child)]:mt-2">
+      <%= render @posts %>
+    </div>
+  <% end %>
 </div>
