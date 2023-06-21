@@ -3,7 +3,7 @@
     <%= render "like_bookmark", post_id: post.id %>
     <% if user_signed_in? %>
       <% if current_user.same_user?(post.user_id) %>
-        <%= render "post_dropdown_menu" %>
+        <%= render "post_dropdown" %>
       <% end %>
     <% end %>
   </div>
