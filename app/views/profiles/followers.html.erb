@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-lg">
     <div class="p-4 space-y-4">
       <h2>フォロワー</h2>
-      <%= render "index_follow", users: @users %>
+      <%= render partial: "follow_user", collection: @users %>
     </div>
   </div>
 </div>
