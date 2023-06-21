@@ -17,35 +17,26 @@
     <% comments.each do |comment| %>
       <div class="relative mx-2 py-2">
         <div class="space-y-1">
-          <%= link_to comment.user.profile, class: "flex items-center gap-2 w-fit" do %>
-            <% if comment.user.profile.avatar.attached? %>
-              <div class="w-8 h-8 rounded-full overflow-hidden">
-                <%= image_tag comment.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
-              </div>
-            <% else %>
-              <%= render "shared/icons/user", class_list: "w-8 h-8 fill-current" %>
+          <div class="flex justify-between">
+            <%= link_to comment.user.profile, class: "flex items-center gap-2 w-fit" do %>
+              <% if comment.user.profile.avatar.attached? %>
+                <div class="w-8 h-8 rounded-full overflow-hidden">
+                  <%= image_tag comment.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
+                </div>
+              <% else %>
+                <%= render "shared/icons/user", class_list: "w-8 h-8 fill-current" %>
+              <% end %>
+              <h3><%= comment.user.profile.name %></h3>
             <% end %>
-            <h3><%= comment.user.profile.name %></h3>
-          <% end %>
+            <% if user_signed_in? %>
+              <% if current_user.same_user?(comment.user_id) %>
+                <%= render "posts/shared/comment_dropdown", post_id: post.id, comment_id: comment.id %>
+              <% end %>
+            <% end %>
+          </div>
           <p><%= safe_join(comment.content.split("\n"), tag(:br)) %></p>
           <p class="text-gray-500"><%= l comment.updated_at, format: :long %></p>
         </div>
-        <% if user_signed_in? %>
-          <% if current_user.same_user?(comment.user_id) %>
-            <div id="dropdownWrap" class="absolute top-3 right-0 z-10">
-              <button id="dropdownToggle" type="button" class="flex ml-auto text-gray-800 hover:text-gray-900">
-                <%= render "shared/icons/dot_menu", class_list: "w-6 h-6 fill-current" %>
-              </button>
-              <div id="dropdownMenu" class="dropdown-menu fade-out py-2">
-                <ul>
-                  <li>
-                    <%= button_to "削除", post_comment_path(post, comment), method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "li-link" %>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
       </div>
     <% end %>
   </div>
