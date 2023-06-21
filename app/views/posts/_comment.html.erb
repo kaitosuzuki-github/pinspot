@@ -30,7 +30,7 @@
             <% end %>
             <% if user_signed_in? %>
               <% if current_user.same_user?(comment.user_id) %>
-                <%= render "posts/shared/comment_dropdown", post_id: post.id, comment_id: comment.id %>
+                <%= render "comment_dropdown", post_id: post.id, comment_id: comment.id %>
               <% end %>
             <% end %>
           </div>

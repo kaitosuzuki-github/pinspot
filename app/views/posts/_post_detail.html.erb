@@ -1,9 +1,9 @@
 <div class="bg-white flex-grow divide-y divide-solid border-gray-100">
   <div class="flex justify-between">
-    <%= render "posts/shared/like_bookmark", post_id: post.id %>
+    <%= render "like_bookmark", post_id: post.id %>
     <% if user_signed_in? %>
       <% if current_user.same_user?(post.user_id) %>
-        <%= render "posts/shared/post_dropdown_menu" %>
+        <%= render "post_dropdown_menu" %>
       <% end %>
     <% end %>
   </div>

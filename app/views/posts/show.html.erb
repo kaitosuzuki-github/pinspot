@@ -1,10 +1,10 @@
 <div class="bg-gray-100 p-4">
   <div class="m-auto max-w-7xl">
-    <%= render "posts/shared/post_main", post: @post%>
+    <%= render "post_main", post: @post%>
     <div class="flex flex-col flex-wrap gap-4 mt-4 lg:flex-row">
-      <%= render "posts/shared/post_detail", post: @post %>
+      <%= render "post_detail", post: @post %>
       <div class="bg-white max-w-full lg:w-96">
-        <%= render "posts/shared/comment", post: @post, comments: @comments, new_comment: @comment %>
+        <%= render "comment", post: @post, comments: @comments, new_comment: @comment %>
       </div>
     </div>
   </div>
