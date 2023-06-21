@@ -1,0 +1,12 @@
+<div id="dropdownWrap" class="relative my-auto flex justify-center px-2">
+  <button id="dropdownToggle" type="button" class="hover:text-gray-900">
+    <%= render "shared/icons/dot_menu", class_list: "w-6 h-6 fill-current" %>
+  </button>
+  <div id="dropdownMenu" class="dropdown-menu fade-out absolute z-10 top-full py-1">
+    <ul>
+      <li>
+        <%= button_to "削除", post_comment_path(post_id, comment_id), method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "li-link" %>
+      </li>
+    </ul>
+  </div>
+</div>

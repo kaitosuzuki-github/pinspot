@@ -39,7 +39,6 @@ class ProfilesController < ApplicationController
 
   def following
     @users = Profile.preload(user: [followings: [profile: [avatar_attachment: :blob]]]).find(params[:id]).user.followings
-    render :followers
   end
 
   private

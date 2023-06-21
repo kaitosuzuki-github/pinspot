@@ -1,60 +1,12 @@
 <div class="bg-white">
   <div class="px-6 max-w-7xl mx-auto">
-    <div class="bg-gray-100 aspect-[4/1] overflow-hidden">
-      <% if @profile.cover.attached? %>
-        <%= image_tag @profile.cover.variant(resize_to_limit: [1500, 1500]), class: "w-full h-full object-cover" %>
-      <% end %>
-    </div>
-    <div class="p-4 space-y-4">
-      <div class="relative">
-        <div class="flex items-center justify-start md:justify-center gap-4">
-          <% if @profile.avatar.attached? %>
-            <div class="w-16 h-16 rounded-full overflow-hidden">
-              <%= image_tag @profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
-            </div>
-          <% else %>
-            <%= render "shared/icons/user", class_list: "w-16 h-16 fill-current" %>
-          <% end %>
-          <h2><%= @profile.name %></h2>
-        </div>
-        <div class="absolute top-0 left-0 w-full h-full flex justify-end items-center">
-          <% if user_signed_in? %>
-            <% if current_user.same_user?(@profile.user_id) %>
-              <%= link_to edit_profile_path do %>
-                <%= render "shared/icons/config", class_list: "w-8 h-8 fill-current" %>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <%= render "shared/follow", user_id: @profile.user_id %>
-      </div>
-      <div class="flex justify-center gap-4">
-        <% if user_signed_in? %>
-          <div>
-            <span><%= @profile.user.followers.count %></span>
-            <%= link_to "フォロワー", followers_profile_path, class: "normal-link ml-2" %>
-          </div>
-          <div>
-            <span><%= @profile.user.followings.count %></span>
-            <%= link_to "フォロー中", following_profile_path, class: "normal-link ml-2" %>
-          </div>
-        <% else %>
-          <p class="font-medium"><%= @profile.user.followers.count %><span class="ml-2">フォロワー</span></p>
-          <p class="font-medium"><%= @profile.user.followings.count %><span class="ml-2">フォロー中</span></p>
-        <% end %>
-      </div>
-      <div class="flex justify-center">
-        <p class="tracking-wide leading-relaxed"><%= safe_join(@profile.introduction.split("\n"), tag(:br)) %></p>
-      </div>
-    </div>
+    <%= render @profile %>
     <hr>
     <div class="p-4">
       <%= turbo_frame_tag "profile_posts" do %>
-        <%= render "profiles/shared/post_tab", user_id: @profile.user_id %>
+        <%= render "posts_tab", user_id: @profile.user_id %>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-          <%= render partial: "profiles/shared/post", collection: @posts %>
+          <%= render partial: "post", collection: @posts %>
         </div>
       <% end %>
     </div>

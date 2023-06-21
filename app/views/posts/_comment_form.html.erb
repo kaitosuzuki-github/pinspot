@@ -1,0 +1,11 @@
+<div>
+  <%= form_with model: [post, new_comment] do |f| %>
+    <div>
+      <%= f.label :content, class: "sr-only" %>
+      <%= f.text_area :content, row: "2", class: "text-field", placeholder: "コメントを追加..." %>
+    </div>
+    <div>
+      <%= f.submit "コメントする", class: "cursor-pointer font-medium hover:text-green-700" %>
+    </div>
+  <% end %>
+</div>

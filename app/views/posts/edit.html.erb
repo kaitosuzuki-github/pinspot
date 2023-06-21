@@ -1,46 +1,6 @@
 <section class="bg-white">
   <div class="max-w-2xl px-4 py-4 mx-auto space-y-6 lg:py-16">
     <h2>編集</h2>
-    <%= form_with model: @post, class: "space-y-6" do |f| %>
-      <%= render "shared/error", model: f.object %>
-      <div class="space-y-2">
-        <%= f.label :image %>
-        <%= f.file_field :image, class: "file-field" %>
-        <%= image_tag @post.image.variant(resize_to_limit: [1000, 1000]), id: "post_image_preview", class:"h-auto max-w-full max-h-500" %>
-      </div>
-      <div class="space-y-2">
-        <%= f.label :location %>
-        <div class="flex gap-4">
-          <%= f.text_field :location, id: "address", class: "text-field" %>
-          <button type="button" id="mapSearch" class="map-button">地図で検索</button>
-        </div>
-        <div id="map" class="h-72 md:h-600" data-latitude=<%= @post.latitude %> data-longitude=<%= @post.longitude %>></div>
-        <%= f.hidden_field :latitude, id: "lat" %>
-        <%= f.hidden_field :longitude, id: "lng" %>
-      </div>
-      <div class="space-y-2">
-        <%= f.label :title %>
-        <%= f.text_field :title, class:"text-field" %>
-      </div>
-      <div class="space-y-2">
-        <%= f.label :description %>
-        <%= f.text_area :description, rows: "8", class: "text-field" %>
-      </div>
-      <div class="space-y-2">
-        <%= f.label :categories %>
-        <div class="flex flex-wrap gap-3">
-          <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
-            <div>
-              <%= b.check_box class: "check-box" %>
-              <%= b.label class: "inline" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <%= f.submit "変更", class: "submit-button" %>
-        <%= link_to "キャンセル", @post, class: "cancel-button" %>
-      </div>
-    <% end %>
+    <%= render "form", post: @post %>
   </div>
 </section>
