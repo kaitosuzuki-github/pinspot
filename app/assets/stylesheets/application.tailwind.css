@@ -49,7 +49,7 @@
   }
 
   .li-link {
-    @apply block w-full text-left px-4 py-2 text-gray-500 hover:bg-gray-100;
+    @apply block w-full text-left px-4 py-2 text-gray-500  whitespace-nowrap hover:bg-gray-100;
   }
 
   .footer-link {

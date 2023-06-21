@@ -1,0 +1,35 @@
+<div class="bg-white flex-grow divide-y divide-solid border-gray-100">
+  <div class="flex justify-between">
+    <%= render "posts/shared/like_bookmark", post_id: post.id %>
+    <% if user_signed_in? %>
+      <% if current_user.same_user?(post.user_id) %>
+        <%= render "posts/shared/post_dropdown_menu" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="p-3 flex gap-2 items-center">
+    <%= link_to post.user.profile, class: "flex items-center gap-2" do %>
+      <% if post.user.profile.avatar.attached? %>
+        <div class="w-10 h-10 rounded-full overflow-hidden">
+          <%= image_tag post.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
+        </div>
+      <% else %>
+        <%= render "shared/icons/user", class_list: "w-10 h-10 fill-current" %>
+      <% end %>
+      <h2><%= post.user.profile.name %></h2>
+    <% end %>
+    <%= render "shared/follow", user_id: post.user_id %>
+  </div>
+  <div class="p-3">
+    <div class="pb-3">
+      <p class="pb-2"><span class="font-bold">撮影スポット: </span><%= post.location %></p>
+      <p><span class="font-bold">撮影日: </span><%= l post.created_at, format: :long %></p>
+      <div class="flex gap-3">
+        <% post.categories.each do |category| %>
+          <%= link_to category.name, search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "category-button" %>
+        <% end %>
+      </div>
+    </div>
+    <p><%= post.description %></p>
+  </div>
+</div>
