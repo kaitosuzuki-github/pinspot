@@ -1,12 +1,6 @@
 <div class="flex gap-3 items-center justify-between">
   <%= link_to follow_user.profile, class: "flex items-center gap-2" do %>
-    <% if follow_user.profile.avatar.attached? %>
-      <div class="w-10 h-10 rounded-full overflow-hidden">
-        <%= image_tag follow_user.profile.avatar.variant(resize_to_limit: [100, 100]), class: "w-full h-full object-cover" %>
-      </div>
-    <% else %>
-      <%= render "shared/icons/user", class_list: "w-10 h-10 fill-current" %>
-    <% end %>
+    <%= display_avatar follow_user.profile.avatar, size: "medium" %>
     <p class="break-all max-w-xs"><%= follow_user.profile.name %></p>
   <% end %>
   <%= render "shared/follow", user_id: follow_user.id %>
