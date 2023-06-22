@@ -1,6 +1,9 @@
 <div class="bg-white flex-grow divide-y divide-solid border-gray-100">
   <div class="flex justify-between">
-    <%= render "like_bookmark", post_id: post.id %>
+    <div class="p-3 flex gap-2 items-center">
+      <%= display_like_button(post.id) %>
+      <%= display_bookmark_button(post.id) %>
+    </div>
     <% if user_signed_in? %>
       <% if current_user.same_user?(post.user_id) %>
         <%= render "post_dropdown" %>
