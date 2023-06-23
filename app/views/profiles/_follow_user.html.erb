@@ -1,6 +1,6 @@
 <div class="flex gap-3 items-center justify-between">
   <%= link_to follow_user.profile, class: "flex items-center gap-2" do %>
-    <%= display_avatar follow_user.profile.avatar, size: "medium" %>
+    <%= create_avatar_elements follow_user.profile.avatar, "medium" %>
     <p class="break-all max-w-xs"><%= follow_user.profile.name %></p>
   <% end %>
   <%= render "shared/follow", user_id: follow_user.id %>

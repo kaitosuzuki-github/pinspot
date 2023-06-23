@@ -12,7 +12,7 @@
   </div>
   <div class="p-3 flex gap-2 items-center">
     <%= link_to post.user.profile, class: "flex items-center gap-2" do %>
-      <%= display_avatar post.user.profile.avatar, size: "medium" %>
+      <%= create_avatar_elements post.user.profile.avatar, "medium" %>
       <h2><%= post.user.profile.name %></h2>
     <% end %>
     <%= render "shared/follow", user_id: post.user_id %>
