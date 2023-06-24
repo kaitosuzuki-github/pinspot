@@ -3,5 +3,5 @@
     <%= create_avatar_elements follow_user.profile.avatar, "medium" %>
     <p class="break-all max-w-xs"><%= follow_user.profile.name %></p>
   <% end %>
-  <%= render "shared/follow", user_id: follow_user.id %>
+  <%= create_follow_button(follow_user.id) %>
 </div>
