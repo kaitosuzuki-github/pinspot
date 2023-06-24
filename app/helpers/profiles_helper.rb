@@ -1,5 +1,5 @@
 module ProfilesHelper
-  def create_posts_tab_elements
+  def create_posts_tab
     posts_tab_color = set_tab_color("show")
 
     link_to profile_path, class: "flex gap-1 items-center #{posts_tab_color}" do
@@ -8,7 +8,7 @@ module ProfilesHelper
     end
   end
 
-  def create_likes_tab_elements
+  def create_likes_tab
     unless user_signed_in?
       return
     end
@@ -21,7 +21,7 @@ module ProfilesHelper
     end
   end
 
-  def create_bookmarks_tab_elements(user_id)
+  def create_bookmarks_tab(user_id)
     unless user_signed_in?
       return
     end
