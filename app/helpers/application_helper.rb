@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def is_errors_lat_lng?(attribute)
+    attribute == :latitude || attribute == :longitude
+  end
+
   # 引数のsizeはsmall、medium、largeから選ぶ
   def select_image_preview(image, size)
     if image.attached?
