@@ -1,8 +1,6 @@
 module ProfilesHelper
   def create_posts_tab
-    posts_tab_color = set_tab_color("show")
-
-    link_to profile_path, class: "flex gap-1 items-center #{posts_tab_color}" do
+    link_to profile_path, class: "flex gap-1 items-center #{set_tab_color("show")}" do
       render("shared/icons/posts", class_list: "w-4 h-4 fill-current") +
       tag.p("投稿")
     end
@@ -13,9 +11,7 @@ module ProfilesHelper
       return
     end
 
-    likes_tab_color = set_tab_color("show_likes")
-
-    link_to show_likes_profile_path, class: "flex gap-1 items-center #{likes_tab_color}" do
+    link_to show_likes_profile_path, class: "flex gap-1 items-center #{set_tab_color("show_likes")}" do
       render("shared/icons/heart", class_list: "w-4 h-4 fill-current") +
       tag.p("いいねした投稿")
     end
@@ -30,9 +26,7 @@ module ProfilesHelper
       return
     end
 
-    bookmarks_tab_color = set_tab_color("show_bookmarks")
-
-    link_to show_bookmarks_profile_path, class: "flex gap-1 items-center #{bookmarks_tab_color}" do
+    link_to show_bookmarks_profile_path, class: "flex gap-1 items-center #{set_tab_color("show_bookmarks")}" do
       render("shared/icons/bookmark", class_list: "w-4 h-4 fill-current") +
       tag.p("保存した投稿")
     end
