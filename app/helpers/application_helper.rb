@@ -1,4 +1,15 @@
 module ApplicationHelper
+  def create_header_elements
+    if user_signed_in?
+      render("shared/header_dropdown") +
+      link_to("投稿する", new_post_path, class: "new-button")
+    else
+      button_to("ゲストログイン", users_guest_sign_in_path, method: :post, class: "normal-link") +
+      link_to("ログイン", new_user_session_path, class: "normal-link") +
+      link_to("新規登録", new_user_registration_path, class: "new-button")
+    end
+  end
+
   def is_errors_lat_lng?(attribute)
     attribute == :latitude || attribute == :longitude
   end
