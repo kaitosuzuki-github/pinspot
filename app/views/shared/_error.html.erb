@@ -10,7 +10,7 @@
           <div class="mt-2">
             <ul class="pl-5 space-y-1 list-disc">
               <% model.errors.each do |error| %>
-                <% if error.attribute != :latitude && error.attribute != :longitude %>
+                <% unless is_errors_lat_lng?(error.attribute) %>
                   <li class="text-red-600"><%= error.full_message %></li>
                 <% end %>
               <% end %>
