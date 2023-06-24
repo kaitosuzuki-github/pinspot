@@ -1,5 +1,5 @@
 module PostsHelper
-  def display_like_button(post_id)
+  def create_like_button(post_id)
     if user_signed_in?
       if current_user.like?(post_id)
         button_to post_likes_path(post_id), method: :delete do
@@ -15,7 +15,7 @@ module PostsHelper
     end
   end
 
-  def display_bookmark_button(post_id)
+  def create_bookmark_button(post_id)
     if user_signed_in?
       if current_user.bookmarking?(post_id)
         button_to post_bookmarks_path(post_id), method: :delete do
