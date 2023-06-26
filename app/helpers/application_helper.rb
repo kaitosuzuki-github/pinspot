@@ -51,11 +51,13 @@ module ApplicationHelper
   def select_avatar_size(size)
     case size
     when "small"
-      "w-8 h-8"
+      "icon-small"
     when "medium"
-      "w-10 h-10"
+      "icon-medium"
     when "large"
-      "w-14 h-14"
+      "icon-large"
+    when "x-large"
+      "icon-x-large"
     end
   end
 
