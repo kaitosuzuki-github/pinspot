@@ -69,4 +69,12 @@ module ApplicationHelper
       end
     end
   end
+
+  def create_ham_menu_list
+    if user_signed_in?
+      render "shared/hamburger_menu_list_sign_in"
+    else
+      render "shared/hamburger_menu_list_sign_out"
+    end
+  end
 end
