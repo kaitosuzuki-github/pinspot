@@ -4,10 +4,8 @@
       <%= create_like_button(post.id) %>
       <%= create_bookmark_button(post.id) %>
     </div>
-    <% if user_signed_in? %>
-      <% if current_user.same_user?(post.user_id) %>
-        <%= render "post_dropdown" %>
-      <% end %>
+    <% if user_signed_in? && current_user.same_user?(post.user_id) %>
+      <%= render "post_dropdown" %>
     <% end %>
   </div>
   <div class="p-3 flex gap-2 items-center">
