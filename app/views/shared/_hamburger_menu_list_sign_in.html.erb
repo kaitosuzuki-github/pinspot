@@ -1,0 +1,17 @@
+<ul class="space-y-2">
+  <li>
+    <%= link_to "投稿する", new_post_path, class: "li-link" %>
+  </li>
+  <li>
+    <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "li-link" %>
+  </li>
+  <li>
+    <%= link_to "アカウント設定", users_show_path, class: "li-link" %>
+  </li>
+  <li>
+    <%= link_to "お問い合わせ", new_contact_path, class: "li-link" %>
+  </li>
+  <li>
+    <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "li-link" %>
+  </li>
+</ul>
