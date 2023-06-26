@@ -1,0 +1,18 @@
+<div class="flex gap-5 justify-center mb-3">
+  <%= link_to profile_path, class: ["flex gap-1 items-center", "text-gray-500": !current_page?(profile_path)] do %>
+    <%= render "shared/icons/posts", class_list: "w-4 h-4 fill-current" %>
+    <p>投稿</p>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= link_to show_likes_profile_path, class: ["flex gap-1 items-center", "text-gray-500": !current_page?(show_likes_profile_path)] do %>
+      <%= render("shared/icons/heart", class_list: "w-4 h-4 fill-current") %>
+      <p>いいねした投稿</p>
+    <% end %>
+  <% end %>
+  <% if user_signed_in? && current_user.same_user?(profile_user_id) %>
+    <%= link_to show_bookmarks_profile_path, class: ["flex gap-1 items-center", "text-gray-500": !current_page?(show_bookmarks_profile_path)] do %>
+      <%= render "shared/icons/bookmark", class_list: "w-4 h-4 fill-current" %>
+      <p>保存した投稿</p>
+    <% end %>
+  <% end %>
+</div>
