@@ -1,4 +1,14 @@
 module ApplicationHelper
+  BASE_TITLE = 'Pinspot'.freeze
+
+  def create_title(title_info)
+    if title_info.blank?
+      BASE_TITLE
+    else
+      "#{BASE_TITLE} - #{title_info}"
+    end
+  end
+
   def create_header_elements
     if user_signed_in?
       render("shared/header_dropdown") +
