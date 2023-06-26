@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="flex justify-center">
-      <% if user_signed_in? && !current_user.same_user?(profile.user_id) %>
+      <% if !user_signed_in? || !current_user.same_user?(profile.user_id) %>
         <%= create_follow_button(profile.user_id) %>
       <% end %>
     </div>

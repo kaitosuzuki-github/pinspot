@@ -13,7 +13,7 @@
       <%= create_avatar_elements post.user.profile.avatar, "medium" %>
       <h2><%= post.user.profile.name %></h2>
     <% end %>
-    <% if user_signed_in? && !current_user.same_user?(post.user_id) %>
+    <% if !user_signed_in? || !current_user.same_user?(post.user_id) %>
       <%= create_follow_button(post.user_id) %>
     <% end %>
   </div>
