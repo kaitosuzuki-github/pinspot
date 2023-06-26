@@ -15,14 +15,6 @@ module ApplicationHelper
   end
 
   def create_follow_button(user_id)
-    unless user_signed_in?
-      return
-    end
-
-    if current_user.same_user?(user_id)
-      return
-    end
-
     if current_user.following?(user_id)
       button_to "フォロー中", user_relationships_path(user_id),
       method: :delete, data: { turbo_confirm: 'フォローをやめますか?' },
