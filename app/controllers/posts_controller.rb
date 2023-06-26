@@ -3,9 +3,12 @@ class PostsController < ApplicationController
   before_action :limit_user, only: [:edit, :update, :destroy]
 
   def show
-    @post = Post.preload(comments: [user: [profile: [avatar_attachment: :blob]]]).find(params[:id])
-    @comments = @post.comments.sort_by { |x| -x.created_at.to_i }
-    @comment = Comment.new
+    @post = Post.find(params[:id])
+    if user_signed_in?
+      @comments = @post.comments.preload(user: [profile: [avatar_attachment: :blob]]).
+        sort_by { |x| -x.created_at.to_i }
+      @comment = Comment.new
+    end
   end
 
   def new
