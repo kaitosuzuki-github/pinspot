@@ -5,10 +5,8 @@
         <%= create_avatar_elements comment.user.profile.avatar, "small" %>
         <h3><%= comment.user.profile.name %></h3>
       <% end %>
-      <% if user_signed_in? %>
-        <% if current_user.same_user?(comment.user_id) %>
-          <%= render "comment_dropdown", post_id: post_id, comment_id: comment.id %>
-        <% end %>
+      <% if user_signed_in? && current_user.same_user?(comment.user_id) %>
+        <%= render "comment_dropdown", post_id: post_id, comment_id: comment.id %>
       <% end %>
     </div>
     <p><%= safe_join(comment.content.split("\n"), tag(:br)) %></p>
