@@ -113,6 +113,17 @@ def create_comment_data
   end
 end
 
+def create_contact_date
+  contact_num = 4
+  contact_num.times do |n|
+    Contact.create!(
+      email: Faker::Internet.email,
+      subject: Faker::Lorem.sentence,
+      message: Faker::Lorem.paragraph
+    )
+  end
+end
+
 create_category_data
 create_user_profile_data
 create_post_data
@@ -120,3 +131,4 @@ create_follow_data
 create_like_data
 create_bookmark_data
 create_comment_data
+create_contact_date
