@@ -24,19 +24,14 @@
       <% end %>
     </div>
     <div class="flex justify-center gap-4">
-      <% if user_signed_in? %>
-        <div>
-          <span><%= profile.user.followers.count %></span>
-          <%= link_to "フォロワー", followers_profile_path, class: "normal-link ml-2" %>
-        </div>
-        <div>
-          <span><%= profile.user.followings.count %></span>
-          <%= link_to "フォロー中", following_profile_path, class: "normal-link ml-2" %>
-        </div>
-      <% else %>
-        <p class="font-medium"><%= profile.user.followers.count %><span class="ml-2">フォロワー</span></p>
-        <p class="font-medium"><%= profile.user.followings.count %><span class="ml-2">フォロー中</span></p>
-      <% end %>
+      <div>
+        <span><%= profile.user.followers.count %></span>
+        <%= link_to "フォロワー", followers_profile_path, class: "normal-link ml-2" %>
+      </div>
+      <div>
+        <span><%= profile.user.followings.count %></span>
+        <%= link_to "フォロー中", following_profile_path, class: "normal-link ml-2" %>
+      </div>
     </div>
     <div class="flex justify-center">
       <p class="tracking-wide leading-relaxed"><%= safe_join(profile.introduction.split("\n"), tag(:br)) %></p>
