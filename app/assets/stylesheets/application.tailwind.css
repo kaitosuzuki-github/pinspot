@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply text-sm font-normal text-gray-800;
+    @apply text-sm font-normal text-gray-800 mx-auto max-w-[1920px];
   }
 
   h1 {

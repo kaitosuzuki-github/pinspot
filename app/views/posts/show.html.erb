@@ -1,6 +1,6 @@
 <% content_for(:title_info, @post.title) %>
 <div class="bg-gray-100 p-4">
-  <div class="m-auto max-w-7xl">
+  <div>
     <%= render "post_main", post: @post %>
     <div class="flex flex-col flex-wrap gap-4 mt-4 lg:flex-row">
       <%= render "post_detail", post: @post %>
