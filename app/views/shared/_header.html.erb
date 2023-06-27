@@ -1,5 +1,5 @@
 <header class="bg-white relative">
-  <nav class="mx-auto max-w-1920 flex items-center justify-between p-6">
+  <nav class="mx-auto max-w-1920 p-4 flex items-center justify-between md:p-6">
     <div class="flex items-center gap-10">
       <%= link_to root_path, class: "normal-link" do %>
         <h1>Pinspot</h1>
@@ -7,7 +7,7 @@
       <%= link_to "探す", search_posts_path, class:"normal-link hidden lg:block" %>
     </div>
     <%= render "shared/hamburger_menu", q: q %>
-    <div class="lg:flex lg:justify-end lg:items-center lg:gap-x-5 hidden">
+    <div class="lg:flex lg:items-center lg:gap-5 hidden">
       <%= render "shared/search_bar", q: q %>
       <%= create_header_elements %>
     </div>
