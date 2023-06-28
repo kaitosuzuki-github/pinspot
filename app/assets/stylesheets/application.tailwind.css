@@ -147,7 +147,7 @@
 
 @layer utilities {
   .field_with_errors {
-    @apply contents;
+    display: contents;
   }
 
   input::-webkit-search-cancel-button {
