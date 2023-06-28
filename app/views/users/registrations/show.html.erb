@@ -1,21 +1,19 @@
 <% content_for(:title_info, "アカウント設定") %>
-<div class="bg-gray-50 md:h-screen">
-  <div class="flex justify-center gap-24 py-8 px-6 md:py-24">
-    <div class="bg-white p-6 sm:max-w-md w-full rounded-lg">
-      <div class="space-y-4">
-        <h2>アカウント設定</h2>
-        <div>
-          <p class="mb-2 font-medium">Eメール</p>
-          <p><%= current_user.email %></p>
-        </div>
-        <div>
-          <p class="mb-2 font-medium">パスワード</p>
-          <p>••••••••</p>
-        </div>
-        <div class="flex gap-2">
-          <%= link_to "変更", edit_user_registration_path, class: "link-button" %>
-          <%= button_to "削除", user_registration_path, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "delete-button" %>
-        </div>
+<div class="bg-white p-4 md:h-screen">
+  <div class="bg-white w-full rounded-lg shadow sm:max-w-md mx-auto mt-8">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <h2>アカウント設定</h2>
+      <div>
+        <p class="mb-2 font-medium">Eメール</p>
+        <p><%= current_user.email %></p>
+      </div>
+      <div>
+        <p class="mb-2 font-medium">パスワード</p>
+        <p>••••••••</p>
+      </div>
+      <div class="flex gap-2">
+        <%= link_to "変更", edit_user_registration_path, class: "link-button" %>
+        <%= button_to "削除", user_registration_path, method: :delete, data: { turbo_confirm: '本当に削除しますか?' }, class: "delete-button" %>
       </div>
     </div>
   </div>
