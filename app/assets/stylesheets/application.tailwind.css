@@ -89,7 +89,11 @@
   }
 
   .search-detail-button {
-    @apply w-fit pr-2 text-left flex items-center gap-2 cursor-default;
+    @apply flex items-center gap-2 text-gray-500 text-left cursor-default hover:text-gray-700;
+  }
+
+  .search-detail-label {
+    @apply inline-block w-full whitespace-nowrap;
   }
 
   .search-bar {

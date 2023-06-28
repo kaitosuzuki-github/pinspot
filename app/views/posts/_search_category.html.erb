@@ -8,7 +8,7 @@
     <%= f.collection_check_boxes(:categories_id_in, categories, :id, :name) do |b| %>
       <%= button_tag class: "search-detail-button" do %>
         <%= b.check_box class: "check-box pointer-events-none" %>
-        <%= b.label %>
+        <%= b.label class: "search-detail-label" %>
       <% end %>
     <% end %>
   </div>
