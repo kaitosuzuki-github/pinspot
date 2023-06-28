@@ -1,8 +1,8 @@
 <% content_for(:title_info, @post.title) %>
-<div class="bg-gray-100">
+<div class="bg-white">
   <div class="mx-auto max-w-1920">
     <%= render "post_main", post: @post %>
-    <div class="flex flex-col flex-wrap gap-4 mt-4 lg:flex-row">
+    <div class="flex flex-col gap-x-10 gap-y-5 lg:flex-row">
       <%= render "post_detail", post: @post %>
       <%= render "comments", post: @post, comments: @comments, new_comment: @comment %>
     </div>
