@@ -73,7 +73,7 @@
   }
 
   .category-button {
-    @apply px-4 py-1.5 bg-white rounded-lg border border-gray-300 text-gray-500 active:bg-gray-200;
+    @apply px-4 py-1.5 bg-white rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-100 active:bg-gray-200;
   }
 
   .title-base {

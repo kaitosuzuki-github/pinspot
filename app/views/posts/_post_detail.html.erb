@@ -1,32 +1,33 @@
-<div class="bg-white flex-grow divide-y divide-solid border-gray-100">
-  <div class="flex justify-between">
-    <div class="p-3 flex gap-2 items-center">
-      <%= create_like_button(post.id) %>
-      <%= create_bookmark_button(post.id) %>
+<div class="bg-white flex-grow">
+  <div class="p-6 space-y-3 divide-y divide-solid border-gray-100">
+    <div class="flex justify-between">
+      <div class="flex gap-2">
+        <%= create_like_button(post.id) %>
+        <%= create_bookmark_button(post.id) %>
+      </div>
+      <% if user_signed_in? && current_user.same_user?(post.user_id) %>
+        <%= render "post_dropdown" %>
+      <% end %>
     </div>
-    <% if user_signed_in? && current_user.same_user?(post.user_id) %>
-      <%= render "post_dropdown" %>
-    <% end %>
-  </div>
-  <div class="p-3 flex gap-2 items-center">
-    <%= link_to post.user.profile, class: "flex items-center gap-2" do %>
-      <%= create_avatar_elements post.user.profile.avatar, "icon-large" %>
-      <h2><%= post.user.profile.name %></h2>
-    <% end %>
-    <% if !user_signed_in? || !current_user.same_user?(post.user_id) %>
-      <%= create_follow_button(post.user_id) %>
-    <% end %>
-  </div>
-  <div class="p-3">
-    <div class="pb-3">
-      <p class="pb-2"><span class="font-bold">撮影スポット: </span><%= post.location %></p>
-      <p><span class="font-bold">撮影日: </span><%= l post.created_at, format: :long %></p>
-      <div class="flex gap-3">
+    <div class="pt-3 flex gap-6 items-center">
+      <%= link_to post.user.profile, class: "flex items-center gap-2" do %>
+        <%= create_avatar_elements post.user.profile.avatar, "icon-large" %>
+        <h2><%= post.user.profile.name %></h2>
+      <% end %>
+      <% if !user_signed_in? || !current_user.same_user?(post.user_id) %>
+        <%= create_follow_button(post.user_id) %>
+      <% end %>
+    </div>
+    <div class="pt-3 space-y-3">
+      <h2><%= post.title %></h2>
+      <p><span class="font-bold">撮影スポット: </span><%= link_to post.location, search_posts_path(q: { title_or_location_cont: post.location }), class: "normal-link" %></p>
+      <div class="flex gap-2">
         <% post.categories.each do |category| %>
           <%= link_to category.name, search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "category-button" %>
         <% end %>
       </div>
+      <p><%= safe_join(post.description.split("\n"), tag(:br)) %></p>
+      <p><%= l post.created_at, format: :long %></p>
     </div>
-    <p><%= post.description %></p>
   </div>
 </div>
