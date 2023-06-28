@@ -1,4 +1,4 @@
-<%= search_form_for q, url: search_posts_path, html: { data: { turbo_frame: "images_layout" } }, class: "mb-4 flex gap-4 flex-wrap justify-between" do |f| %>
+<%= search_form_for q, url: search_posts_path, html: { data: { turbo_frame: "images_layout" } }, class: "mb-4 flex flex-col gap-4 justify-between lg:flex-row" do |f| %>
   <%= render "search_bar", f: f %>
   <div class="flex gap-4">
     <%= render "search_category", f: f, categories: categories %>
