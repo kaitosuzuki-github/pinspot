@@ -2,7 +2,12 @@
 <div class="bg-white">
   <div class="mx-auto max-w-lg">
     <div class="p-4 space-y-4">
-      <h2>フォロワー</h2>
+      <div class="flex items-center gap-2">
+        <%= link_to :back do %>
+          <%= render "shared/icons/back_button", class_list: "icon-small fill-current" %>
+        <% end %>
+        <h2>フォロワー</h2>
+      </div>
       <%= render partial: "follow_user", collection: @users %>
     </div>
   </div>
