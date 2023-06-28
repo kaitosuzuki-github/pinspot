@@ -26,7 +26,7 @@
           <%= link_to category.name, search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "category-button" %>
         <% end %>
       </div>
-      <p><%= post.description %></p>
+      <p><%= safe_join(post.description.split("\n"), tag(:br)) %></p>
       <p><%= l post.created_at, format: :long %></p>
     </div>
   </div>
