@@ -27,7 +27,7 @@ function initMap(mapDisplay) {
     if (posts == undefined) {
       marker = null;
     } else {
-      const infoWindow = new google.maps.InfoWindow({ maxWidth: 400 });
+      const infoWindow = new google.maps.InfoWindow();
       JSON.parse(posts).forEach(function (post, index) {
         let markers = [];
         markers[index] = new google.maps.Marker({
@@ -36,10 +36,10 @@ function initMap(mapDisplay) {
           title: post.title,
         });
         const contentString =
-          `<div class="space-y-2">` +
-          `<h2 class="text-lg font-bold text-gray-900">${post.title}</h2>` +
-          `<p class="text-gray-900 text-sm"><span class="font-semibold">撮影スポット: </span>${post.location}</p>` +
-          `<a href="/posts/${post.id}" class="inline-block rounded px-3 py-1.5 bg-green-500 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white transition-all ease-out duration-300">投稿を見る</a>` +
+          `<div class="p-1 space-y-2">` +
+          `<h3>${post.title}</h3>` +
+          `<p><span class="font-semibold">撮影スポット: </span>${post.location}</p>` +
+          `<a href="/posts/${post.id}" class="post-detail-button">投稿を見る</a>` +
           `</div>`;
         markers[index].addListener("click", () => {
           infoWindow.close();
