@@ -20,7 +20,7 @@
     </div>
     <div class="pt-3 space-y-3">
       <h3><%= post.title %></h3>
-      <p><span class="font-bold">撮影スポット: </span><%= link_to post.location, search_posts_path(q: { title_or_location_cont: post.location }), class: "normal-link" %></p>
+      <p><span class="font-semibold">撮影スポット: </span><%= link_to post.location, search_posts_path(q: { title_or_location_cont: post.location }), class: "normal-link" %></p>
       <div class="flex gap-2">
         <% post.categories.each do |category| %>
           <%= link_to category.name, search_posts_path(q: { categories_id_in: ["", "#{category.id}"] }), class: "category-button" %>
