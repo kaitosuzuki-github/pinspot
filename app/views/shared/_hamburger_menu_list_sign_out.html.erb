@@ -1,5 +1,8 @@
 <ul class="space-y-2">
   <li>
+    <%= link_to "探す", search_posts_path, class:"li-link" %>
+  </li>
+  <li>
     <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "li-link" %>
   </li>
   <li>
