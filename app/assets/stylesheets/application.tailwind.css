@@ -12,14 +12,18 @@
   }
 
   h1 {
-    @apply text-2xl font-bold md:text-3xl;
+    @apply text-2xl font-bold tracking-wide md:text-3xl;
   }
 
   h2 {
-    @apply text-lg font-semibold lg:text-xl;
+    @apply text-lg font-semibold md:text-xl;
   }
 
   h3 {
+    @apply text-base font-semibold md:text-lg;
+  }
+
+  h4 {
     @apply text-base font-medium;
   }
 

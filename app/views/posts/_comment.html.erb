@@ -3,7 +3,7 @@
     <div class="flex justify-between">
       <%= link_to comment.user.profile, class: "flex items-center gap-2 w-fit" do %>
         <%= create_avatar_elements comment.user.profile.avatar, "icon-medium" %>
-        <h3><%= comment.user.profile.name %></h3>
+        <h4><%= comment.user.profile.name %></h4>
       <% end %>
       <% if user_signed_in? && current_user.same_user?(comment.user_id) %>
         <%= render "comment_dropdown", post_id: post_id, comment_id: comment.id %>
