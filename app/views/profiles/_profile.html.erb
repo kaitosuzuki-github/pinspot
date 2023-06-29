@@ -26,11 +26,11 @@
     </div>
     <div class="flex justify-center gap-4">
       <div>
-        <span><%= profile.user.followers.count %></span>
+        <span class="font-medium"><%= profile.user.followers.count %></span>
         <%= link_to "フォロワー", followers_profile_path, class: "normal-link ml-2" %>
       </div>
       <div>
-        <span><%= profile.user.followings.count %></span>
+        <span class="font-medium"><%= profile.user.followings.count %></span>
         <%= link_to "フォロー中", following_profile_path, class: "normal-link ml-2" %>
       </div>
     </div>

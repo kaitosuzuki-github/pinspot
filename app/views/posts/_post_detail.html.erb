@@ -19,7 +19,7 @@
       <% end %>
     </div>
     <div class="pt-3 space-y-3">
-      <h2><%= post.title %></h2>
+      <h3><%= post.title %></h3>
       <p><span class="font-bold">撮影スポット: </span><%= link_to post.location, search_posts_path(q: { title_or_location_cont: post.location }), class: "normal-link" %></p>
       <div class="flex gap-2">
         <% post.categories.each do |category| %>
@@ -27,7 +27,7 @@
         <% end %>
       </div>
       <p><%= safe_join(post.description.split("\n"), tag(:br)) %></p>
-      <p><%= l post.created_at, format: :long %></p>
+      <p class="text-gray-500"><%= l post.created_at, format: :long %></p>
     </div>
   </div>
 </div>
