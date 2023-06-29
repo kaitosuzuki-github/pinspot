@@ -1,7 +1,7 @@
 <div>
   <div class="bg-gray-100 aspect-[4/1] overflow-hidden">
     <% if profile.cover.attached? %>
-      <%= image_tag profile.cover.variant(resize_to_limit: [1500, 1500]), class: "w-full h-full object-cover" %>
+      <%= image_tag profile.cover.variant(resize_to_limit: select_image_size("large")), class: "w-full h-full object-cover" %>
     <% end %>
   </div>
   <div class="p-4 space-y-4">
