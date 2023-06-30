@@ -1,11 +1,11 @@
-<div class="relative bg-gray-800 p-4 grid gap-6 grid-cols-1 md:grid-cols-2 md:gap-4 md:p-6">
+<div class="relative bg-gray-800 p-4 grid gap-6 grid-cols-1 lg:grid-cols-2 md:p-6">
   <%= link_to :back, class: "absolute z-10 top-2 left-2 md:top-6 md:left-6" do %>
     <%= render "shared/icons/back_button", class_list: "icon-medium fill-white hover:fill-gray-200" %>
   <% end %>
-  <div class="my-auto mx-auto pl-14">
-    <%= image_tag post.image.variant(resize_to_limit: select_image_size("large")), class:"max-h-[70vh] shadow" %>
+  <div class="flex justify-center items-center mt-14 lg:ml-14 lg:mt-0">
+    <%= image_tag post.image.variant(resize_to_limit: select_image_size("large")), class:"max-h-[50vh] lg:max-h-[70vh] shadow" %>
   </div>
   <div class="flex justify-center items-center">
-    <div id="map" class="h-full max-h-[50vh] aspect-[1/1] rounded-lg shadow" data-latitude=<%= post.latitude %> data-longitude=<%= post.longitude %>></div>
+    <div id="map" class="h-full w-full aspect-[1/1] rounded-lg shadow max-h-[400px] max-w-[500px] lg:max-h-[500px]" data-latitude=<%= post.latitude %> data-longitude=<%= post.longitude %>></div>
   </div>
 </div>
