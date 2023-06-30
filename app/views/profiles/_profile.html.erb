@@ -10,7 +10,7 @@
         <%= create_avatar_elements profile.avatar, "icon-x-large" %>
         <h2><%= profile.name %></h2>
       </div>
-      <%= link_to :back, class: "absolute top-3 left-0 z-10 hidden md:block" do %>
+      <%= link_to 'javascript:history.back()', class: "absolute top-3 left-0 z-10 hidden md:block" do %>
         <%= render "shared/icons/back_button", class_list: "icon-medium fill-current" %>
       <% end %>
       <% if user_signed_in? && current_user.same_user?(profile.user_id) %>
