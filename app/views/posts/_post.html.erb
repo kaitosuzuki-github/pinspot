@@ -1,5 +1,5 @@
-<%= link_to post, class: "group flex relative items-end block shadow-lg bg-gray-100 overflow-hidden", data: { turbo_frame: "_top" } do %>
-  <%= image_tag post.image.variant(resize_to_limit: select_image_size("small")), class: "w-full h-full object-cover" %>
+<%= link_to post, class: "group flex relative items-end block shadow bg-gray-100 overflow-hidden", data: { turbo_frame: "_top" } do %>
+  <%= image_tag post.image.variant(resize_to_limit: select_image_size("small")), class: "w-full h-full object-cover object-center max-h-72 sm:max-h-[400px] lg:max-h-[600px]" %>
   <div class="title-base absolute transition duration-300 opacity-0 group-hover:opacity-100">
     <span class="text-white"><%= post.title %></span>
   </div>
