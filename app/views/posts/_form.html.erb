@@ -4,7 +4,7 @@
     <%= f.label :image %>
     <%= f.file_field :image, class: "file-field" %>
     <div class="flex justify-center">
-      <%= image_tag select_image_preview(post.image, "large"), id: "post_image_preview", class:"h-auto max-w-full max-h-500" %>
+      <%= image_tag select_image_preview(post.image, "large"), id: "post_image_preview", class:"h-auto max-w-full max-h-[500px]" %>
     </div>
   </div>
   <div class="space-y-2">
@@ -13,7 +13,7 @@
       <%= f.text_field :location, id: "address", class: "text-field" %>
       <button type="button" id="mapSearch" class="map-button">地図で検索</button>
     </div>
-    <div id="map" class="h-72 md:h-600"></div>
+    <div id="map" class="h-72 md:h-[600px]"></div>
     <%= f.hidden_field :latitude, id: "lat" %>
     <%= f.hidden_field :longitude, id: "lng" %>
   </div>

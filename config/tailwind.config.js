@@ -9,10 +9,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      spacing: {
-        500: "500px",
-        600: "600px",
-      },
       maxWidth: {
         1920: "1920px",
       },
