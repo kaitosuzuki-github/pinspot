@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get "following"
     end
   end
-  resources :posts do
+  resources :posts, except: [:index] do
     resources :comments, only: [:create, :destroy]
     resource :likes, only: [:create, :destroy]
     resource :bookmarks, only: [:create, :destroy]
