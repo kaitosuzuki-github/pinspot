@@ -34,7 +34,7 @@ module ApplicationHelper
     end
   end
 
-  # 引数のsizeはsmall、medium、largeから選ぶ
+  # 引数のsizeはavatar、small、medium、largeから選ぶ
   def select_image_preview(image, size)
     if image.attached?
       image.variant(resize_to_limit: select_image_size(size))
@@ -43,7 +43,7 @@ module ApplicationHelper
     end
   end
 
-  # 引数のsizeはsmall、medium、largeから選ぶ
+  # 引数のsizeはavatar、small、medium、largeから選ぶ
   def select_image_size(size)
     case size
     when "avatar"
@@ -57,7 +57,7 @@ module ApplicationHelper
     end
   end
 
-  # 引数のsizeはsmall、medium、largeから選ぶ
+  # 引数のsizeはicon-small、icon-medium、icon-large、icon-x-largeから選ぶ
   def create_avatar_elements(avatar, size)
     tag.div class: "#{size} rounded-full overflow-hidden" do
       if avatar.attached?
