@@ -23,14 +23,12 @@ class ProfilesController < ApplicationController
 
   def show_likes
     @profile = Profile.find(params[:id])
-    @posts = @profile.user.like_posts.with_attached_image
-    render :show
+    @like_posts = @profile.user.like_posts.with_attached_image
   end
 
   def show_bookmarks
     @profile = Profile.find(params[:id])
-    @posts = @profile.user.bookmark_posts.with_attached_image
-    render :show
+    @bookmark_posts = @profile.user.bookmark_posts.with_attached_image
   end
 
   def followers
