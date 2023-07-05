@@ -1,15 +1,2 @@
 <% content_for(:title_info, @profile.name) %>
-<div class="bg-white">
-  <div class="mx-auto max-w-1920 px-6">
-    <%= render @profile %>
-    <hr>
-    <div class="p-4">
-      <%= turbo_frame_tag "profile_posts" do %>
-        <%= render "posts_tabs", profile_user_id: @profile.user_id %>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-          <%= render partial: "post", collection: @posts %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+<%= render "show", profile: @profile, posts: @posts %>
