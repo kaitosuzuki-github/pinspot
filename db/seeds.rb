@@ -20,14 +20,13 @@ end
 def create_user_profile_data
   user_num = 10
   user_num.times do |n|
-    test_user_num = n + 1
     user = User.create!(
       email: Faker::Internet.email,
       password: Faker::Internet.password(min_length: 6),
       confirmed_at: Time.now
     ) do |user|
       user.build_profile
-      user.profile.name = "テストユーザー#{ test_user_num }"
+      user.profile.name = Faker::Name.name + "(テストユーザー)"
       user.profile.introduction = Faker::Lorem.paragraph
     end
 
@@ -48,8 +47,8 @@ def create_post_data
     user_post_num.times do |n|
       post_num = (i + 1) + (n * 10)
       post = user.posts.new(
-            title: "テスト投稿#{ post_num }",
-            description: "注意:テスト投稿のため、間違った情報で表示されています。",
+            title: Faker::Lorem.word + "(テスト投稿)",
+            description: Faker::Lorem.paragraph + "\n注意:テスト投稿のため、間違った情報で表示されています。",
             location: Faker::Address.city,
             latitude: Faker::Address.latitude,
             longitude: Faker::Address.longitude
