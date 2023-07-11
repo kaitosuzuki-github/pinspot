@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:follow_user) { create(:user) }
-  let(:others_user) { create(:user) }
+  let(:other_user) { create(:user) }
   let(:post) { create(:post) }
 
   describe '#follow' do
@@ -73,7 +73,7 @@ RSpec.describe User, type: :model do
 
     context 'userのidと引数の値が違う場合' do
       it 'falseを返すこと' do
-        expect(user.same_user?(others_user.id)).to be false
+        expect(user.same_user?(other_user.id)).to be false
       end
     end
   end
