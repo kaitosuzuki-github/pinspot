@@ -47,4 +47,19 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#like?' do
+    context 'userに関連するlikeのデータの中で、post_idが引数の値であるデータがある場合' do
+      it 'trueを返すこと' do
+        user.likes.create(post_id: post.id)
+        expect(user.like?(post.id)).to be true
+      end
+    end
+
+    context 'userに関連するlikeのデータの中で、post_idが引数の値であるデータがない場合' do
+      it 'falseを返すこと' do
+        expect(user.like?(post.id)).to be false
+      end
+    end
+  end
 end
