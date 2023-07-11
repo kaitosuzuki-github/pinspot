@@ -16,4 +16,19 @@ RSpec.describe User, type: :model do
       expect { user.unfollow(follow_user.id) }.to change { user.relationships.count }.by(-1)
     end
   end
+
+  describe '#following?' do
+    context 'userに関連するrelationshipのデータの中で、属性のfollow_idが引数のデータがある場合' do
+      it 'trueを返すこと' do
+        user.follow(follow_user.id)
+        expect(user.following?(follow_user.id)).to be true
+      end
+    end
+
+    context 'userに関連するrelationshipのデータの中で、属性のfollow_idが引数のデータがない場合' do
+      it 'falseを返すこと' do
+        expect(user.following?(follow_user.id)).to be false
+      end
+    end
+  end
 end
