@@ -23,7 +23,7 @@ def create_user_profile_data
     test_user_num = n + 1
     user = User.create!(
       email: Faker::Internet.email,
-      password: Faker::Internet.password,
+      password: Faker::Internet.password(min_length: 6),
       confirmed_at: Time.now
     ) do |user|
       user.build_profile
