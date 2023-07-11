@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:follow_user) { create(:user) }
+  let(:others_user) { create(:user) }
   let(:post) { create(:post) }
 
   describe '#follow' do
@@ -59,6 +60,20 @@ RSpec.describe User, type: :model do
     context 'userに関連するlikeのデータの中で、post_idが引数の値であるデータがない場合' do
       it 'falseを返すこと' do
         expect(user.like?(post.id)).to be false
+      end
+    end
+  end
+
+  describe '#same_user?' do
+    context 'userのidと引数の値が同じ場合' do
+      it 'trueを返すこと' do
+        expect(user.same_user?(user.id)).to be true
+      end
+    end
+
+    context 'userのidと引数の値が違う場合' do
+      it 'falseを返すこと' do
+        expect(user.same_user?(others_user.id)).to be false
       end
     end
   end
