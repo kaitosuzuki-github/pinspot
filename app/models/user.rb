@@ -42,7 +42,7 @@ class User < ApplicationRecord
   end
 
   def same_user?(user_id)
-    id == User.find(user_id).id
+    id == user_id
   end
 
   def self.guest
