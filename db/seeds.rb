@@ -3,18 +3,18 @@ require "open-uri"
 def create_category_data
   Category.create!([
     { name: "ポートレート" },
-    {name: "風景"},
-    {name: "自然"},
-    {name: "動物"},
-    {name: "街"},
-    {name: "夜"},
-    {name: "建築"},
-    {name: "山"},
-    {name: "海"},
-    {name: "空"},
-    {name: "道"},
-    {name: "天体"},
-    {name: "スナップ"}])
+    { name: "風景" },
+    { name: "自然" },
+    { name: "動物" },
+    { name: "街" },
+    { name: "夜" },
+    { name: "建築" },
+    { name: "山" },
+    { name: "海" },
+    { name: "空" },
+    { name: "道" },
+    { name: "天体" },
+    { name: "スナップ" }])
 end
 
 def create_user_profile_data
