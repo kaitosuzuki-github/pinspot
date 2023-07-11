@@ -77,4 +77,23 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#self.guest' do
+    context 'userのデータの中に、emailがguest@example.comのデータがない場合' do
+      it 'userのデータが作成されること' do
+        expect { User.guest }.to change { User.count }.by(1)
+      end
+
+      it 'profileのデータが作成されること' do
+        expect { User.guest }.to change { Profile.count }.by(1)
+      end
+    end
+
+    context 'userのデータの中に、emailがguest@example.comのデータがある場合' do
+      it 'emailがguest@example.comのuserのデータを返すこと' do
+        User.guest
+        expect(User.guest).to eq User.find_by(email: 'guest@example.com')
+      end
+    end
+  end
 end
