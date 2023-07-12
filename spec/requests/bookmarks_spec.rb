@@ -100,15 +100,19 @@ RSpec.describe "Bookmarks", type: :request do
     context 'ユーザーがブックマークしていなかった場合' do
       before do
         sign_in user
-        user.bookmarks.create(post_id: bookmark_post.id)
-        delete post_bookmarks_path(bookmark_post.id)
       end
 
       it 'レスポンスコード302が返ってくること' do
+        delete post_bookmarks_path(bookmark_post.id)
         expect(response).to have_http_status(302)
       end
 
+      it 'userに関連するbookmarkが削除されないこと' do
+        expect { delete post_bookmarks_path(bookmark_post.id) }.to change { user.bookmarks.count }.by(0)
+      end
+
       it 'トップページへリダイレクトされること' do
+        delete post_bookmarks_path(bookmark_post.id)
         expect(response).to redirect_to root_path
       end
     end
