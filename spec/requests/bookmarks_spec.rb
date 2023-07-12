@@ -10,7 +10,7 @@ RSpec.describe "Bookmarks", type: :request do
         sign_in user
       end
 
-      it 'レスポンスコードの302が返ってくること' do
+      it 'レスポンスコード302が返ってくること' do
         post post_bookmarks_path(bookmark_post.id)
         expect(response).to have_http_status(302)
       end
@@ -26,8 +26,15 @@ RSpec.describe "Bookmarks", type: :request do
     end
 
     context 'サインインせずにブックマークした場合' do
-      it 'サインインページにリダイレクトすること' do
+      before do
         post post_bookmarks_path(bookmark_post.id)
+      end
+
+      it 'レスポンスコード302が返ってくること' do
+        expect(response).to have_http_status(302)
+      end
+
+      it 'サインインページにリダイレクトすること' do
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -36,6 +43,11 @@ RSpec.describe "Bookmarks", type: :request do
       before do
         sign_in user
         user.bookmarks.create(post_id: bookmark_post.id)
+        post post_bookmarks_path(bookmark_post.id)
+      end
+
+      it 'レスポンスコード302が返ってくること' do
+        expect(response).to have_http_status(302)
       end
 
       it 'userに関連するbookmarkが作成されないこと' do
@@ -43,7 +55,6 @@ RSpec.describe "Bookmarks", type: :request do
       end
 
       it 'トップページにリダイレクトすること' do
-        post post_bookmarks_path(bookmark_post.id)
         expect(response).to redirect_to root_path
       end
     end
