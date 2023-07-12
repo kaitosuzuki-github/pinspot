@@ -12,12 +12,12 @@ RSpec.describe "Bookmarks", type: :request do
         sign_in user
       end
 
-      it 'レスポンスコード302が返ってくること' do
+      it 'レスポンスコード302を返すこと' do
         subject
         expect(response).to have_http_status(302)
       end
 
-      it 'userに関連するbookmarkが作成されること' do
+      it 'userに関連するbookmarkを作成すること' do
         expect { subject }.to change { user.bookmarks.count }.by(1)
       end
 
@@ -27,12 +27,12 @@ RSpec.describe "Bookmarks", type: :request do
       end
     end
 
-    context 'サインインせずにブックマークした場合' do
+    context 'サインインせずに,ブックマークした場合' do
       before do
         subject
       end
 
-      it 'レスポンスコード302が返ってくること' do
+      it 'レスポンスコード302を返すこと' do
         expect(response).to have_http_status(302)
       end
 
@@ -47,12 +47,12 @@ RSpec.describe "Bookmarks", type: :request do
         user.bookmarks.create(post_id: bookmark_post.id)
       end
 
-      it 'レスポンスコード302が返ってくること' do
+      it 'レスポンスコード302を返すこと' do
         subject
         expect(response).to have_http_status(302)
       end
 
-      it 'userに関連するbookmarkが作成されないこと' do
+      it 'userに関連するbookmarkを作成しないこと' do
         expect { subject }.to change { user.bookmarks.count }.by(0)
       end
 
@@ -72,16 +72,16 @@ RSpec.describe "Bookmarks", type: :request do
         user.bookmarks.create(post_id: bookmark_post.id)
       end
 
-      it 'レスポンスコード302が返ってくること' do
+      it 'レスポンスコード302を返すこと' do
         subject
         expect(response).to have_http_status(302)
       end
 
-      it 'ユーザーに関連するブックマークが削除されること' do
+      it 'userに関連するbookmarkを削除すること' do
         expect { subject }.to change { user.bookmarks.count }.by(-1)
       end
 
-      it 'トップページにリダイレクトされること' do
+      it 'トップページにリダイレクトすること' do
         subject
         expect(response).to redirect_to root_path
       end
@@ -93,11 +93,11 @@ RSpec.describe "Bookmarks", type: :request do
         subject
       end
 
-      it 'レスポンスコード302が返ってくること' do
+      it 'レスポンスコード302を返すこと' do
         expect(response).to have_http_status(302)
       end
 
-      it 'サインインページへリダイレクトされること' do
+      it 'サインインページにリダイレクトすること' do
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -107,16 +107,16 @@ RSpec.describe "Bookmarks", type: :request do
         sign_in user
       end
 
-      it 'レスポンスコード302が返ってくること' do
+      it 'レスポンスコード302を返すこと' do
         subject
         expect(response).to have_http_status(302)
       end
 
-      it 'userに関連するbookmarkが削除されないこと' do
+      it 'userに関連するbookmarkを削除しないこと' do
         expect { subject }.to change { user.bookmarks.count }.by(0)
       end
 
-      it 'トップページへリダイレクトされること' do
+      it 'トップページにリダイレクトすること' do
         subject
         expect(response).to redirect_to root_path
       end
