@@ -71,7 +71,7 @@ RSpec.describe "Contacts", type: :request do
 
     context 'パラメータのハッシュにcontactがない場合' do
       let(:params) do
-        { :test => { :email => nil, :subject => nil, :message => nil } }
+        { :test => { :email => Faker::Internet.email, :subject => Faker::Lorem.sentence, :message => Faker::Lorem.paragraph } }
       end
 
       it 'パラメータのエラーが発生すること' do
