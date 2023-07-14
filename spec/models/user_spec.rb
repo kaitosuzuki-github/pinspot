@@ -76,6 +76,12 @@ RSpec.describe User, type: :model do
         expect(user.same_user?(other_user.id)).to be false
       end
     end
+
+    context '引数の値が文字列の場合' do
+      it 'trueを返すこと' do
+        expect(user.same_user?(user.id.to_s)).to be true
+      end
+    end
   end
 
   describe '#self.guest' do
