@@ -1,6 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :limit_user
+  before_action :limit_user, only: [:create]
 
   def create
     unless current_user.following?(params[:user_id])
