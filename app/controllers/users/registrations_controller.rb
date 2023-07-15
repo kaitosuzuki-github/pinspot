@@ -42,7 +42,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def show
     if current_user.blank?
-      flash[:alert] = 'ログインもしくはアカウント登録してください。'
+      flash[:alert] = 'ログインもしくはアカウント登録してください'
       redirect_to new_user_session_path
     end
   end
