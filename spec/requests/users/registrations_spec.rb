@@ -147,7 +147,6 @@ RSpec.describe "Users::Registrations", type: :request do
   describe 'GET /users/show' do
     context '正常な場合' do
       let(:current_user) { create(:user) }
-      let!(:current_profile) { create(:profile, user: current_user) }
 
       before do
         sign_in current_user
