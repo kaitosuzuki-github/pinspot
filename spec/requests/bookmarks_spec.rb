@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "Bookmarks", type: :request do
   describe 'POST /posts/:post_id/bookmarks' do
-    let(:user) { create(:user) }
+    let(:current_user) { create(:user) }
     let(:bookmark_post) { create(:post) }
 
     context '正常な場合' do
       before do
-        sign_in user
+        sign_in current_user
       end
 
       it 'レスポンスコード302を返すこと' do
@@ -16,7 +16,7 @@ RSpec.describe "Bookmarks", type: :request do
       end
 
       it 'userに関連するbookmarkを作成すること' do
-        expect { post post_bookmarks_path(bookmark_post.id) }.to change { user.bookmarks.count }.by(1)
+        expect { post post_bookmarks_path(bookmark_post.id) }.to change { current_user.bookmarks.count }.by(1)
       end
 
       it 'トップページにリダイレクトすること' do
@@ -39,8 +39,8 @@ RSpec.describe "Bookmarks", type: :request do
 
     context 'ユーザーがすでにブックマークしていた場合' do
       before do
-        sign_in user
-        user.bookmarks.create(post_id: bookmark_post.id)
+        sign_in current_user
+        current_user.bookmarks.create(post_id: bookmark_post.id)
       end
 
       it 'レスポンスコード302を返すこと' do
@@ -49,7 +49,7 @@ RSpec.describe "Bookmarks", type: :request do
       end
 
       it 'userに関連するbookmarkを作成しないこと' do
-        expect { post post_bookmarks_path(bookmark_post.id) }.to change { user.bookmarks.count }.by(0)
+        expect { post post_bookmarks_path(bookmark_post.id) }.to change { current_user.bookmarks.count }.by(0)
       end
 
       it 'トップページにリダイレクトすること' do
@@ -60,13 +60,13 @@ RSpec.describe "Bookmarks", type: :request do
   end
 
   describe 'DELETE /posts/:post_id/bookmarks' do
-    let(:user) { create(:user) }
+    let(:current_user) { create(:user) }
     let(:bookmark_post) { create(:post) }
 
     context '正常な場合' do
       before do
-        sign_in user
-        user.bookmarks.create(post_id: bookmark_post.id)
+        sign_in current_user
+        current_user.bookmarks.create(post_id: bookmark_post.id)
       end
 
       it 'レスポンスコード302を返すこと' do
@@ -75,7 +75,7 @@ RSpec.describe "Bookmarks", type: :request do
       end
 
       it 'userに関連するbookmarkを削除すること' do
-        expect { delete post_bookmarks_path(bookmark_post.id) }.to change { user.bookmarks.count }.by(-1)
+        expect { delete post_bookmarks_path(bookmark_post.id) }.to change { current_user.bookmarks.count }.by(-1)
       end
 
       it 'トップページにリダイレクトすること' do
@@ -86,7 +86,7 @@ RSpec.describe "Bookmarks", type: :request do
 
     context 'サインインせずに、ブックマークを削除した場合' do
       before do
-        user.bookmarks.create(post_id: bookmark_post.id)
+        current_user.bookmarks.create(post_id: bookmark_post.id)
       end
 
       it 'レスポンスコード302を返すこと' do
@@ -102,7 +102,7 @@ RSpec.describe "Bookmarks", type: :request do
 
     context 'ユーザーがブックマークしていなかった場合' do
       before do
-        sign_in user
+        sign_in current_user
       end
 
       it 'レスポンスコード302を返すこと' do
@@ -111,7 +111,7 @@ RSpec.describe "Bookmarks", type: :request do
       end
 
       it 'userに関連するbookmarkを削除しないこと' do
-        expect { delete post_bookmarks_path(bookmark_post.id) }.to change { user.bookmarks.count }.by(0)
+        expect { delete post_bookmarks_path(bookmark_post.id) }.to change { current_user.bookmarks.count }.by(0)
       end
 
       it 'トップページにリダイレクトすること' do
