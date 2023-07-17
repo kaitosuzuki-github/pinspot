@@ -7,10 +7,6 @@ RSpec.describe "Comments", type: :request do
   let(:comment) { create(:comment) }
 
   describe 'POST /posts/:post_id/comments' do
-    subject do
-      post post_comments_path(comment_post.id), :params => params
-    end
-
     context '正常な場合' do
       let(:params) do
         { :comment => { :content => Faker::Lorem.sentence } }
@@ -21,16 +17,16 @@ RSpec.describe "Comments", type: :request do
       end
 
       it 'レスポンスコード302を返すこと' do
-        subject
+        post post_comments_path(comment_post.id), :params => params
         expect(response).to have_http_status(302)
       end
 
       it 'commentを作成すること' do
-        expect { subject }.to change { Comment.count }.by(1)
+        expect {  post post_comments_path(comment_post.id), :params => params }.to change { Comment.count }.by(1)
       end
 
       it 'トップページへリダイレクトすること' do
-        subject
+        post post_comments_path(comment_post.id), :params => params
         expect(response).to redirect_to root_path
       end
     end
@@ -40,15 +36,13 @@ RSpec.describe "Comments", type: :request do
         { :comment => { :content => Faker::Lorem.sentence } }
       end
 
-      before do
-        subject
-      end
-
       it 'レスポンスコード302を返すこと' do
+        post post_comments_path(comment_post.id), :params => params
         expect(response).to have_http_status(302)
       end
 
       it 'サインインページへリダイレクトすること' do
+        post post_comments_path(comment_post.id), :params => params
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -63,47 +57,43 @@ RSpec.describe "Comments", type: :request do
       end
 
       it 'レスポンスコード302を返すこと' do
-        subject
+        post post_comments_path(comment_post.id), :params => params
         expect(response).to have_http_status(302)
       end
 
       it 'commentを作成すること' do
-        expect { subject }.to change { Comment.count }.by(1)
+        expect { post post_comments_path(comment_post.id), :params => params }.to change { Comment.count }.by(1)
       end
 
       it '作成されたcommentのuser_idが現在ログインしているユーザーのidであること' do
-        subject
+        post post_comments_path(comment_post.id), :params => params
         expect(Comment.last.user_id).to eq current_user.id
       end
 
       it 'トップページへリダイレクトすること' do
-        subject
+        post post_comments_path(comment_post.id), :params => params
         expect(response).to redirect_to root_path
       end
     end
   end
 
   describe 'DELETE /posts/:post_id/comments/:id' do
-    subject do
-      delete post_comment_path(comment.post.id, comment.id)
-    end
-
     context '正常な場合' do
       before do
         sign_in comment.user
       end
 
       it 'レスポンスコード302を返すこと' do
-        subject
+        delete post_comment_path(comment.post.id, comment.id)
         expect(response).to have_http_status(302)
       end
 
       it 'commentを削除すること' do
-        expect { subject }.to change { Comment.count }.by(-1)
+        expect { delete post_comment_path(comment.post.id, comment.id) }.to change { Comment.count }.by(-1)
       end
 
       it 'トップページへリダイレクトすること' do
-        subject
+        delete post_comment_path(comment.post.id, comment.id)
         expect(response).to redirect_to root_path
       end
     end
@@ -111,13 +101,15 @@ RSpec.describe "Comments", type: :request do
     context 'サインインせずに、コメントを削除した場合' do
       before do
         comment
-        subject
       end
+
       it 'レスポンスコード302を返すこと' do
+        delete post_comment_path(comment.post.id, comment.id)
         expect(response).to have_http_status(302)
       end
 
       it 'サインインページへリダイレクトすること' do
+        delete post_comment_path(comment.post.id, comment.id)
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -136,16 +128,16 @@ RSpec.describe "Comments", type: :request do
       end
 
       it 'レスポンスコード302を返すこと' do
-        subject
+        delete post_comment_path(comment.post.id, comment.id)
         expect(response).to have_http_status(302)
       end
 
       it 'commentを削除しないこと' do
-        expect { subject }.to change { Comment.count }.by(0)
+        expect { delete post_comment_path(comment.post.id, comment.id) }.to change { Comment.count }.by(0)
       end
 
       it 'トップページへリダイレクトすること' do
-        subject
+        delete post_comment_path(comment.post.id, comment.id)
         expect(response).to redirect_to root_path
       end
     end
