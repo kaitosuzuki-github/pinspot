@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_of_relationships, source: :user
   has_many :comments, dependent: :destroy
 
+  validates :profile, presence: true
+
   def follow(follow_user_id)
     relationships.create(follow_id: follow_user_id)
   end
