@@ -2,17 +2,18 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { create(:user) }
-  let(:follow_user) { create(:user) }
-  let(:other_user) { create(:user) }
-  let(:post) { create(:post) }
 
   describe '#follow' do
+    let(:follow_user) { create(:user) }
+
     it 'userに関連するrelationshipのデータを作成すること' do
       expect { user.follow(follow_user.id) }.to change { user.relationships.count }.by(1)
     end
   end
 
   describe '#unfollow' do
+    let(:follow_user) { create(:user) }
+
     it 'userに関連するrelationshipのデータを削除すること' do
       user.follow(follow_user.id)
       expect { user.unfollow(follow_user.id) }.to change { user.relationships.count }.by(-1)
@@ -20,6 +21,8 @@ RSpec.describe User, type: :model do
   end
 
   describe '#following?' do
+    let(:follow_user) { create(:user) }
+
     context 'userに関連するrelationshipのデータの中で、follow_idが引数の値であるデータがある場合' do
       it 'trueを返すこと' do
         user.follow(follow_user.id)
@@ -35,6 +38,8 @@ RSpec.describe User, type: :model do
   end
 
   describe '#bookmarking?' do
+    let(:post) { create(:post) }
+
     context 'userに関連するbookmarkのデータの中で、post_idが引数の値であるデータがある場合' do
       it 'trueを返すこと' do
         user.bookmarks.create(post_id: post.id)
@@ -50,6 +55,8 @@ RSpec.describe User, type: :model do
   end
 
   describe '#like?' do
+    let(:post) { create(:post) }
+
     context 'userに関連するlikeのデータの中で、post_idが引数の値であるデータがある場合' do
       it 'trueを返すこと' do
         user.likes.create(post_id: post.id)
@@ -72,6 +79,8 @@ RSpec.describe User, type: :model do
     end
 
     context 'userのidと引数の値が違う場合' do
+      let(:other_user) { create(:user) }
+
       it 'falseを返すこと' do
         expect(user.same_user?(other_user.id)).to be false
       end

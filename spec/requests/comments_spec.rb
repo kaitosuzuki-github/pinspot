@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Comments", type: :request do
-  let(:current_user) { create(:user) }
-  let(:other_user) { create(:user) }
-  let(:comment_post) { create(:post) }
-  let(:comment) { create(:comment) }
-
   describe 'POST /posts/:post_id/comments' do
+    let(:current_user) { create(:user) }
+    let(:comment_post) { create(:post) }
+
     context '正常な場合' do
       let(:params) do
         { :comment => { :content => Faker::Lorem.sentence } }
@@ -48,6 +46,8 @@ RSpec.describe "Comments", type: :request do
     end
 
     context 'パラメータのデータでcontentの他にuser_idがある場合' do
+      let(:other_user) { create(:user) }
+
       let(:params) do
         { :comment => { :content => Faker::Lorem.sentence, :user_id => other_user.id } }
       end
@@ -78,6 +78,8 @@ RSpec.describe "Comments", type: :request do
   end
 
   describe 'DELETE /posts/:post_id/comments/:id' do
+    let!(:comment) { create(:comment) }
+
     context '正常な場合' do
       before do
         sign_in comment.user
@@ -99,10 +101,6 @@ RSpec.describe "Comments", type: :request do
     end
 
     context 'サインインせずに、コメントを削除した場合' do
-      before do
-        comment
-      end
-
       it 'レスポンスコード302を返すこと' do
         delete post_comment_path(comment.post.id, comment.id)
         expect(response).to have_http_status(302)
@@ -115,16 +113,20 @@ RSpec.describe "Comments", type: :request do
     end
 
     context '存在しないコメントを削除した場合' do
-      it '例外処理が発生すること' do
+      before do
         sign_in comment.user
+      end
+
+      it '例外処理が発生すること' do
         expect { delete post_comment_path(comment.post.id, 0) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'コメントを削除したのが、現在ログインしているユーザーと異なる場合' do
+      let(:other_user) { create(:user) }
+
       before do
         sign_in other_user
-        comment
       end
 
       it 'レスポンスコード302を返すこと' do
