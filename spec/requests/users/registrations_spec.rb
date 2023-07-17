@@ -10,93 +10,58 @@ RSpec.describe "Users::Registrations", type: :request do
 
   describe 'POST /users' do
     context 'パラメータでprofileのnameが送られてきた場合' do
-      it 'レスポンスコード303を返すこと' do
-        post user_registration_path,
-        :params => {
+      let(:params) do
+        {
           :user => {
             :profile_attributes => { name: Faker::Internet.username },
-            :email => Faker::Internet.email, :password => 'testtest',
+            :email => Faker::Internet.email,
+            :password => 'testtest',
             :password_confirmation => 'testtest',
           },
         }
+      end
+
+      it 'レスポンスコード303を返すこと' do
+        post user_registration_path, :params => params
         expect(response).to have_http_status(303)
       end
 
       it 'profileを作成すること' do
-        expect do
-          post user_registration_path,
-          :params => {
-            :user => {
-              :profile_attributes => { name: Faker::Internet.username },
-              :email => Faker::Internet.email, :password => 'testtest',
-              :password_confirmation => 'testtest',
-            },
-          }
-        end .to change { Profile.count }.by(1)
+        expect { post user_registration_path, :params => params }.to change { Profile.count }.by(1)
       end
 
       it 'userを作成すること' do
-        expect do
-          post user_registration_path,
-          :params => {
-            :user => {
-              :profile_attributes => { name: Faker::Internet.username },
-              :email => Faker::Internet.email, :password => 'testtest',
-              :password_confirmation => 'testtest',
-            },
-          }
-        end .to change { User.count }.by(1)
+        expect { post user_registration_path, :params => params }.to change { User.count }.by(1)
       end
     end
 
     context 'パラメータでprofileのnameが送られてこない場合' do
-      it 'レスポンスコード422を返すこと' do
-        post user_registration_path,
-        :params => {
+      let(:params) do
+        {
           :user => {
             :profile_attributes => { name: nil },
-            :email => Faker::Internet.email, :password => 'testtest',
+            :email => Faker::Internet.email,
+            :password => 'testtest',
             :password_confirmation => 'testtest',
           },
         }
+      end
+
+      it 'レスポンスコード422を返すこと' do
+        post user_registration_path, :params => params
         expect(response).to have_http_status(422)
       end
 
       it 'profileを作成しないこと' do
-        expect do
-          post user_registration_path,
-          :params => {
-            :user => {
-              :profile_attributes => { name: nil },
-              :email => Faker::Internet.email, :password => 'testtest',
-              :password_confirmation => 'testtest',
-            },
-          }
-        end.to change { Profile.count }.by(0)
+        expect { post user_registration_path, :params => params }.to change { Profile.count }.by(0)
       end
 
       it 'userを作成しないこと' do
-        expect do
-          post user_registration_path,
-          :params => {
-            :user => {
-              :profile_attributes => { name: nil },
-              :email => Faker::Internet.email, :password => 'testtest',
-              :password_confirmation => 'testtest',
-            },
-          }
-        end .to change { User.count }.by(0)
+        expect { post user_registration_path, :params => params }.to change { User.count }.by(0)
       end
 
       it 'エラーを表示すること' do
-        post user_registration_path,
-        :params => {
-          :user => {
-            :profile_attributes => { name: nil },
-            :email => Faker::Internet.email, :password => 'testtest',
-            :password_confirmation => 'testtest',
-          },
-        }
+        post user_registration_path, :params => params
         expect(response.body).to include 'エラー'
       end
     end
