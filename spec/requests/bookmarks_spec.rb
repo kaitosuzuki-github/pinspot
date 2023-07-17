@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Bookmarks", type: :request do
-  let(:user) { create(:user) }
-  let(:bookmark_post) { create(:post) }
-
   describe 'POST /posts/:post_id/bookmarks' do
+    let(:user) { create(:user) }
+    let(:bookmark_post) { create(:post) }
+
     context '正常な場合' do
       before do
         sign_in user
@@ -60,6 +60,9 @@ RSpec.describe "Bookmarks", type: :request do
   end
 
   describe 'DELETE /posts/:post_id/bookmarks' do
+    let(:user) { create(:user) }
+    let(:bookmark_post) { create(:post) }
+
     context '正常な場合' do
       before do
         sign_in user
