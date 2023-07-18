@@ -83,26 +83,26 @@ RSpec.describe "Posts", type: :request do
 
       it 'レスポンスコード302を返すこと' do
         post posts_path,
-        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('valid_image.jpg')) }
         expect(response).to have_http_status(302)
       end
 
       it 'ログインしているユーザーに関連する投稿を作成すること' do
         expect do
           post posts_path,
-          :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+          :params => { :post => attributes_for(:post, image: fixture_file_upload('valid_image.jpg')) }
         end .to change { current_user.posts.count } .by(1)
       end
 
       it '「投稿しました」を表示すること' do
         post posts_path,
-        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('valid_image.jpg')) }
         expect(flash[:notice]).to include '投稿しました'
       end
 
       it '作成した投稿ページへリダイレクトすること' do
         post posts_path,
-        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('valid_image.jpg')) }
         expect(response).to redirect_to current_user.posts.last
       end
     end
@@ -110,13 +110,13 @@ RSpec.describe "Posts", type: :request do
     context 'サインインしていない場合' do
       it 'レスポンスコード302を返すこと' do
         post posts_path,
-        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('valid_image.jpg')) }
         expect(response).to have_http_status(302)
       end
 
       it 'サインインページへリダイレクトすること' do
         post posts_path,
-        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('valid_image.jpg')) }
         expect(response).to redirect_to new_user_session_path
       end
     end
