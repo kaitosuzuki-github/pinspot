@@ -133,8 +133,8 @@ RSpec.describe "Posts", type: :request do
         expect(response).to have_http_status(422)
       end
 
-      it '投稿を作成しないこと' do
-        expect { post posts_path, :params => { :post => attributes_for(:post) } }.to change { Post.count }.by(0)
+      it 'ログインしているユーザーに関連する投稿を作成しないこと' do
+        expect { post posts_path, :params => { :post => attributes_for(:post) } }.to change { current_user.posts.count }.by(0)
       end
 
       it '「エラー」を表示すること' do
@@ -158,7 +158,7 @@ RSpec.describe "Posts", type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it '投稿名を表示すること' do
+      it 'ログインしているユーザーの投稿名を表示すること' do
         get edit_post_path(post.id)
         expect(response.body).to include post.title
       end
@@ -191,6 +191,101 @@ RSpec.describe "Posts", type: :request do
       it 'トップページへリダイレクトすること' do
         get edit_post_path(post.id)
         expect(response).to redirect_to root_path
+      end
+    end
+  end
+
+  describe 'PUT /posts/:id' do
+    let(:current_user) { create(:user) }
+    let!(:before_update_post) { create(:post, user: current_user) }
+
+    context '正常な場合' do
+      before do
+        sign_in current_user
+      end
+
+      it 'レスポンスコード302を返すこと' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post, title: 'test', image: fixture_file_upload('file_type_png.png')) }
+        expect(response).to have_http_status(302)
+      end
+
+      it 'ログインしているユーザーに関連する投稿名を編集すること' do
+        expect do
+          put post_path(before_update_post.id),
+          :params => { :post => attributes_for(:post, title: 'test') }
+        end .to change { current_user.posts.last.title }.from(before_update_post.title).to('test')
+      end
+
+      it '「変更しました」を表示すること' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post) }
+        expect(flash[:notice]).to include '変更しました'
+      end
+
+      it '編集した投稿ページへリダイレクトすること' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post) }
+        expect(response).to redirect_to before_update_post
+      end
+    end
+
+    context 'サインインしていない場合' do
+      it 'レスポンスコード302を返すこと' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post) }
+        expect(response).to have_http_status(302)
+      end
+
+      it 'サインインページへリダイレクトすること' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post) }
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ログインしているユーザーと投稿のユーザーが同じではない場合' do
+      let(:other_user) { create(:user) }
+
+      before do
+        sign_in other_user
+      end
+
+      it 'レスポンスコード302を返すこと' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post) }
+        expect(response).to have_http_status(302)
+      end
+
+      it 'トップページへリダイレクトすること' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post) }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'パラメータが不正な場合' do
+      before do
+        sign_in current_user
+      end
+
+      it 'レスポンスコード422を返すこと' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post, title: nil) }
+        expect(response).to have_http_status(422)
+      end
+
+      it 'ログインしているユーザーに関連する投稿名を編集しないこと' do
+        expect do
+          put post_path(before_update_post.id),
+          :params => { :post => attributes_for(:post, title: nil) }
+        end .to_not change { current_user.posts.last.title }
+      end
+
+      it '「エラー」を表示すること' do
+        put post_path(before_update_post.id),
+        :params => { :post => attributes_for(:post, title: nil) }
+        expect(response.body).to include 'エラー'
       end
     end
   end
