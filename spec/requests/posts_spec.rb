@@ -72,4 +72,75 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
+
+  describe 'POST /posts' do
+    context '正常な場合' do
+      let(:current_user) { create(:user) }
+
+      before do
+        sign_in current_user
+      end
+
+      it 'レスポンスコード302を返すこと' do
+        post posts_path,
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        expect(response).to have_http_status(302)
+      end
+
+      it 'ログインしているユーザーに関連する投稿を作成すること' do
+        expect do
+          post posts_path,
+          :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        end .to change { current_user.posts.count } .by(1)
+      end
+
+      it '「投稿しました」を表示すること' do
+        post posts_path,
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        expect(flash[:notice]).to include '投稿しました'
+      end
+
+      it '作成した投稿ページへリダイレクトすること' do
+        post posts_path,
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        expect(response).to redirect_to current_user.posts.last
+      end
+    end
+
+    context 'サインインしていない場合' do
+      it 'レスポンスコード302を返すこと' do
+        post posts_path,
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        expect(response).to have_http_status(302)
+      end
+
+      it 'サインインページへリダイレクトすること' do
+        post posts_path,
+        :params => { :post => attributes_for(:post, image: fixture_file_upload('spec/fixtures/valid_image.jpg')) }
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'パラメータが不正な場合' do
+      let(:current_user) { create(:user) }
+
+      before do
+        sign_in current_user
+      end
+
+      it 'レスポンスコード422を返すこと' do
+        post posts_path, :params => { :post => attributes_for(:post) }
+        expect(response).to have_http_status(422)
+      end
+
+      it '投稿を作成しないこと' do
+        expect { post posts_path, :params => { :post => attributes_for(:post) } }.to change { Post.count }.by(0)
+      end
+
+      it '「エラー」を表示すること' do
+        post posts_path, :params => { :post => attributes_for(:post) }
+        expect(response.body).to include 'エラー'
+      end
+    end
+  end
 end
