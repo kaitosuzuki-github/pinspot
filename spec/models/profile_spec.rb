@@ -40,37 +40,35 @@ RSpec.describe Profile, type: :model do
 
     context 'coverの画像の形式がpngの場合' do
       it '許可すること' do
-        profile.cover.attach(io: File.open(Rails.root.join('spec/fixtures/file_type_png.png')), filename: 'cover.png')
+        profile.cover = fixture_file_upload('file_type_png.png')
         expect(profile).to be_valid
       end
     end
 
     context 'coverの画像の形式がjpegまたはpngではない場合' do
       it '許可しないこと' do
-        profile.cover.attach(io: File.open(Rails.root.join('spec/fixtures/file_type_pdf.pdf')), filename: 'cover.pdf')
+        profile.cover = fixture_file_upload('file_type_pdf.pdf')
         expect(profile).to be_invalid
       end
     end
 
     context 'coverの画像のサイズが15MB以上の場合' do
       it '許可しないこと' do
-        profile.cover.attach(io: File.open(Rails.root.join('spec/fixtures/size_bigger_than_15mb.png')), filename: 'cover.png')
+        profile.cover = fixture_file_upload('size_bigger_than_15mb.png')
         expect(profile).to be_invalid
       end
     end
 
     context 'coverの画像の横幅の画素数が400pxより小さい場合' do
       it '許可しないこと' do
-        profile.cover.attach(io: File.open(Rails.root.join('spec/fixtures/width_smaller_than_400px.jpg')),
-                             filename: 'cover.jpg')
+        profile.cover = fixture_file_upload('width_smaller_than_400px.jpg')
         expect(profile).to be_invalid
       end
     end
 
     context 'coverの画像の高さの画素数が400pxより小さい場合' do
       it '許可しないこと' do
-        profile.cover.attach(io: File.open(Rails.root.join('spec/fixtures/height_smaller_than_400px.jpg')),
-                             filename: 'cover.jpg')
+        profile.cover = fixture_file_upload('height_smaller_than_400px.jpg')
         expect(profile).to be_invalid
       end
     end
@@ -83,21 +81,21 @@ RSpec.describe Profile, type: :model do
 
     context 'avatarの画像の形式がpngの場合' do
       it '許可すること' do
-        profile.avatar.attach(io: File.open(Rails.root.join('spec/fixtures/file_type_png.png')), filename: 'avatar.png')
+        profile.avatar = fixture_file_upload('file_type_png.png')
         expect(profile).to be_valid
       end
     end
 
     context 'avatarの画像の形式がjpegまたはpngではない場合' do
       it '許可しないこと' do
-        profile.avatar.attach(io: File.open(Rails.root.join('spec/fixtures/file_type_pdf.pdf')), filename: 'avatar.pdf')
+        profile.avatar = fixture_file_upload('file_type_pdf.pdf')
         expect(profile).to be_invalid
       end
     end
 
     context 'avatarの画像のサイズが15MB以上の場合' do
       it '許可しないこと' do
-        profile.avatar.attach(io: File.open(Rails.root.join('spec/fixtures/size_bigger_than_15mb.png')), filename: 'avatar.png')
+        profile.avatar = fixture_file_upload('size_bigger_than_15mb.png')
         expect(profile).to be_invalid
       end
     end

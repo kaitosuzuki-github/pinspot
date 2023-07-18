@@ -46,58 +46,50 @@ RSpec.describe Post, type: :model do
       end
     end
 
-    context 'imageに画像がアタッチされている場合' do
-      it '許可すること' do
-        expect(post).to be_valid
-      end
-    end
-
-    context 'imageに画像がアタッチされていない場合' do
-      let(:post_no_image) { build(:post_no_image) }
-      it '許可しないこと' do
-        expect(post_no_image).to be_invalid
-      end
-    end
-
     context '有効な画像の場合(imageの画像の形式がjpeg、サイズが15MBより小さい、横幅の画素数が400px以上、高さの画素数が400px以上)' do
       it '許可すること' do
         expect(post).to be_valid
       end
     end
 
+    context 'imageに画像がアタッチされていない場合' do
+      it '許可しないこと' do
+        post.image = nil
+        expect(post).to be_invalid
+      end
+    end
+
     context 'imageの画像の形式がpngの場合' do
       it '許可すること' do
-        post.image.attach(io: File.open(Rails.root.join('spec/fixtures/file_type_png.png')), filename: 'image.png')
+        post.image = fixture_file_upload('file_type_png.png')
         expect(post).to be_valid
       end
     end
 
     context 'imageの画像の形式がjpegまたはpngではない場合' do
       it '許可しないこと' do
-        post.image.attach(io: File.open(Rails.root.join('spec/fixtures/file_type_pdf.pdf')), filename: 'image.pdf')
+        post.image = fixture_file_upload('file_type_pdf.pdf')
         expect(post).to be_invalid
       end
     end
 
     context 'imageの画像のサイズが15MB以上の場合' do
       it '許可しないこと' do
-        post.image.attach(io: File.open(Rails.root.join('spec/fixtures/size_bigger_than_15mb.png')), filename: 'image.png')
+        post.image = fixture_file_upload('size_bigger_than_15mb.png')
         expect(post).to be_invalid
       end
     end
 
     context 'imageの画像の横幅の画素数が400pxより小さい場合' do
       it '許可しないこと' do
-        post.image.attach(io: File.open(Rails.root.join('spec/fixtures/width_smaller_than_400px.jpg')),
-                          filename: 'image.jpg')
+        post.image = fixture_file_upload('width_smaller_than_400px.jpg')
         expect(post).to be_invalid
       end
     end
 
     context 'imageの画像の高さの画素数が400pxより小さい場合' do
       it '許可しないこと' do
-        post.image.attach(io: File.open(Rails.root.join('spec/fixtures/height_smaller_than_400px.jpg')),
-                          filename: 'image.jpg')
+        post.image = fixture_file_upload('height_smaller_than_400px.jpg')
         expect(post).to be_invalid
       end
     end
