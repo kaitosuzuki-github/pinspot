@@ -353,4 +353,76 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
+
+  describe 'GET /posts/search' do
+    let!(:posts) { create_list(:post, 2) }
+    let!(:categories) { create_list(:category, 2) }
+
+    context 'パラメータでqが送られていない場合' do
+      it '正常なレスポンスを返すこと' do
+        get search_posts_path
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'すべての投稿名を表示すること' do
+        get search_posts_path
+        expect(response.body).to include posts[0].title
+        expect(response.body).to include posts[1].title
+      end
+
+      it 'すべてのカテゴリー名を表示すること' do
+        get search_posts_path
+        expect(response.body).to include categories[0].name
+        expect(response.body).to include categories[1].name
+      end
+    end
+
+    context 'パラメータのqでtitle名が送られている場合' do
+      it '正常なレスポンスを返すこと' do
+        get search_posts_path, :params => { :q => { :title_or_location_cont => posts[0].title } }
+        expect(response).to have_http_status(:success)
+      end
+
+      it '検索結果の投稿名を表示すること' do
+        get search_posts_path, :params => { :q => { :title_or_location_cont => posts[0].title } }
+        expect(response.body).to include posts[0].title
+      end
+
+      it '検索結果以外の投稿名を表示しないこと' do
+        get search_posts_path, :params => { :q => { :title_or_location_cont => posts[0].title } }
+        expect(response.body).to_not include posts[1].title
+      end
+
+      it 'すべてのカテゴリー名を表示すること' do
+        get search_posts_path, :params => { :q => { :title_or_location_cont => posts[0].title } }
+        expect(response.body).to include categories[0].name
+        expect(response.body).to include categories[1].name
+      end
+    end
+
+    context 'パラメータのqでcategoryが送られている場合' do
+      let!(:post_category_relations) { create(:post_category_relation, post: posts[0], category: categories[0]) }
+
+      it '正常なレスポンスを返すこと' do
+        get search_posts_path, :params => { :q => { :categories_id_in => ["", categories[0].id] } }
+        expect(response).to have_http_status(:success)
+      end
+
+      it '検索結果の投稿名を表示すること' do
+        get search_posts_path, :params => { :q => { :categories_id_in => ["", categories[0].id] } }
+        expect(response.body).to include posts[0].title
+      end
+
+      it '検索結果以外の投稿名を表示しないこと' do
+        get search_posts_path, :params => { :q => { :categories_id_in => ["", categories[0].id] } }
+        expect(response.body).to_not include posts[1].title
+      end
+
+      it 'すべてのカテゴリー名を表示すること' do
+        get search_posts_path, :params => { :q => { :categories_id_in => ["", categories[0].id] } }
+        expect(response.body).to include categories[0].name
+        expect(response.body).to include categories[1].name
+      end
+    end
+  end
 end
