@@ -292,4 +292,41 @@ RSpec.describe "Profiles", type: :request do
       end
     end
   end
+
+  describe 'GET /profiles/:id/following' do
+    let(:user) { create(:user) }
+    let(:follow_user) { create(:user) }
+
+    before do
+      user.follow(follow_user.id)
+    end
+
+    context '正常な場合' do
+      before do
+        sign_in user
+      end
+
+      it '正常なレスポンスを返すこと' do
+        get following_profile_path(user.profile.id)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'フォローしているユーザーのプロフィール名を表示すること' do
+        get following_profile_path(user.profile.id)
+        expect(response.body).to include follow_user.profile.name
+      end
+    end
+
+    context 'サインインしていない場合' do
+      it 'レスポンスコード302を返すこと' do
+        get following_profile_path(user.profile.id)
+        expect(response).to have_http_status(302)
+      end
+
+      it 'サインインページへリダイレクトすること' do
+        get following_profile_path(user.profile.id)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end
