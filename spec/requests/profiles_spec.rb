@@ -153,4 +153,46 @@ RSpec.describe "Profiles", type: :request do
       end
     end
   end
+
+  describe 'GET /profiles/:id/show_likes' do
+    let(:user) { create(:user) }
+    let(:post) { create(:post) }
+
+    before do
+      user.likes.create(post_id: post.id)
+    end
+
+    context '正常な場合' do
+      before do
+        sign_in user
+      end
+
+      it '正常なレスポンスを返すこと' do
+        get show_likes_profile_path(user.profile.id)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'プロフィール名を表示すること' do
+        get show_likes_profile_path(user.profile.id)
+        expect(response.body).to include user.profile.name
+      end
+
+      it 'プロフィールに関連したいいねをした投稿名を表示すること' do
+        get show_likes_profile_path(user.profile.id)
+        expect(response.body).to include post.title
+      end
+    end
+
+    context 'サインインしていない場合' do
+      it 'レスポンスコード302を返すこと' do
+        get show_likes_profile_path(user.profile.id)
+        expect(response).to have_http_status(302)
+      end
+
+      it 'サインインページへリダイレクトすること' do
+        get show_likes_profile_path(user.profile.id)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end
