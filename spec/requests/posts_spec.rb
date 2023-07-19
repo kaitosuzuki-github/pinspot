@@ -289,4 +289,68 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
+
+  describe 'DELETE /posts/:id' do
+    let(:current_user) { create(:user) }
+    let!(:delete_post) { create(:post, user: current_user) }
+
+    context '正常な場合' do
+      before do
+        sign_in current_user
+      end
+
+      it 'レスポンスコード302を返すこと' do
+        delete post_path(delete_post.id)
+        expect(response).to have_http_status(302)
+      end
+
+      it 'ログインしているユーザーに関連する投稿を削除すること' do
+        expect { delete post_path(delete_post.id) }.to change { current_user.posts.count }.by(-1)
+      end
+
+      it '「投稿を削除しました」を表示すること' do
+        delete post_path(delete_post.id)
+        expect(flash[:notice]).to include '投稿を削除しました'
+      end
+
+      it 'トップページへリダイレクトすること' do
+        delete post_path(delete_post.id)
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'サインインしていない場合' do
+      it 'レスポンスコード302を返すこと' do
+        delete post_path(delete_post.id)
+        expect(response).to have_http_status(302)
+      end
+
+      it 'サインインページへリダイレクトすること' do
+        delete post_path(delete_post.id)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ログインしているユーザーと投稿のユーザーが同じではない場合' do
+      let(:other_user) { create(:user) }
+
+      before do
+        sign_in other_user
+      end
+
+      it 'レスポンスコード302を返すこと' do
+        delete post_path(delete_post.id)
+        expect(response).to have_http_status(302)
+      end
+
+      it 'ログインしているユーザーに関連する投稿を削除しないこと' do
+        expect { delete post_path(delete_post.id) }.to change { current_user.posts.count }.by(0)
+      end
+
+      it 'トップページへリダイレクトすること' do
+        delete post_path(delete_post.id)
+        expect(response).to redirect_to root_path
+      end
+    end
+  end
 end
