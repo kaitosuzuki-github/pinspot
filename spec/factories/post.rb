@@ -7,7 +7,8 @@ FactoryBot.define do
     longitude { Faker::Address.longitude }
     user
     after(:build) do |post|
-      post.image.attach(io: File.open(Rails.root.join('spec/fixtures/files/valid_image.jpg')), filename: 'image.jpg')
+      post.image.attach(io: File.open(Rails.root.join('spec/fixtures/files/valid_image.jpg')),
+                        filename: "#{Faker::Internet.slug}.jpg")
     end
   end
 end
