@@ -16,7 +16,14 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - chrome
     stdin_open: true
     tty: true
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
+    logging:
+      driver: none
 volumes:
   postgres_volume:
