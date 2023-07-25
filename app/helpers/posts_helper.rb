@@ -13,11 +13,11 @@ module PostsHelper
 
   def create_bookmark_button(post_id)
     if user_signed_in? && current_user.bookmarking?(post_id)
-      button_to post_bookmarks_path(post_id), method: :delete do
+      button_to post_bookmarks_path(post_id), method: :delete, id: "bookmark_button" do
         render "shared/icons/bookmark", class_list: "icon-medium fill-current stroke-current"
       end
     else
-      button_to post_bookmarks_path(post_id), method: :post do
+      button_to post_bookmarks_path(post_id), method: :post, id: "bookmark_button" do
         render "shared/icons/bookmark", class_list: "icon-medium fill-none stroke-current"
       end
     end
