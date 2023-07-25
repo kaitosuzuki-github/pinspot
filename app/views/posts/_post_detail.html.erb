@@ -1,10 +1,12 @@
 <div id="post_detail" class="bg-white grow lg:basis-2/3">
   <div class="p-4 space-y-3 divide-y divide-solid border-gray-100 md:p-6">
     <div class="flex justify-between">
-      <div class="flex gap-2">
-        <%= create_like_button(post.id) %>
-        <%= create_bookmark_button(post.id) %>
-      </div>
+      <%= turbo_frame_tag "like_bookmark_button" do %>
+        <div class="flex gap-2">
+          <%= create_like_button(post.id) %>
+          <%= create_bookmark_button(post.id) %>
+        </div>
+      <% end %>
       <% if user_signed_in? && current_user.same_user?(post.user_id) %>
         <%= render "post_dropdown" %>
       <% end %>
