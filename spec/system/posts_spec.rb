@@ -138,5 +138,52 @@ RSpec.describe "Posts", type: :system do
         end
       end
     end
+
+    describe 'likes' do
+      let(:user) { create(:user) }
+      let(:post) { create(:post) }
+
+      context 'ログインせずに、投稿ページに訪れた場合' do
+        before do
+          visit post_path(post)
+        end
+
+        it 'いいねボタンを押すと、ログインページへ遷移すること' do
+          find('#post_detail #like_button').click
+          expect(current_path).to eq new_user_session_path
+        end
+      end
+
+      context 'ログインして投稿ページに訪れ、投稿にいいねを押す場合' do
+        before do
+          sign_in user
+          visit post_path(post)
+        end
+
+        it 'いいねがまだ押されていない、いいねボタンを押すと、いいねが押された、いいねボタンに変化すること' do
+          expect(page).to have_selector '#post_detail #like_button .fill-none'
+          expect(page).to_not have_selector '#post_detail #like_button .fill-current'
+          find('#post_detail #like_button').click
+          expect(page).to_not have_selector '#post_detail #like_button .fill-none'
+          expect(page).to have_selector '#post_detail #like_button .fill-current'
+        end
+      end
+
+      context 'ログインして投稿ページに訪れ、投稿からいいねを削除する場合' do
+        before do
+          sign_in user
+          user.likes.create(post_id: post.id)
+          visit post_path(post)
+        end
+
+        it 'いいねが押された、いいねボタンを押すと、いいねがまだ押されていない、いいねボタンに変化すること' do
+          expect(page).to_not have_selector '#post_detail #like_button .fill-none'
+          expect(page).to have_selector '#post_detail #like_button .fill-current'
+          find('#post_detail #like_button').click
+          expect(page).to have_selector '#post_detail #like_button .fill-none'
+          expect(page).to_not have_selector '#post_detail #like_button .fill-current'
+        end
+      end
+    end
   end
 end
