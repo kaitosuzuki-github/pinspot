@@ -59,7 +59,7 @@ module ApplicationHelper
 
   # 引数のsizeはicon-small、icon-medium、icon-large、icon-x-largeから選ぶ
   def create_avatar_elements(avatar, size)
-    tag.div class: "#{size} rounded-full overflow-hidden" do
+    tag.div id: "avatar", class: "#{size} rounded-full overflow-hidden" do
       if avatar.attached?
         image_tag avatar.variant(resize_to_limit: select_image_size("avatar")), class: "w-full h-full object-cover"
       else

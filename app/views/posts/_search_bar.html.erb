@@ -3,6 +3,7 @@
   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
     <%= render "shared/icons/search", class_list: "icon-small fill-gray-500" %>
   </div>
+  <%= f.label :title_or_location_cont, class: "sr-only" %>
   <%= f.search_field :title_or_location_cont, class: "search-bar", placeholder: "投稿を検索" %>
   <%= f.submit class: "absolute right-2.5 bottom-2.5 submit-button" %>
 </div>
