@@ -17,7 +17,9 @@
         <h2><%= post.user.profile.name %></h2>
       <% end %>
       <% if !user_signed_in? || !current_user.same_user?(post.user_id) %>
-        <%= create_follow_button(post.user_id) %>
+        <%= turbo_frame_tag "follow_button" do %>
+          <%= create_follow_button(post.user_id) %>
+        <% end %>
       <% end %>
     </div>
     <div class="pt-3 space-y-3">
