@@ -1,5 +1,5 @@
-<div class="relative bg-gray-800 p-4 grid gap-6 grid-cols-1 lg:grid-cols-2 md:p-6">
-  <%= link_to 'javascript:history.back()', class: "absolute z-10 top-2 left-2 md:top-6 md:left-6" do %>
+<div id="post_main" class="relative bg-gray-800 p-4 grid gap-6 grid-cols-1 lg:grid-cols-2 md:p-6">
+  <%= link_to 'javascript:history.back()', id: "back_button", class: "absolute z-10 top-2 left-2 md:top-6 md:left-6" do %>
     <%= render "shared/icons/back_button", class_list: "icon-medium fill-white hover:fill-gray-200" %>
   <% end %>
   <div class="flex justify-center items-center mt-14 lg:ml-14 lg:mt-0">

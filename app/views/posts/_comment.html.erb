@@ -1,7 +1,7 @@
-<div class="relative mx-2 py-2">
+<div id="comment" class="relative mx-2 py-2">
   <div class="space-y-1">
     <div class="flex justify-between">
-      <%= link_to comment.user.profile, class: "flex items-center gap-2 w-fit" do %>
+      <%= link_to comment.user.profile, id:"profile_link", class: "flex items-center gap-2 w-fit" do %>
         <%= create_avatar_elements comment.user.profile.avatar, "icon-medium" %>
         <h4><%= comment.user.profile.name %></h4>
       <% end %>
@@ -10,6 +10,6 @@
       <% end %>
     </div>
     <p><%= safe_join(comment.content.split("\n"), tag(:br)) %></p>
-    <p class="text-gray-500"><%= l comment.updated_at, format: :long %></p>
+    <p class="text-gray-500"><%= l comment.created_at, format: :long %></p>
   </div>
 </div>

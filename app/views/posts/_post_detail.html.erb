@@ -1,21 +1,25 @@
-<div class="bg-white grow lg:basis-2/3">
+<div id="post_detail" class="bg-white grow lg:basis-2/3">
   <div class="p-4 space-y-3 divide-y divide-solid border-gray-100 md:p-6">
     <div class="flex justify-between">
-      <div class="flex gap-2">
-        <%= create_like_button(post.id) %>
-        <%= create_bookmark_button(post.id) %>
-      </div>
+      <%= turbo_frame_tag "like_bookmark_button" do %>
+        <div class="flex gap-2">
+          <%= create_like_button(post.id) %>
+          <%= create_bookmark_button(post.id) %>
+        </div>
+      <% end %>
       <% if user_signed_in? && current_user.same_user?(post.user_id) %>
         <%= render "post_dropdown" %>
       <% end %>
     </div>
     <div class="pt-3 flex gap-6 items-center">
-      <%= link_to post.user.profile, class: "flex items-center gap-2" do %>
+      <%= link_to post.user.profile, id:"profile_link", class: "flex items-center gap-2" do %>
         <%= create_avatar_elements post.user.profile.avatar, "icon-large" %>
         <h2><%= post.user.profile.name %></h2>
       <% end %>
       <% if !user_signed_in? || !current_user.same_user?(post.user_id) %>
-        <%= create_follow_button(post.user_id) %>
+        <%= turbo_frame_tag "follow_button" do %>
+          <%= create_follow_button(post.user_id) %>
+        <% end %>
       <% end %>
     </div>
     <div class="pt-3 space-y-3">
