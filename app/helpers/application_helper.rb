@@ -36,7 +36,7 @@ module ApplicationHelper
 
   # 引数のsizeはavatar、small、medium、largeから選ぶ
   def select_image_preview(image, size)
-    if image.attached?
+    if image.attached? && image.representable?
       image.variant(resize_to_limit: select_image_size(size))
     else
       ""
