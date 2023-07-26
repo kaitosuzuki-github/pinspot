@@ -232,5 +232,81 @@ RSpec.describe "Posts", type: :system do
         end
       end
     end
+
+    describe 'relationships' do
+      let(:user) { create(:user) }
+      let(:post) { create(:post) }
+
+      context 'ログインしていない場合' do
+        before do
+          visit post_path(post)
+        end
+
+        it '「フォロー中」を表示しないこと' do
+          within '#post_detail' do
+            expect(page).to_not have_content 'フォロー中'
+          end
+        end
+
+        it '「フォローする」を押すと、ログインページへ遷移すること' do
+          within '#post_detail' do
+            click_on 'フォローする'
+          end
+          expect(current_path).to eq new_user_session_path
+        end
+      end
+
+      context 'ログインユーザーと投稿ユーザーが同じ場合' do
+        before do
+          sign_in post.user
+          visit post_path(post)
+        end
+
+        it '「フォローする」を表示しないこと' do
+          within '#post_detail' do
+            expect(page).to_not have_content 'フォローする'
+          end
+        end
+
+        it '「フォロー中」を表示しないこと' do
+          within '#post_detail' do
+            expect(page).to_not have_content 'フォロー中'
+          end
+        end
+      end
+
+      context 'ログインユーザーと投稿ユーザーが異なり、ログインユーザーが投稿ユーザーをフォローしていない場合' do
+        before do
+          sign_in user
+          visit post_path(post)
+        end
+
+        it '「フォローする」を押すと、「フォロー中」に変化すること' do
+          within '#post_detail' do
+            expect(page).to_not have_content 'フォロー中'
+            click_on 'フォローする'
+            expect(page).to have_content 'フォロー中'
+            expect(page).to_not have_content 'フォローする'
+          end
+        end
+      end
+
+      context 'ログインユーザーと投稿ユーザーが異なり、ログインユーザーが投稿ユーザーをすでにフォローしている場合' do
+        before do
+          sign_in user
+          user.follow(post.user.id)
+          visit post_path(post)
+        end
+
+        it '「フォロー中」を押すと、「フォローする」に変化すること' do
+          within '#post_detail' do
+            expect(page).to_not have_content 'フォローする'
+            click_on 'フォロー中'
+            expect(page).to have_content 'フォローする'
+            expect(page).to_not have_content 'フォロー中'
+          end
+        end
+      end
+    end
   end
 end
