@@ -6,7 +6,7 @@ RSpec.describe "Posts", type: :system do
       let(:post) { create(:post) }
       let(:categories) { create_list(:category, 2) }
 
-      context '投稿ページに訪れた場合' do
+      context '一般的な場合' do
         before do
           visit root_path
           visit post_path(post)
@@ -143,7 +143,7 @@ RSpec.describe "Posts", type: :system do
       let(:user) { create(:user) }
       let(:post) { create(:post) }
 
-      context 'ログインせずに、投稿ページに訪れた場合' do
+      context 'ログインしていない場合' do
         before do
           visit post_path(post)
         end
@@ -154,13 +154,13 @@ RSpec.describe "Posts", type: :system do
         end
       end
 
-      context 'ログインして投稿ページに訪れ、投稿にいいねを押す場合' do
+      context 'ログインしていて、投稿にいいねしていない場合' do
         before do
           sign_in user
           visit post_path(post)
         end
 
-        it 'いいねされていないいいねボタンを押すと、いいねされたいいねボタンに変化すること' do
+        it 'いいねボタンを押すと、いいねされたいいねボタンに変化すること' do
           expect(page).to have_selector '#post_detail #like_button .fill-none'
           expect(page).to_not have_selector '#post_detail #like_button .fill-current'
           find('#post_detail #like_button').click
@@ -169,14 +169,14 @@ RSpec.describe "Posts", type: :system do
         end
       end
 
-      context 'ログインして投稿ページに訪れ、投稿からいいねを削除する場合' do
+      context 'ログインしていて、投稿にいいねしている場合' do
         before do
           sign_in user
           user.likes.create(post_id: post.id)
           visit post_path(post)
         end
 
-        it 'いいねされたいいねボタンを押すと、いいねされていないいいねボタンに変化すること' do
+        it 'いいねボタンを押すと、いいねされていないいいねボタンに変化すること' do
           expect(page).to_not have_selector '#post_detail #like_button .fill-none'
           expect(page).to have_selector '#post_detail #like_button .fill-current'
           find('#post_detail #like_button').click
@@ -190,7 +190,7 @@ RSpec.describe "Posts", type: :system do
       let(:user) { create(:user) }
       let(:post) { create(:post) }
 
-      context 'ログインせずに、投稿ページに訪れた場合' do
+      context 'ログインしていない場合' do
         before do
           visit post_path(post)
         end
@@ -201,13 +201,13 @@ RSpec.describe "Posts", type: :system do
         end
       end
 
-      context 'ログインして投稿ページに訪れ、投稿にブックマークを押す場合' do
+      context 'ログインしていて、投稿にブックマークしていない場合' do
         before do
           sign_in user
           visit post_path(post)
         end
 
-        it 'ブックマークされていないブックマークボタンを押すと、ブックマークがされたブックマークボタンに変化すること' do
+        it 'ブックマークボタンを押すと、ブックマークがされたブックマークボタンに変化すること' do
           expect(page).to have_selector '#post_detail #bookmark_button .fill-none'
           expect(page).to_not have_selector '#post_detail #bookmark_button .fill-current'
           find('#post_detail #bookmark_button').click
@@ -216,14 +216,14 @@ RSpec.describe "Posts", type: :system do
         end
       end
 
-      context 'ログインして投稿ページに訪れ、投稿からブックマークを削除する場合' do
+      context 'ログインしていて、投稿にブックマークしている場合' do
         before do
           sign_in user
           user.bookmarks.create(post_id: post.id)
           visit post_path(post)
         end
 
-        it 'ブックマークされたブックマークボタンを押すと、ブックマークされていないブックマークボタンに変化すること' do
+        it 'ブックマークボタンを押すと、ブックマークされていないブックマークボタンに変化すること' do
           expect(page).to_not have_selector '#post_detail #bookmark_button .fill-none'
           expect(page).to have_selector '#post_detail #bookmark_button .fill-current'
           find('#post_detail #bookmark_button').click
