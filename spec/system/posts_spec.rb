@@ -308,5 +308,152 @@ RSpec.describe "Posts", type: :system do
         end
       end
     end
+
+    describe 'comments' do
+      let(:user) { create(:user) }
+
+      context 'ログインしていない場合' do
+        let(:comment) { create(:comment) }
+
+        before do
+          visit post_path(comment.post)
+        end
+
+        it 'コメント機能を表示しないこと' do
+          expect(page).to_not have_selector '#comments'
+        end
+      end
+
+      context 'ログインしていて、コメントがない場合' do
+        let(:post) { create(:post) }
+
+        before do
+          sign_in user
+          visit post_path(post)
+        end
+
+        it '「コメント (0)」を表示すること' do
+          expect(page).to have_selector '#comments h3', text: 'コメント (0)'
+        end
+
+        it 'コメントがないとき、コメントを表示しないこと' do
+          expect(page).to_not have_selector '#comment'
+        end
+      end
+
+      context 'ログインしていて、コメントがある場合' do
+        let(:post) { create(:post) }
+        let!(:comments) { create_list(:comment, 2, post: post) }
+
+        before do
+          sign_in user
+          visit post_path(post)
+        end
+
+        it '「コメント (コメント数)」を表示すること' do
+          expect(page).to have_selector '#comments h3', text: "コメント (#{comments.size})"
+        end
+
+        it 'コメントを表示すること' do
+          within first('#comment') do
+            expect(page).to have_content comments[0].content
+          end
+        end
+
+        it 'コメントの作成日時を表示すること' do
+          within first('#comment') do
+            expect(page).to have_content I18n.l comments[0].created_at, format: :long
+          end
+        end
+
+        it 'コメントユーザーのアバターを表示すること' do
+          within first('#comment') do
+            expect(page).to have_selector '#avatar'
+          end
+        end
+
+        it 'コメントユーザーの名前を表示すること' do
+          within first('#comment') do
+            expect(page).to have_content comments[0].user.profile.name
+          end
+        end
+
+        it 'コメントユーザーを押すと、コメントユーザーのプロフィールページへ遷移すること' do
+          first('#comment #profile_link').click
+          expect(current_path).to eq profile_path(comments[0].user.profile)
+        end
+      end
+
+      context 'ログインユーザーとコメントユーザーが同じ場合' do
+        let(:comment) { create(:comment) }
+
+        before do
+          sign_in comment.user
+          visit post_path(comment.post)
+        end
+
+        it 'コメントのドロップダウントグルを表示すること' do
+          expect(page).to have_selector '#comment #dropdownWrap'
+        end
+
+        it 'コメントのドロップダウンメニューを非表示にすること', js: true do
+          expect(find('#comment #dropdownMenu', visible: false)).to_not be_visible
+        end
+
+        it 'ドロップダウンメニューの「削除」を押すと、コメントを削除すること' do
+          within '#comment' do
+            click_on '削除'
+          end
+          expect(page).to_not have_selector '#comment'
+        end
+      end
+
+      context 'ログインユーザーとコメントユーザーが異なる場合' do
+        let(:comment) { create(:comment) }
+
+        before do
+          sign_in user
+          visit post_path(comment.post)
+        end
+
+        it 'コメントのドロップダウンメニューを表示しないこと' do
+          expect(page).to_not have_selector '#comment #dropdownWrap'
+        end
+      end
+
+      context 'コメントフォームの送信が成功した場合' do
+        let(:post) { create(:post) }
+
+        before do
+          sign_in user
+          visit post_path(post)
+        end
+
+        it '送信したコメントを表示すること' do
+          expect(page).to_not have_selector '#comment'
+          within '#comments' do
+            fill_in 'Content', with: Faker::Lorem.paragraph
+            click_button 'コメントする'
+          end
+          expect(page).to have_selector '#comment'
+        end
+      end
+
+      context 'コメントフォームの送信が失敗した場合' do
+        let(:post) { create(:post) }
+
+        before do
+          sign_in user
+          visit post_path(post)
+          within '#comments' do
+            click_button 'コメントする'
+          end
+        end
+
+        it 'コメントが作成されないこと' do
+          expect(page).to_not have_selector '#comment'
+        end
+      end
+    end
   end
 end
