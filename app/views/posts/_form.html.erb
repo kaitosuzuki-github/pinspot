@@ -10,12 +10,14 @@
   <div class="space-y-2">
     <%= f.label :location %>
     <div class="flex gap-4">
-      <%= f.text_field :location, id: "address", class: "text-field" %>
+      <%= f.text_field :location, class: "text-field" %>
       <button type="button" id="mapSearch" class="map-button">地図で検索</button>
     </div>
     <div id="map" class="h-72 md:h-[600px]"></div>
-    <%= f.hidden_field :latitude, id: "lat" %>
-    <%= f.hidden_field :longitude, id: "lng" %>
+    <%= f.label :latitude, class: "sr-only" %>
+    <%= f.hidden_field :latitude %>
+    <%= f.label :longitude, class: "sr-only" %>
+    <%= f.hidden_field :longitude %>
   </div>
   <div class="space-y-2">
     <%= f.label :title %>

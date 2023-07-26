@@ -64,9 +64,9 @@ function initMap(mapDisplay) {
 
 function codeAddress() {
   let geocoder = new google.maps.Geocoder();
-  let lat = document.getElementById("lat");
-  let lng = document.getElementById("lng");
-  const inputAddress = document.getElementById("address").value;
+  let lat = document.getElementById("post_latitude");
+  let lng = document.getElementById("post_longitude");
+  const inputAddress = document.getElementById("post_location").value;
   geocoder.geocode({ address: inputAddress }, function (results, status) {
     if (status == "OK") {
       const location = results[0].geometry.location;
