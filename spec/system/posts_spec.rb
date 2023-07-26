@@ -528,7 +528,7 @@ RSpec.describe "Posts", type: :system do
         end
       end
 
-      it '緯度、経度のエラーを表示こと' do
+      it '緯度、経度のエラーを表示すること' do
         within '#posts_new #errors' do
           expect(page).to_not have_content '緯度'
           expect(page).to_not have_content '経度'
