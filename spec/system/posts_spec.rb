@@ -542,4 +542,96 @@ RSpec.describe "Posts", type: :system do
       end
     end
   end
+
+  describe 'edit' do
+    let(:post) { create(:post) }
+
+    before do
+      sign_in post.user
+      visit edit_post_path(post)
+    end
+
+    context '投稿編集ページに訪れた場合' do
+      it 'title要素に「投稿編集」を表示すること' do
+        expect(page).to have_title 'Pinspot - 投稿編集'
+      end
+
+      it '「投稿編集」を表示すること' do
+        expect(page).to have_selector '#posts_edit h2', text: '投稿編集'
+      end
+
+      it 'キャンセルボタンを押したとき、前のページに戻ること', js: true do
+        visit post_path(post)
+        visit edit_post_path(post)
+        within '#posts_edit' do
+          click_on 'キャンセル'
+        end
+        expect(current_path).to eq post_path(post)
+      end
+    end
+
+    context 'フォームの送信が成功した場合' do
+      before do
+        within '#posts_edit' do
+          attach_file '写真', "#{Rails.root}/spec/fixtures/files/valid_image.jpg"
+          fill_in '撮影スポット', with: Faker::Address.city
+          find('#post_latitude', visible: false).set(Faker::Address.latitude)
+          find('#post_longitude', visible: false).set(Faker::Address.longitude)
+          fill_in 'タイトル', with: Faker::Lorem.word
+          fill_in '説明', with: Faker::Lorem.sentence
+          click_button '投稿'
+        end
+      end
+
+      it '投稿ページに遷移すること' do
+        expect(current_path).to eq post_path(post)
+      end
+
+      it '「変更しました」を表示すること' do
+        expect(page).to have_content '変更しました'
+      end
+    end
+
+    context 'フォームの送信が失敗した場合' do
+      before do
+        within '#posts_edit' do
+          attach_file '写真', "#{Rails.root}/spec/fixtures/files/file_type_pdf.pdf"
+          fill_in '撮影スポット', with: ''
+          find('#post_latitude', visible: false).set('')
+          find('#post_longitude', visible: false).set('')
+          fill_in 'タイトル', with: ''
+          fill_in '説明', with: ''
+          click_button '投稿'
+        end
+      end
+
+      it '「エラー」を表示すること' do
+        within '#posts_edit #errors' do
+          expect(page).to have_content 'エラー'
+        end
+      end
+
+      it 'エラーがあった部分を表示すること' do
+        within '#posts_edit #errors' do
+          expect(page).to have_content '写真'
+          expect(page).to have_content '撮影スポット'
+          expect(page).to have_content 'タイトル'
+          expect(page).to have_content '説明'
+        end
+      end
+
+      it '緯度、経度のエラーを表示しないこと' do
+        within '#posts_edit #errors' do
+          expect(page).to_not have_content '緯度'
+          expect(page).to_not have_content '経度'
+        end
+      end
+
+      it 'フォーム内の要素にfield_with_errorsクラスが付いていること' do
+        within '#posts_edit' do
+          expect(page).to have_css '.field_with_errors'
+        end
+      end
+    end
+  end
 end
