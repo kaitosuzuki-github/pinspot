@@ -40,7 +40,7 @@ RSpec.describe "Posts", type: :system do
         end
 
         it '投稿ユーザーのアバターを表示すること' do
-          expect(page).to have_selector "#post_detail #avatar"
+          expect(page).to have_selector "#post_detail #profile_avatar"
         end
 
         it '投稿ユーザーの名前を表示すること' do
@@ -368,7 +368,7 @@ RSpec.describe "Posts", type: :system do
 
         it 'コメントユーザーのアバターを表示すること' do
           within first('#comment') do
-            expect(page).to have_selector '#avatar'
+            expect(page).to have_selector '#profile_avatar'
           end
         end
 

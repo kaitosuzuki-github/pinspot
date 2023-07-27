@@ -27,10 +27,9 @@ module ApplicationHelper
   def create_follow_button(user_id)
     if user_signed_in? && current_user.following?(user_id)
       button_to "フォロー中", user_relationships_path(user_id),
-      method: :delete, data: { turbo_confirm: 'フォローをやめますか?' },
-      class: "follow-button"
+      method: :delete, data: { turbo_confirm: 'フォローをやめますか?' }, id: "follow_button", class: "follow-button"
     else
-      button_to "フォローする", user_relationships_path(user_id), class: "follow-button"
+      button_to "フォローする", user_relationships_path(user_id), id: "follow_button", class: "follow-button"
     end
   end
 
@@ -59,7 +58,7 @@ module ApplicationHelper
 
   # 引数のsizeはicon-small、icon-medium、icon-large、icon-x-largeから選ぶ
   def create_avatar_elements(avatar, size)
-    tag.div id: "avatar", class: "#{size} rounded-full overflow-hidden" do
+    tag.div id: "profile_avatar", class: "#{size} rounded-full overflow-hidden" do
       if avatar.attached?
         image_tag avatar.variant(resize_to_limit: select_image_size("avatar")), class: "w-full h-full object-cover"
       else
