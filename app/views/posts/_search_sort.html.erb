@@ -4,7 +4,6 @@
     <%= render "shared/icons/expand", class_list: "icon-small fill-current" %>
   <% end %>
   <div id="dropdownMenu" class="dropdown-menu fade-out absolute z-10 top-full mt-4 p-4 w-fit flex flex-col gap-2">
-    <%= f.label :sorts, class: "sr-only" %>
     <%= button_tag class: "search-detail-button" do %>
       <%= f.radio_button :sorts, "created_at desc", checked: true, class: "pointer-events-none radio-button" %>
       <%= f.label :sorts, "新しい投稿", value: "created_at desc", class: "search-detail-label" %>

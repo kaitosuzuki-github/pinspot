@@ -634,4 +634,80 @@ RSpec.describe "Posts", type: :system do
       end
     end
   end
+
+  describe 'search' do
+    let!(:posts) { create_list(:post, 2) }
+    let(:category) { create(:category) }
+
+    before do
+      posts[0].post_category_relations.create(category_id: category.id)
+      visit search_posts_path
+    end
+
+    it 'title要素に「検索」を表示すること' do
+      expect(page).to have_title 'Pinspot - 検索'
+    end
+
+    it '「検索」を表示すること' do
+      expect(page).to have_selector '#posts_search h2', text: '検索'
+    end
+
+    it '検索していないとき、すべての投稿が新しい順に表示されること' do
+      within '#posts_search' do
+        expect(page).to have_content posts[0].title
+        expect(page).to have_selector "img[src$='#{posts[0].image.filename}']"
+        expect(page).to have_content posts[1].title
+        expect(page).to have_selector "img[src$='#{posts[1].image.filename}']"
+        expect(page.text).to match %r{#{posts[1].title}[\s\S]*#{posts[0].title}}
+      end
+    end
+
+    it 'キーワード検索したとき、検索結果の投稿のみが表示されること' do
+      within '#search_form' do
+        fill_in 'q_title_or_location_cont', with: posts[0].title
+        click_on '検索'
+      end
+      within '#posts_search' do
+        expect(page).to have_content posts[0].title
+        expect(page).to have_selector "img[src$='#{posts[0].image.filename}']"
+        expect(page).to_not have_content posts[1].title
+        expect(page).to_not have_selector "img[src$='#{posts[1].image.filename}']"
+      end
+    end
+
+    it 'カテゴリー検索したとき、検索結果の投稿のみが表示されること' do
+      within '#search_form' do
+        check category.name
+        click_on category.name
+      end
+      within '#posts_search' do
+        expect(page).to have_content posts[0].title
+        expect(page).to have_selector "img[src$='#{posts[0].image.filename}']"
+        expect(page).to_not have_content posts[1].title
+        expect(page).to_not have_selector "img[src$='#{posts[1].image.filename}']"
+      end
+    end
+
+    it 'ソートで「新しい投稿」にチェックをすると、新しい投稿順に並び替えられること' do
+      within '#search_form' do
+        choose '古い投稿'
+        click_on '古い投稿'
+        choose '新しい投稿'
+        click_on '新しい投稿'
+      end
+      within '#posts_search' do
+        expect(page.text).to match %r{#{posts[1].title}[\s\S]*#{posts[0].title}}
+      end
+    end
+
+    it 'ソートで「古い投稿」にチェックをすると、古い投稿順に並び替えられること' do
+      within '#search_form' do
+        choose '古い投稿'
+        click_on '古い投稿'
+      end
+      within '#posts_search' do
+        expect(page.text).to match %r{#{posts[0].title}[\s\S]*#{posts[1].title}}
+      end
+    end
+  end
 end
