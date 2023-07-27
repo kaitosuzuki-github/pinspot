@@ -1,5 +1,5 @@
-<div>
-  <div class="bg-gray-100 aspect-[4/1] overflow-hidden">
+<div id="profile">
+  <div id="profile_cover" class="bg-gray-100 aspect-[4/1] overflow-hidden">
     <% if profile.cover.attached? %>
       <%= image_tag profile.cover.variant(resize_to_limit: select_image_size("large")), class: "w-full h-full object-cover" %>
     <% end %>
@@ -10,11 +10,11 @@
         <%= create_avatar_elements profile.avatar, "icon-x-large" %>
         <h2><%= profile.name %></h2>
       </div>
-      <%= link_to 'javascript:history.back()', class: "absolute top-3 left-0 z-10 hidden md:block" do %>
+      <%= link_to 'javascript:history.back()', id: "back_button", class: "absolute top-3 left-0 z-10 hidden md:block" do %>
         <%= render "shared/icons/back_button", class_list: "icon-medium fill-current" %>
       <% end %>
       <% if user_signed_in? && current_user.same_user?(profile.user_id) %>
-        <%= link_to edit_profile_path, class: "absolute top-3 right-0 z-10" do %>
+        <%= link_to edit_profile_path,  id: "config_button", class: "absolute top-3 right-0 z-10" do %>
           <%= render "shared/icons/config", class_list: "icon-medium fill-current" %>
         <% end %>
       <% end %>
@@ -25,14 +25,14 @@
       <% end %>
     </div>
     <div class="flex justify-center gap-4">
-      <div>
+      <p>
         <span class="font-medium"><%= profile.user.followers.count %></span>
         <%= link_to "フォロワー", followers_profile_path, class: "normal-link ml-2" %>
-      </div>
-      <div>
+      </p>
+      <p>
         <span class="font-medium"><%= profile.user.followings.count %></span>
         <%= link_to "フォロー中", following_profile_path, class: "normal-link ml-2" %>
-      </div>
+      </p>
     </div>
     <div class="flex justify-center">
       <p class="tracking-wide leading-relaxed"><%= safe_join(profile.introduction.split("\n"), tag(:br)) %></p>
