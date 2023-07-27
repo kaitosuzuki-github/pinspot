@@ -27,7 +27,7 @@ RSpec.describe "Profiles", type: :system do
         end
 
         it 'プロフィールのアバターが表示されていること' do
-          expect(page).to have_selector "#profile #profile_avatar"
+          expect(page).to have_selector "#profile #avatar_display"
         end
 
         it 'プロフィールの名前が表示されていること' do
@@ -223,6 +223,84 @@ RSpec.describe "Profiles", type: :system do
             expect(page).to_not have_content 'フォロー中'
           end
         end
+      end
+    end
+  end
+
+  describe 'edit' do
+    let(:user) { create(:user) }
+
+    before do
+      sign_in user
+      visit profile_path(user.profile)
+      visit edit_profile_path(user.profile)
+    end
+
+    context 'プロフィール編集ページを訪れた場合' do
+      it 'title要素に「プロフィール編集」を表示すること' do
+        expect(page).to have_title 'Pinspot - プロフィール編集'
+      end
+
+      it '「プロフィール編集」を表示すること' do
+        expect(page).to have_selector '#profiles_edit h2', text: 'プロフィール編集'
+      end
+
+      it 'キャンセルボタンを押したとき、前のページに戻ること', js: true do
+        within '#profiles_edit' do
+          click_on 'キャンセル'
+        end
+        expect(current_path).to eq profile_path(user.profile)
+      end
+    end
+
+    context 'フォームの送信に成功した場合' do
+      before do
+        within '#profiles_edit' do
+          attach_file 'profile_cover', "#{Rails.root}/spec/fixtures/files/valid_image.jpg"
+          attach_file 'profile_avatar', "#{Rails.root}/spec/fixtures/files/valid_image.jpg"
+          fill_in '名前', with: Faker::Internet.username
+          fill_in '紹介', with: Faker::Lorem.paragraph
+          click_on '変更'
+        end
+      end
+
+      it 'プロフィールページに遷移すること' do
+        expect(current_path).to eq profile_path(user.profile)
+      end
+
+      it '「変更しました」を表示すること' do
+        expect(page).to have_content '変更しました'
+      end
+    end
+
+    context 'フォーム送信に失敗した場合' do
+      before do
+        within '#profiles_edit' do
+          attach_file 'profile_cover', "#{Rails.root}/spec/fixtures/files/file_type_pdf.pdf"
+          attach_file 'profile_avatar', "#{Rails.root}/spec/fixtures/files/file_type_pdf.pdf"
+          fill_in '名前', with: ''
+          fill_in '紹介', with: 'a' * 1001
+          click_on '変更'
+        end
+      end
+
+      it '「エラー」を表示すること' do
+        within '#errors' do
+          expect(page).to have_content 'エラー'
+        end
+      end
+
+      it 'エラーがあった部分を表示すること' do
+        within '#errors' do
+          expect(page).to have_content 'カバー画像'
+          expect(page).to have_content 'アバター画像'
+          expect(page).to have_content '名前'
+          expect(page).to have_content '紹介'
+        end
+      end
+
+      it 'フォーム内の要素にfield_with_errorsクラスが付いていること' do
+        expect(page).to have_css '.field_with_errors'
       end
     end
   end

@@ -14,7 +14,7 @@
   <div class="text-center">
     <%= f.label :avatar, class: "inline-block cursor-pointer" do %>
       <div class="w-16 h-16 rounded-full overflow-hidden">
-        <%= image_tag select_image_preview(profile.avatar, "avatar"), class: { "h-full w-full object-cover": profile.cover.attached? }, id: "profile_avatar_preview" %>
+        <%= image_tag select_image_preview(profile.avatar, "avatar"), id: "profile_avatar_preview", class: { "h-full w-full object-cover": profile.cover.attached? } %>
         <%= render "shared/icons/user", class_list: "icon-x-large fill-current" %>
       </div>
     <% end %>
