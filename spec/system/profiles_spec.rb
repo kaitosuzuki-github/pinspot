@@ -407,22 +407,22 @@ RSpec.describe "Profiles", type: :system do
     end
 
     it '戻るボタンを押すと、前のページにもどること', js: true do
-      find('#followers #back_button').click
+      find('#profiles_followers #back_button').click
       expect(current_path).to eq root_path
     end
 
     it '「フォロワー」を表示すること' do
-      within '#followers' do
+      within '#profiles_followers' do
         expect(page).to have_selector 'h2', text: 'フォロワー'
       end
     end
 
     it 'フォロワーのアバターを表示すること' do
-      expect(page).to have_selector "#followers #avatar_display"
+      expect(page).to have_selector "#profiles_followers #avatar_display"
     end
 
     it 'フォロワーの名前を表示すること' do
-      within '#followers' do
+      within '#profiles_followers' do
         expect(page).to have_content follow_user.profile.name
       end
     end
@@ -481,22 +481,22 @@ RSpec.describe "Profiles", type: :system do
       end
 
       it '戻るボタンを押すと、前のページにもどること', js: true do
-        find('#following #back_button').click
+        find('#profiles_following #back_button').click
         expect(current_path).to eq root_path
       end
 
       it '「フォロー中」を表示すること' do
-        within '#following' do
+        within '#profiles_following' do
           expect(page).to have_selector 'h2', text: 'フォロー中'
         end
       end
 
       it 'フォロー中のアバターを表示すること' do
-        expect(page).to have_selector "#following #avatar_display"
+        expect(page).to have_selector "#profiles_following #avatar_display"
       end
 
       it 'フォロー中の名前を表示すること' do
-        within '#following' do
+        within '#profiles_following' do
           expect(page).to have_content follow_user.profile.name
         end
       end
@@ -546,7 +546,7 @@ RSpec.describe "Profiles", type: :system do
       end
 
       it '「フォロー中」ボタンを押すと、フォロー中のユーザーが表示されなくなること' do
-        within '#following' do
+        within '#profiles_following' do
           expect(page).to have_selector "#avatar_display"
           expect(page).to have_content follow_user.profile.name
         end
@@ -558,7 +558,7 @@ RSpec.describe "Profiles", type: :system do
 
         find('#follow_button').click
 
-        within '#following' do
+        within '#profiles_following' do
           expect(page).to_not have_selector "#avatar_display"
           expect(page).to_not have_content follow_user.profile.name
           expect(page).to_not have_content 'フォローする'
