@@ -304,4 +304,58 @@ RSpec.describe "Profiles", type: :system do
       end
     end
   end
+
+  describe 'show_likes' do
+    let(:user) { create(:user) }
+
+    context 'ログインしている場合' do
+      let(:post) { create(:post) }
+
+      before do
+        user.likes.create(post_id: post.id)
+        sign_in user
+        visit show_likes_profile_path(user.profile)
+      end
+
+      it '「投稿」タブを押すと、プロフィールの投稿ページへ遷移すること' do
+        find('#posts_tab').click
+        expect(current_path).to eq profile_path(user.profile)
+      end
+
+      it '「いいねした投稿」タブを押すと、ページ遷移しないこと' do
+        find('#like_posts_tab').click
+        expect(current_path).to eq show_likes_profile_path(user.profile)
+      end
+
+      it 'プロフィールのいいねした投稿を表示すること' do
+        expect(page).to have_content post.title
+        expect(page).to have_selector "img[src$='#{post.image.filename}']"
+      end
+    end
+
+    context 'ログインユーザーとプロフィールのユーザーが同じ場合' do
+      before do
+        sign_in user
+        visit profile_path(user.profile)
+      end
+
+      it '「保存した投稿」タブを押すと、保存した投稿ページへ遷移すること' do
+        find('#bookmark_posts_tab').click
+        expect(current_path).to eq show_bookmarks_profile_path(user.profile)
+      end
+    end
+
+    context 'ログインユーザーとプロフィールのユーザーが異なる場合' do
+      let(:other_user) { create(:user) }
+
+      before do
+        sign_in other_user
+        visit profile_path(user.profile)
+      end
+
+      it '「保存した投稿」タブを表示しないこと' do
+        expect(page).to_not have_selector '#bookmark_posts_tab'
+      end
+    end
+  end
 end
