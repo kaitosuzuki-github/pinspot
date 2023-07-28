@@ -23,7 +23,7 @@ RSpec.describe "Profiles", type: :system do
         end
 
         it 'プロフィールのカバーが表示されていること' do
-          expect(page).to have_selector "#profile #profile_cover"
+          expect(page).to have_selector "#profile #cover_display"
         end
 
         it 'プロフィールのアバターが表示されていること' do
@@ -388,6 +388,78 @@ RSpec.describe "Profiles", type: :system do
     it 'プロフィールのブックマークした投稿を表示すること' do
       expect(page).to have_content post.title
       expect(page).to have_selector "img[src$='#{post.image.filename}']"
+    end
+  end
+
+  describe 'followers' do
+    let(:user) { create(:user) }
+    let(:follow_user) { create(:user) }
+
+    before do
+      follow_user.follow(user.id)
+      sign_in user
+      visit root_path
+      visit followers_profile_path(user.profile)
+    end
+
+    it 'title要素に「フォロワー」を表示すること' do
+      expect(page).to have_title 'Pinspot - フォロワー'
+    end
+
+    it '戻るボタンを押すと、前のページにもどること', js: true do
+      find('#followers #back_button').click
+      expect(current_path).to eq root_path
+    end
+
+    it '「フォロワー」を表示すること' do
+      within '#followers' do
+        expect(page).to have_selector 'h2', text: 'フォロワー'
+      end
+    end
+
+    it 'フォロワーのアバターを表示すること' do
+      expect(page).to have_selector "#followers #avatar_display"
+    end
+
+    it 'フォロワーの名前を表示すること' do
+      within '#followers' do
+        expect(page).to have_content follow_user.profile.name
+      end
+    end
+
+    it 'フォロワーの名前、アバターを押すと、フォロワーのプロフィールページへ遷移すること' do
+      find('#follow_user #profile_link').click
+      expect(current_path).to eq profile_path(follow_user.profile)
+    end
+
+    it '「フォローする」ボタンを押すと、「フォロー中」に変化すること' do
+      within '#follow_button' do
+        expect(page).to_not have_content 'フォロー中'
+        expect(page).to have_content 'フォローする'
+      end
+
+      find('#follow_button').click
+
+      within '#follow_button' do
+        expect(page).to have_content 'フォロー中'
+        expect(page).to_not have_content 'フォローする'
+      end
+    end
+
+    it '「フォロー中」ボタンを押すと、「フォローする」に変化すること' do
+      find('#follow_button').click
+
+      within '#follow_button' do
+        expect(page).to_not have_content 'フォローする'
+        expect(page).to have_content 'フォロー中'
+      end
+
+      find('#follow_button').click
+
+      within '#follow_button' do
+        expect(page).to have_content 'フォローする'
+        expect(page).to_not have_content 'フォロー中'
+      end
     end
   end
 end
