@@ -21,7 +21,9 @@
     </div>
     <div class="flex justify-center">
       <% if !user_signed_in? || !current_user.same_user?(profile.user_id) %>
-        <%= create_follow_button(profile.user_id) %>
+        <%= turbo_frame_tag "follow_turbo" do %>
+          <%= create_follow_button(profile.user_id) %>
+        <% end %>
       <% end %>
     </div>
     <div class="flex justify-center gap-4">
