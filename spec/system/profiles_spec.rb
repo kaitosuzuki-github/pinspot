@@ -462,4 +462,108 @@ RSpec.describe "Profiles", type: :system do
       end
     end
   end
+
+  describe 'following' do
+    let(:user) { create(:user) }
+    let(:other_user) { create(:user) }
+    let(:follow_user) { create(:user) }
+
+    context '一般的な場合' do
+      before do
+        other_user.follow(follow_user.id)
+        sign_in user
+        visit root_path
+        visit following_profile_path(other_user.profile)
+      end
+
+      it 'title要素に「フォロー中」を表示すること' do
+        expect(page).to have_title 'Pinspot - フォロー中'
+      end
+
+      it '戻るボタンを押すと、前のページにもどること', js: true do
+        find('#following #back_button').click
+        expect(current_path).to eq root_path
+      end
+
+      it '「フォロー中」を表示すること' do
+        within '#following' do
+          expect(page).to have_selector 'h2', text: 'フォロー中'
+        end
+      end
+
+      it 'フォロー中のアバターを表示すること' do
+        expect(page).to have_selector "#following #avatar_display"
+      end
+
+      it 'フォロー中の名前を表示すること' do
+        within '#following' do
+          expect(page).to have_content follow_user.profile.name
+        end
+      end
+
+      it 'フォロー中の名前、アバターを押すと、フォロー中のプロフィールページへ遷移すること' do
+        find('#follow_user #profile_link').click
+        expect(current_path).to eq profile_path(follow_user.profile)
+      end
+
+      it '「フォローする」ボタンを押すと、「フォロー中」に変化すること' do
+        within '#follow_button' do
+          expect(page).to_not have_content 'フォロー中'
+          expect(page).to have_content 'フォローする'
+        end
+
+        find('#follow_button').click
+
+        within '#follow_button' do
+          expect(page).to have_content 'フォロー中'
+          expect(page).to_not have_content 'フォローする'
+        end
+      end
+
+      it '「フォロー中」ボタンを押すと、「フォローする」に変化すること' do
+        find('#follow_button').click
+
+        within '#follow_button' do
+          expect(page).to_not have_content 'フォローする'
+          expect(page).to have_content 'フォロー中'
+        end
+
+        find('#follow_button').click
+
+        within '#follow_button' do
+          expect(page).to have_content 'フォローする'
+          expect(page).to_not have_content 'フォロー中'
+        end
+      end
+    end
+
+    context 'ログインしているユーザーのフォロー中のページである場合' do
+      before do
+        user.follow(follow_user.id)
+        sign_in user
+        visit root_path
+        visit following_profile_path(user.profile)
+      end
+
+      it '「フォロー中」ボタンを押すと、フォロー中のユーザーが表示されなくなること' do
+        within '#following' do
+          expect(page).to have_selector "#avatar_display"
+          expect(page).to have_content follow_user.profile.name
+        end
+
+        within '#follow_button' do
+          expect(page).to_not have_content 'フォローする'
+          expect(page).to have_content 'フォロー中'
+        end
+
+        find('#follow_button').click
+
+        within '#following' do
+          expect(page).to_not have_selector "#avatar_display"
+          expect(page).to_not have_content follow_user.profile.name
+          expect(page).to_not have_content 'フォローする'
+        end
+      end
+    end
+  end
 end
