@@ -358,4 +358,36 @@ RSpec.describe "Profiles", type: :system do
       end
     end
   end
+
+  describe 'show_bookmarks' do
+    let(:user) { create(:user) }
+
+    let(:post) { create(:post) }
+
+    before do
+      user.bookmarks.create(post_id: post.id)
+      sign_in user
+      visit show_bookmarks_profile_path(user.profile)
+    end
+
+    it '「投稿」タブを押すと、プロフィールの投稿ページへ遷移すること' do
+      find('#posts_tab').click
+      expect(current_path).to eq profile_path(user.profile)
+    end
+
+    it '「いいねした投稿」タブを押すと、いいねした投稿ページへ遷移すること' do
+      find('#bookmark_posts_tab').click
+      expect(current_path).to eq show_bookmarks_profile_path(user.profile)
+    end
+
+    it '「保存した投稿」タブを押すと、ページ遷移しないこと' do
+      find('#bookmark_posts_tab').click
+      expect(current_path).to eq show_bookmarks_profile_path(user.profile)
+    end
+
+    it 'プロフィールのブックマークした投稿を表示すること' do
+      expect(page).to have_content post.title
+      expect(page).to have_selector "img[src$='#{post.image.filename}']"
+    end
+  end
 end
