@@ -4,10 +4,10 @@
       <%= link_to root_path, class: "normal-link" do %>
         <h1>Pinspot</h1>
       <% end %>
-      <%= link_to "探す", search_posts_path, class:"normal-link hidden lg:block" %>
+      <%= link_to "探す", search_posts_path, id: "search_link", class:"normal-link hidden lg:block" %>
     </div>
     <%= render "shared/hamburger_menu", q: q %>
-    <div class="lg:flex lg:items-center lg:gap-5 hidden">
+    <div id="pc_layout" class="lg:flex lg:items-center lg:gap-5 hidden">
       <%= render "shared/search_bar", q: q %>
       <%= create_header_elements %>
     </div>
