@@ -190,4 +190,36 @@ RSpec.describe "Home", type: :system do
       end
     end
   end
+
+  describe 'footer' do
+    before do
+      visit root_path
+    end
+
+    it '「お問い合わせ」を押すと、新規お問い合わせページへ遷移すること' do
+      within 'footer' do
+        click_on 'お問い合わせ'
+      end
+
+      expect(current_path).to eq new_contact_path
+    end
+
+    it 'ツイッターアイコンを押すと、ツイッターのページへ遷移すること', js: true do
+      find('footer #twitter_link').click
+      switch_to_window(windows.last)
+      expect(current_url).to eq ENV['TWITTER_LINK']
+    end
+
+    it 'githubアイコンを押すと、githubのページへ遷移すること', js: true do
+      find('footer #github_link').click
+      switch_to_window(windows.last)
+      expect(current_url).to eq ENV['GITHUB_LINK']
+    end
+
+    it 'コピーライトを表示すること' do
+      within 'footer' do
+        expect(page).to have_content '© 2023 - Present Pinspot. All rights reserved.'
+      end
+    end
+  end
 end
