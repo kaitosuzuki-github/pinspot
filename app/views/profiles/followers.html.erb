@@ -8,7 +8,13 @@
         <% end %>
         <h2>フォロワー</h2>
       </div>
-      <%= render partial: "follow_user", collection: @users %>
+      <div>
+        <%= turbo_frame_tag "follow_turbo" do %>
+          <div class="space-y-2">
+            <%= render partial: "follow_user", collection: @users %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

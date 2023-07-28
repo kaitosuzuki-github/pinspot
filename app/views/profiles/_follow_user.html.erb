@@ -1,5 +1,5 @@
 <div id="follow_user", class="flex gap-3 items-center justify-between">
-  <%= link_to follow_user.profile, id: "profile_link", class: "flex items-center gap-2" do %>
+  <%= link_to follow_user.profile, id: "profile_link", class: "flex items-center gap-2", data: { turbo_frame: "_top" } do %>
     <%= create_avatar_elements follow_user.profile.avatar, "icon-large" %>
     <h4 class="break-all max-w-xs"><%= follow_user.profile.name %></h4>
   <% end %>
