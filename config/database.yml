@@ -81,8 +81,8 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-# production:
-#   <<: *default
-#   database: pinspot_production
-#   username: pinspot
-#   password: <%= ENV["PINSPOT_DATABASE_PASSWORD"] %>
+production:
+  <<: *default
+  database: pinspot_production
+  username: pinspot
+  password: <%= ENV["PINSPOT_DATABASE_PASSWORD"] %>
