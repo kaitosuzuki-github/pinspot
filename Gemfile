@@ -89,3 +89,4 @@ gem 'devise-i18n'
 gem 'ransack'
 gem 'active_storage_validations'
 gem 'faker'
+gem "aws-sdk-s3", require: false
