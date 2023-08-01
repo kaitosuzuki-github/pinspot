@@ -3,7 +3,7 @@
     <%= render profile %>
     <hr>
     <div class="p-4">
-      <%= turbo_frame_tag "profile_posts_turbo" do %>
+      <%= turbo_frame_tag "profile_posts_turbo", data: { turbo_action: :advance } do %>
         <%= render "posts_tabs", profile_user_id: profile.user_id %>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
           <%= render partial: "post", collection: posts %>

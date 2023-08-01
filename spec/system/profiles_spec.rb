@@ -79,7 +79,7 @@ RSpec.describe "Profiles", type: :system do
           expect(current_path).to eq new_user_session_path
         end
 
-        it '「投稿」タブを押すと、ページ遷移しないこと' do
+        it '「投稿」タブを押すと、ページ遷移しないこと', js: true do
           find('#posts_tab').click
           expect(current_path).to eq profile_path(user.profile)
         end
@@ -120,8 +120,9 @@ RSpec.describe "Profiles", type: :system do
           expect(current_path).to eq following_profile_path(user.profile)
         end
 
-        it '「いいねした投稿」タブを押すと、いいねした投稿ページへ遷移すること' do
+        it '「いいねした投稿」タブを押すと、いいねした投稿ページへ遷移すること', js: true do
           find('#like_posts_tab').click
+          sleep 5
           expect(current_path).to eq show_likes_profile_path(user.profile)
         end
       end
@@ -137,8 +138,9 @@ RSpec.describe "Profiles", type: :system do
           expect(current_path).to eq edit_profile_path(user.profile)
         end
 
-        it '「保存した投稿」タブを押すと、保存した投稿ページへ遷移すること' do
+        it '「保存した投稿」タブを押すと、保存した投稿ページへ遷移すること', js: true do
           find('#bookmark_posts_tab').click
+          sleep 5
           expect(current_path).to eq show_bookmarks_profile_path(user.profile)
         end
       end
@@ -169,8 +171,9 @@ RSpec.describe "Profiles", type: :system do
           visit profile_path(user.profile)
         end
 
-        it 'フォローボタンを押すと、ログインページへ遷移すること' do
+        it 'フォローボタンを押すと、ログインページへ遷移すること', js: true do
           find('#follow_button').click
+          sleep 5
           expect(current_path).to eq new_user_session_path
         end
       end
@@ -186,7 +189,7 @@ RSpec.describe "Profiles", type: :system do
         end
       end
 
-      context 'ログインユーザーとプロフィールのユーザーが異なる場合' do
+      context 'ログインユーザーとプロフィールのユーザーが異なる場合', js: true do
         let(:other_user) { create(:user) }
 
         before do
@@ -208,6 +211,13 @@ RSpec.describe "Profiles", type: :system do
           end
         end
 
+        it '「フォロー中」を押すと、確認ダイアログに「フォローをやめますか?」を表示すること' do
+          find('#follow_button').click
+          sleep 5
+          find('#follow_button').click
+          expect(page.accept_confirm).to eq "フォローをやめますか?"
+        end
+
         it '「フォロー中」ボタンを押すと、「フォローする」に変化すること' do
           find('#follow_button').click
 
@@ -216,7 +226,11 @@ RSpec.describe "Profiles", type: :system do
             expect(page).to have_content 'フォロー中'
           end
 
-          find('#follow_button').click
+          page.accept_confirm do
+            find('#follow_button').click
+          end
+
+          sleep 5
 
           within '#follow_button' do
             expect(page).to have_content 'フォローする'
@@ -317,13 +331,15 @@ RSpec.describe "Profiles", type: :system do
         visit show_likes_profile_path(user.profile)
       end
 
-      it '「投稿」タブを押すと、プロフィールの投稿ページへ遷移すること' do
+      it '「投稿」タブを押すと、プロフィールの投稿ページへ遷移すること', js: true do
         find('#posts_tab').click
+        sleep 5
         expect(current_path).to eq profile_path(user.profile)
       end
 
-      it '「いいねした投稿」タブを押すと、ページ遷移しないこと' do
+      it '「いいねした投稿」タブを押すと、ページ遷移しないこと', js: true do
         find('#like_posts_tab').click
+        sleep 5
         expect(current_path).to eq show_likes_profile_path(user.profile)
       end
 
@@ -339,8 +355,9 @@ RSpec.describe "Profiles", type: :system do
         visit profile_path(user.profile)
       end
 
-      it '「保存した投稿」タブを押すと、保存した投稿ページへ遷移すること' do
+      it '「保存した投稿」タブを押すと、保存した投稿ページへ遷移すること', js: true do
         find('#bookmark_posts_tab').click
+        sleep 5
         expect(current_path).to eq show_bookmarks_profile_path(user.profile)
       end
     end
@@ -370,18 +387,21 @@ RSpec.describe "Profiles", type: :system do
       visit show_bookmarks_profile_path(user.profile)
     end
 
-    it '「投稿」タブを押すと、プロフィールの投稿ページへ遷移すること' do
+    it '「投稿」タブを押すと、プロフィールの投稿ページへ遷移すること', js: true do
       find('#posts_tab').click
+      sleep 5
       expect(current_path).to eq profile_path(user.profile)
     end
 
-    it '「いいねした投稿」タブを押すと、いいねした投稿ページへ遷移すること' do
+    it '「いいねした投稿」タブを押すと、いいねした投稿ページへ遷移すること', js: true do
       find('#bookmark_posts_tab').click
+      sleep 5
       expect(current_path).to eq show_bookmarks_profile_path(user.profile)
     end
 
-    it '「保存した投稿」タブを押すと、ページ遷移しないこと' do
+    it '「保存した投稿」タブを押すと、ページ遷移しないこと', js: true do
       find('#bookmark_posts_tab').click
+      sleep 5
       expect(current_path).to eq show_bookmarks_profile_path(user.profile)
     end
 
@@ -432,7 +452,7 @@ RSpec.describe "Profiles", type: :system do
       expect(current_path).to eq profile_path(follow_user.profile)
     end
 
-    it '「フォローする」ボタンを押すと、「フォロー中」に変化すること' do
+    it '「フォローする」ボタンを押すと、「フォロー中」に変化すること', js: true do
       within '#follow_button' do
         expect(page).to_not have_content 'フォロー中'
         expect(page).to have_content 'フォローする'
@@ -446,7 +466,14 @@ RSpec.describe "Profiles", type: :system do
       end
     end
 
-    it '「フォロー中」ボタンを押すと、「フォローする」に変化すること' do
+    it '「フォロー中」を押すと、確認ダイアログに「フォローをやめますか?」を表示すること', js: true do
+      find('#follow_button').click
+      sleep 5
+      find('#follow_button').click
+      expect(page.accept_confirm).to eq "フォローをやめますか?"
+    end
+
+    it '「フォロー中」ボタンを押すと、「フォローする」に変化すること', js: true do
       find('#follow_button').click
 
       within '#follow_button' do
@@ -454,7 +481,11 @@ RSpec.describe "Profiles", type: :system do
         expect(page).to have_content 'フォロー中'
       end
 
-      find('#follow_button').click
+      page.accept_confirm do
+        find('#follow_button').click
+      end
+
+      sleep 5
 
       within '#follow_button' do
         expect(page).to have_content 'フォローする'
@@ -506,7 +537,7 @@ RSpec.describe "Profiles", type: :system do
         expect(current_path).to eq profile_path(follow_user.profile)
       end
 
-      it '「フォローする」ボタンを押すと、「フォロー中」に変化すること' do
+      it '「フォローする」ボタンを押すと、「フォロー中」に変化すること', js: true do
         within '#follow_button' do
           expect(page).to_not have_content 'フォロー中'
           expect(page).to have_content 'フォローする'
@@ -520,7 +551,14 @@ RSpec.describe "Profiles", type: :system do
         end
       end
 
-      it '「フォロー中」ボタンを押すと、「フォローする」に変化すること' do
+      it '「フォロー中」を押すと、確認ダイアログに「フォローをやめますか?」を表示すること', js: true do
+        find('#follow_button').click
+        sleep 5
+        find('#follow_button').click
+        expect(page.accept_confirm).to eq "フォローをやめますか?"
+      end
+
+      it '「フォロー中」ボタンを押すと、「フォローする」に変化すること', js: true do
         find('#follow_button').click
 
         within '#follow_button' do
@@ -528,7 +566,11 @@ RSpec.describe "Profiles", type: :system do
           expect(page).to have_content 'フォロー中'
         end
 
-        find('#follow_button').click
+        page.accept_confirm do
+          find('#follow_button').click
+        end
+
+        sleep 5
 
         within '#follow_button' do
           expect(page).to have_content 'フォローする'
@@ -537,12 +579,17 @@ RSpec.describe "Profiles", type: :system do
       end
     end
 
-    context 'ログインしているユーザーのフォロー中のページである場合' do
+    context 'ログインしているユーザーのフォロー中のページである場合', js: true do
       before do
         user.follow(follow_user.id)
         sign_in user
         visit root_path
         visit following_profile_path(user.profile)
+      end
+
+      it '「フォロー中」を押すと、確認ダイアログに「フォローをやめますか?」を表示すること' do
+        find('#follow_button').click
+        expect(page.accept_confirm).to eq "フォローをやめますか?"
       end
 
       it '「フォロー中」ボタンを押すと、フォロー中のユーザーが表示されなくなること' do
@@ -556,7 +603,11 @@ RSpec.describe "Profiles", type: :system do
           expect(page).to have_content 'フォロー中'
         end
 
-        find('#follow_button').click
+        page.accept_confirm do
+          find('#follow_button').click
+        end
+
+        sleep 5
 
         within '#profiles_following' do
           expect(page).to_not have_selector "#avatar_display"
