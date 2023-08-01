@@ -675,16 +675,18 @@ RSpec.describe "Posts", type: :system do
       end
     end
 
-    it 'キーワード検索したとき、検索結果の投稿のみが表示されること' do
+    it 'キーワード検索したとき、検索結果の投稿のみが表示されること', js: true do
       within '#search_form' do
         fill_in 'q_title_or_location_cont', with: posts[0].title
         click_on '検索'
       end
       within '#posts_search' do
-        expect(page).to have_content posts[0].title
         expect(page).to have_selector "img[src$='#{posts[0].image.filename}']"
-        expect(page).to_not have_content posts[1].title
+        expect(find('.title-base',
+        visible: false)).to have_selector('#non_visible_post_title', visible: false, text: posts[0].title)
         expect(page).to_not have_selector "img[src$='#{posts[1].image.filename}']"
+        expect(find('.title-base',
+        visible: false)).to_not have_selector('#non_visible_post_title', visible: false, text: posts[1].title)
       end
     end
 
