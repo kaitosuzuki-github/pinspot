@@ -1,4 +1,5 @@
 document.addEventListener("turbo:load", dropdown, false);
+document.addEventListener("turbo:frame-load", dropdown, false);
 
 function dropdown() {
   const dropdownWrapList = document.querySelectorAll("#dropdownWrap");
