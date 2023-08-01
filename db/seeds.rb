@@ -26,8 +26,8 @@ def create_user_profile_data
       confirmed_at: Time.now
     ) do |user|
       user.build_profile
-      user.profile.name = Faker::Name.name + "(テストユーザー)"
-      user.profile.introduction = Faker::Lorem.paragraph
+      user.profile.name = Faker::Name.name
+      user.profile.introduction = Faker::Lorem.paragraph + "\n注意:テストユーザーです。"
     end
 
     if n.even?
@@ -47,7 +47,7 @@ def create_post_data
     user_post_num.times do |n|
       post_num = (i + 1) + (n * 10)
       post = user.posts.new(
-            title: Faker::Lorem.word + "(テスト投稿)",
+            title: Faker::Lorem.word,
             description: Faker::Lorem.paragraph + "\n注意:テスト投稿のため、間違った情報で表示されています。",
             location: Faker::Address.city,
             latitude: Faker::Address.latitude,
