@@ -148,8 +148,9 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it 'いいねボタンを押すと、ログインページへ遷移すること' do
+        it 'いいねボタンを押すと、ログインページへ遷移すること', js: true do
           find('#post_detail #like_button').click
+          sleep 5
           expect(current_path).to eq new_user_session_path
         end
       end
@@ -160,7 +161,7 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it 'いいねボタンを押すと、いいねされたいいねボタンに変化すること' do
+        it 'いいねボタンを押すと、いいねされたいいねボタンに変化すること', js: true do
           expect(page).to have_selector '#post_detail #like_button .fill-none'
           expect(page).to_not have_selector '#post_detail #like_button .fill-current'
           find('#post_detail #like_button').click
@@ -176,7 +177,7 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it 'いいねボタンを押すと、いいねされていないいいねボタンに変化すること' do
+        it 'いいねボタンを押すと、いいねされていないいいねボタンに変化すること', js: true do
           expect(page).to_not have_selector '#post_detail #like_button .fill-none'
           expect(page).to have_selector '#post_detail #like_button .fill-current'
           find('#post_detail #like_button').click
@@ -195,8 +196,9 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it 'ブックマークボタンを押すと、ログインページへ遷移すること' do
+        it 'ブックマークボタンを押すと、ログインページへ遷移すること', js: true do
           find('#post_detail #bookmark_button').click
+          sleep 5
           expect(current_path).to eq new_user_session_path
         end
       end
@@ -207,7 +209,7 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it 'ブックマークボタンを押すと、ブックマークがされたブックマークボタンに変化すること' do
+        it 'ブックマークボタンを押すと、ブックマークがされたブックマークボタンに変化すること', js: true do
           expect(page).to have_selector '#post_detail #bookmark_button .fill-none'
           expect(page).to_not have_selector '#post_detail #bookmark_button .fill-current'
           find('#post_detail #bookmark_button').click
@@ -223,7 +225,7 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it 'ブックマークボタンを押すと、ブックマークされていないブックマークボタンに変化すること' do
+        it 'ブックマークボタンを押すと、ブックマークされていないブックマークボタンに変化すること', js: true do
           expect(page).to_not have_selector '#post_detail #bookmark_button .fill-none'
           expect(page).to have_selector '#post_detail #bookmark_button .fill-current'
           find('#post_detail #bookmark_button').click
@@ -248,10 +250,11 @@ RSpec.describe "Posts", type: :system do
           end
         end
 
-        it '「フォローする」を押すと、ログインページへ遷移すること' do
+        it '「フォローする」を押すと、ログインページへ遷移すること', js: true do
           within '#post_detail' do
             click_on 'フォローする'
           end
+          sleep 5
           expect(current_path).to eq new_user_session_path
         end
       end
@@ -281,7 +284,7 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it '「フォローする」を押すと、「フォロー中」に変化すること' do
+        it '「フォローする」を押すと、「フォロー中」に変化すること', js: true do
           within '#post_detail' do
             expect(page).to_not have_content 'フォロー中'
             click_on 'フォローする'
@@ -291,17 +294,26 @@ RSpec.describe "Posts", type: :system do
         end
       end
 
-      context 'ログインユーザーと投稿ユーザーが異なり、ログインユーザーが投稿ユーザーをすでにフォローしている場合' do
+      context 'ログインユーザーと投稿ユーザーが異なり、ログインユーザーが投稿ユーザーをすでにフォローしている場合', js: true do
         before do
           sign_in user
           user.follow(post.user.id)
           visit post_path(post)
         end
 
-        it '「フォロー中」を押すと、「フォローする」に変化すること' do
+        it '「フォロー中」を押すと、確認ダイアログに「フォローをやめますか?」を表示すること' do
+          within '#post_detail' do
+            click_on 'フォロー中'
+            expect(page.accept_confirm).to eq "フォローをやめますか?"
+          end
+        end
+
+        it '「フォロー中」を押したあと、確認ダイアログで「はい」を押すと、「フォローする」に変化すること' do
           within '#post_detail' do
             expect(page).to_not have_content 'フォローする'
-            click_on 'フォロー中'
+            page.accept_confirm do
+              click_on 'フォロー中'
+            end
             expect(page).to have_content 'フォローする'
             expect(page).to_not have_content 'フォロー中'
           end
