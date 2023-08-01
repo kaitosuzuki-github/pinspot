@@ -1,7 +1,7 @@
 <div id="comment" class="relative mx-2 py-2">
   <div class="space-y-1">
     <div class="flex justify-between">
-      <%= link_to comment.user.profile, id:"profile_link", class: "flex items-center gap-2 w-fit" do %>
+      <%= link_to comment.user.profile, id:"profile_link", class: "flex items-center gap-2 w-fit", data: { turbo_frame: "_top" } do %>
         <%= create_avatar_elements comment.user.profile.avatar, "icon-medium" %>
         <h4><%= comment.user.profile.name %></h4>
       <% end %>

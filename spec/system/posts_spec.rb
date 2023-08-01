@@ -390,8 +390,9 @@ RSpec.describe "Posts", type: :system do
           end
         end
 
-        it 'コメントユーザーを押すと、コメントユーザーのプロフィールページへ遷移すること' do
+        it 'コメントユーザーを押すと、コメントユーザーのプロフィールページへ遷移すること', js: true do
           first('#comment #profile_link').click
+          sleep 5
           expect(current_path).to eq profile_path(comments[0].user.profile)
         end
       end
@@ -441,7 +442,7 @@ RSpec.describe "Posts", type: :system do
           visit post_path(post)
         end
 
-        it '送信したコメントを表示すること' do
+        it '送信したコメントを表示すること', js: true do
           expect(page).to_not have_selector '#comment'
           within '#comments' do
             fill_in 'Content', with: Faker::Lorem.paragraph
@@ -462,7 +463,7 @@ RSpec.describe "Posts", type: :system do
           end
         end
 
-        it 'コメントが作成されないこと' do
+        it 'コメントが作成されないこと', js: true do
           expect(page).to_not have_selector '#comment'
         end
       end
