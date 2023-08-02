@@ -72,6 +72,7 @@ group :development do
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'bullet'
+  gem 'rails-erd'
 end
 
 group :test do
