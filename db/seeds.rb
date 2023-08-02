@@ -27,7 +27,7 @@ def create_user_profile_data
     ) do |user|
       user.build_profile
       user.profile.name = Faker::Name.name
-      user.profile.introduction = Faker::Lorem.paragraph + "\n注意:テストユーザーです。"
+      user.profile.introduction = "注意:テストユーザーです。"
     end
 
     if n.even?
@@ -47,8 +47,8 @@ def create_post_data
     user_post_num.times do |n|
       post_num = (i + 1) + (n * 10)
       post = user.posts.new(
-            title: Faker::Lorem.word,
-            description: Faker::Lorem.paragraph + "\n注意:テスト投稿のため、間違った情報で表示されています。",
+            title: "テスト投稿(#{post_num})",
+            description: "注意:テスト投稿のため、間違った情報で表示されています。",
             location: Faker::Address.city,
             latitude: Faker::Address.latitude,
             longitude: Faker::Address.longitude
@@ -107,7 +107,7 @@ def create_comment_data
   User.all.each_with_index do |user, i|
     comment_num.times do |n|
       post_id = rand(1..20)
-      user.comments.create!(post_id: post_id, content: Faker::Lorem.sentence)
+      user.comments.create!(post_id: post_id, content: "テストコメントです")
     end
   end
 end
@@ -117,8 +117,8 @@ def create_contact_date
   contact_num.times do |n|
     Contact.create!(
       email: Faker::Internet.email,
-      subject: Faker::Lorem.sentence,
-      message: Faker::Lorem.paragraph
+      subject: "テストお問い合わせ(n)",
+      message: "テストのお問い合わせを送信します。"
     )
   end
 end
