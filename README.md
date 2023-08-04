@@ -1,6 +1,6 @@
 # Pinspot
 
-[Pinspot](https://pinspot-dff80fe26e9f.herokuapp.com/) は撮影スポットを投稿すること、マップ上またはキーワード、カテゴリー検索から撮影スポットを検索できるサービスです。
+[Pinspot](https://pinspot-dff80fe26e9f.herokuapp.com/) は撮影スポットを投稿・共有、マップ上またはキーワード・カテゴリーから検索できるサービスです。
 
 ## 開発の背景
 
