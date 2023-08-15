@@ -5,7 +5,7 @@
   <div class="flex justify-center items-center mt-14 lg:ml-14 lg:mt-0">
     <%= image_tag post.image.variant(resize_to_limit: select_image_size("large")), class:"max-h-[50vh] lg:max-h-[70vh] shadow" %>
   </div>
-  <div class="flex justify-center items-center">
-    <div id="map" class="h-full w-full aspect-[1/1] rounded-lg shadow max-h-[400px] max-w-[500px] lg:max-h-[500px]" data-latitude=<%= post.latitude %> data-longitude=<%= post.longitude %>></div>
+  <div data-controller="google-map" class="flex justify-center items-center">
+    <div data-google-map-target="map" class="h-full w-full aspect-[1/1] rounded-lg shadow max-h-[400px] max-w-[500px] lg:max-h-[500px]" data-latitude=<%= post.latitude %> data-longitude=<%= post.longitude %>></div>
   </div>
 </div>
