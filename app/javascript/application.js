@@ -3,4 +3,3 @@ import "@hotwired/turbo-rails";
 import "controllers";
 import "customs/google_map";
 import "customs/image_preview";
-import "customs/hamburger_menu";
