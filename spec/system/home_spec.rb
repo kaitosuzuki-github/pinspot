@@ -21,7 +21,7 @@ RSpec.describe "Home", type: :system do
     it 'id=mapの要素のdata-poasts属性に投稿データが入っていること' do
       posts_json = posts.to_json(only: [:id, :title, :location, :latitude, :longitude])
       within '#home_index' do
-        map = find '#map'
+        map = find 'div[data-google-map-target=map]'
         expect(map['data-posts']).to eq posts_json
       end
     end

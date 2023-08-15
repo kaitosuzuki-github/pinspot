@@ -29,7 +29,7 @@ RSpec.describe "Posts", type: :system do
 
         it 'id=mapの要素のdata-latitude、data-longitude属性に投稿の緯度経度データが入っていること' do
           within '#post_main' do
-            map = find '#map'
+            map = find 'div[data-google-map-target=map]'
             expect(map['data-latitude']).to eq "#{post.latitude}"
             expect(map['data-longitude']).to eq "#{post.longitude}"
           end
