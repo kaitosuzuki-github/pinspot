@@ -144,12 +144,12 @@ RSpec.describe "Home", type: :system do
 
       it 'ドロップダウンメニューを非表示にすること', js: true do
         within 'header #pc_layout' do
-          expect(find('#dropdownMenu', visible: false)).to_not be_visible
+          expect(find('div[data-dropdown-target=menu]', visible: false)).to_not be_visible
         end
       end
 
       it 'ドロップダウンメニューの「プロフィール」を押すと、プロフィールページに遷移すること' do
-        within 'header #pc_layout #dropdownMenu' do
+        within 'header #pc_layout div[data-dropdown-target=menu]' do
           click_link 'プロフィール'
         end
 
@@ -157,7 +157,7 @@ RSpec.describe "Home", type: :system do
       end
 
       it 'ドロップダウンメニューの「アカウント設定」を押すと、アカウント設定ページに遷移すること' do
-        within 'header #pc_layout #dropdownMenu' do
+        within 'header #pc_layout div[data-dropdown-target=menu]' do
           click_link 'アカウント設定'
         end
 
@@ -165,7 +165,7 @@ RSpec.describe "Home", type: :system do
       end
 
       it 'ドロップダウンメニューの「お問い合わせ」を押すと、新規お問い合わせページに遷移すること' do
-        within 'header #pc_layout #dropdownMenu' do
+        within 'header #pc_layout div[data-dropdown-target=menu]' do
           click_link 'お問い合わせ'
         end
 
@@ -173,7 +173,7 @@ RSpec.describe "Home", type: :system do
       end
 
       it 'ドロップダウンメニューの「ログアウト」を押すと、トップページに留まり、「ログアウトしました。」を表示すること' do
-        within 'header #pc_layout #dropdownMenu' do
+        within 'header #pc_layout div[data-dropdown-target=menu]' do
           click_button 'ログアウト'
         end
 

@@ -36,7 +36,7 @@ RSpec.describe "Posts", type: :system do
         end
 
         it 'ドロップダウンメニューを表示しないこと' do
-          expect(page).to_not have_selector '#post_detail #dropdownWrap'
+          expect(page).to_not have_selector '#post_detail div[data-controller=dropdown]'
         end
 
         it '投稿ユーザーのアバターを表示すること' do
@@ -109,29 +109,29 @@ RSpec.describe "Posts", type: :system do
         end
 
         it 'ドロップダウントグルを表示すること' do
-          expect(page).to have_selector '#post_detail #dropdownToggle'
+          expect(page).to have_selector '#post_detail div[data-controller=dropdown] button'
         end
 
         it 'ドロップダウンメニューを非表示にすること', js: true do
-          expect(find('#post_detail #dropdownMenu', visible: false)).to_not be_visible
+          expect(find('#post_detail div[data-dropdown-target=menu]', visible: false)).to_not be_visible
         end
 
         it 'ドロップダウンメニューの「編集」を押すと、投稿編集ページに遷移すること' do
-          within '#post_detail #dropdownMenu' do
+          within '#post_detail div[data-dropdown-target=menu]' do
             click_link '編集'
             expect(current_path).to eq edit_post_path(post)
           end
         end
 
         it 'ドロップダウンメニューの「削除」を押すと、トップページへ遷移すること' do
-          within '#post_detail #dropdownMenu' do
+          within '#post_detail div[data-dropdown-target=menu]' do
             click_button '削除'
             expect(current_path).to eq root_path
           end
         end
 
         it 'ドロップダウンメニューの「削除」を押すと、「投稿を削除しました」を表示すること' do
-          within '#post_detail #dropdownMenu' do
+          within '#post_detail div[data-dropdown-target=menu]' do
             click_button '削除'
           end
           expect(page).to have_content '投稿を削除しました'
@@ -406,11 +406,11 @@ RSpec.describe "Posts", type: :system do
         end
 
         it 'コメントのドロップダウントグルを表示すること' do
-          expect(page).to have_selector '#comment #dropdownWrap'
+          expect(page).to have_selector '#comment div[data-controller=dropdown] button'
         end
 
         it 'コメントのドロップダウンメニューを非表示にすること', js: true do
-          expect(find('#comment #dropdownMenu', visible: false)).to_not be_visible
+          expect(find('#comment div[data-dropdown-target=menu]', visible: false)).to_not be_visible
         end
 
         it 'ドロップダウンメニューの「削除」を押すと、コメントを削除すること' do
@@ -430,7 +430,7 @@ RSpec.describe "Posts", type: :system do
         end
 
         it 'コメントのドロップダウンメニューを表示しないこと' do
-          expect(page).to_not have_selector '#comment #dropdownWrap'
+          expect(page).to_not have_selector '#comment div[data-controller=dropdown]'
         end
       end
 

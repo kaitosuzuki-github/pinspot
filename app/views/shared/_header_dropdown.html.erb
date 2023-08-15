@@ -1,17 +1,17 @@
-<div id="dropdownWrap" class="relative flex items-center justify-center">
-  <button id="dropdownToggle" type="button">
+<div data-controller="dropdown" class="relative flex items-center justify-center">
+  <button data-action="dropdown#toggle click@window->dropdown#hide" type="button">
     <%= create_avatar_elements current_user.profile.avatar, "icon-large" %>
   </button>
-  <div id="dropdownMenu" class="dropdown-menu fade-out absolute z-10 top-full mt-4 w-44 py-2">
+  <div data-dropdown-target="menu" class="dropdown-menu absolute z-10 top-full mt-4 w-44 py-2 hidden">
     <ul>
       <li>
-        <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "li-link" %>
+        <%= link_to "プロフィール", profile_path(current_user.profile.id), data: { action: "dropdown#toggle" }, class: "li-link" %>
       </li>
       <li>
-        <%= link_to "アカウント設定", users_show_path, class: "li-link" %>
+        <%= link_to "アカウント設定", users_show_path, data: { action: "dropdown#toggle" }, class: "li-link" %>
       </li>
       <li>
-        <%= link_to "お問い合わせ", new_contact_path, class: "li-link" %>
+        <%= link_to "お問い合わせ", new_contact_path, data: { action: "dropdown#toggle" }, class: "li-link" %>
       </li>
       <li>
         <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "li-link" %>
