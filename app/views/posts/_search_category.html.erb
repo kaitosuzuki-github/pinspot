@@ -1,9 +1,9 @@
-<div id="dropdownWrap" class="relative flex items-center justify-start lg:justify-end">
-  <%= button_tag type: "button", id: "dropdownToggle", class: "search-dropdown-button" do %>
+<div data-controller="dropdown" class="relative flex items-center justify-start lg:justify-end">
+  <%= button_tag type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"} , class: "search-dropdown-button" do %>
     <span>カテゴリー</span>
     <%= render "shared/icons/expand", class_list: "icon-small fill-current" %>
   <% end %>
-  <div id="dropdownMenu" class="dropdown-menu fade-out absolute z-10 top-full mt-4 p-4 w-72 grid grid-cols-2 gap-1">
+  <div data-dropdown-target="menu" class="dropdown-menu absolute z-10 top-full mt-4 p-4 w-72 grid grid-cols-2 gap-1">
     <%= f.collection_check_boxes(:categories_id_in, categories, :id, :name) do |b| %>
       <%= button_tag class: "search-detail-button" do %>
         <%= b.check_box class: "check-box pointer-events-none" %>
