@@ -1,15 +1,11 @@
-<div>
-  <div id="hamMenuToggle" class="relative lg:hidden">
-    <button type="button">
-      <%= render "shared/icons/bar_menu", class_list: "icon-medium fill-current" %>
-    </button>
-  </div>
-  <div id="hamMenuClose" class="hidden z-10">
-    <button type="button">
-      <%= render "shared/icons/x_mark", class_list: "icon-medium fill-current" %>
-    </button>
-  </div>
-  <div id="hamMenu" class="absolute bg-white z-10 top-full w-full left-0 p-6 space-y-2 duration-100 fade-out lg:hidden">
+<div data-controller="hamburger-menu">
+  <button data-action="hamburger-menu#toggle click@window->hamburger-menu#hide" data-hamburger-menu-target="toggle" class="relative lg:hidden" type="button">
+    <%= render "shared/icons/bar_menu", class_list: "icon-medium fill-current" %>
+  </button>
+  <button data-action="hamburger-menu#toggle" data-hamburger-menu-target="toggle" class="hidden z-10 lg:hidden" type="button">
+    <%= render "shared/icons/x_mark", class_list: "icon-medium fill-current" %>
+  </button>
+  <div data-hamburger-menu-target="menu" class="absolute bg-white z-10 top-full w-full left-0 p-6 space-y-2 hidden lg:hidden">
     <%= render "shared/search_bar", q: q %>
     <%= create_ham_menu_list %>
   </div>
