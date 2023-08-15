@@ -1,10 +1,10 @@
 <%= form_with model: post, class: "space-y-6" do |f| %>
   <%= render "shared/error", model: f.object %>
-  <div class="space-y-2">
+  <div data-controller="image-preview" class="space-y-2">
     <%= f.label :image %>
-    <%= f.file_field :image, class: "file-field" %>
+    <%= f.file_field :image, data: { action: "image-preview#setImage" }, class: "file-field" %>
     <div class="flex justify-center">
-      <%= image_tag select_image_preview(post.image, "large"), id: "post_image_preview", class:"h-auto max-w-full max-h-[500px]" %>
+      <%= image_tag select_image_preview(post.image, "large"), data: { image_preview_target: "image" }, class:"h-auto max-w-full max-h-[500px]" %>
     </div>
   </div>
   <div class="space-y-2">

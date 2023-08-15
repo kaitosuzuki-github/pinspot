@@ -1,24 +1,28 @@
 <%= form_with model: profile, class: "space-y-6" do |f| %>
   <%= render "shared/error", model: f.object %>
-  <div class="relative h-fit">
+  <div data-controller="image-preview" class="relative h-fit">
     <div class="absolute w-full h-full flex items-center justify-center">
       <%= f.label :cover, class:"cover-image-button" do %>
         カバー画像の変更
       <% end %>
-      <%= f.file_field :cover, class:"hidden" %>
+      <%= f.file_field :cover, data: { action: "image-preview#setProfileImage" }, class:"hidden" %>
     </div>
     <div class="bg-gray-100 aspect-[4/1] overflow-hidden">
-      <%= image_tag select_image_preview(profile.cover, "large"), id: "profile_cover_preview", class: { "h-full w-full object-cover": profile.cover.attached? } %>
+      <%= image_tag select_image_preview(profile.cover, "large"), data: { image_preview_target: "image" }, class: { "h-full w-full object-cover": profile.cover.attached? } %>
     </div>
   </div>
-  <div class="text-center">
+  <div data-controller="image-preview" class="text-center">
     <%= f.label :avatar, class: "inline-block cursor-pointer" do %>
       <div class="w-16 h-16 rounded-full overflow-hidden">
-        <%= image_tag select_image_preview(profile.avatar, "avatar"), id: "profile_avatar_preview", class: { "h-full w-full object-cover": profile.cover.attached? } %>
-        <%= render "shared/icons/user", class_list: "icon-x-large fill-current" %>
+        <%= image_tag select_image_preview(profile.avatar, "avatar"), data: { image_preview_target: "image" }, class: { "h-full w-full object-cover": profile.avatar.attached? } %>
+        <% if !profile.avatar.attached? %>
+          <div data-image-preview-target="avatar">
+            <%= render "shared/icons/user", class_list: "icon-x-large fill-current" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
-    <%= f.file_field :avatar, class:"hidden" %>
+    <%= f.file_field :avatar, data: { action: "image-preview#setProfileImage" }, class:"hidden" %>
   </div>
   <div>
     <%= f.label :name %>
