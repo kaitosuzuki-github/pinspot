@@ -1,8 +1,8 @@
 <div id="post_main" class="relative bg-gray-800 p-4 grid gap-6 grid-cols-1 lg:grid-cols-2 md:p-6">
-  <%= link_to 'javascript:history.back()', id: "back_button", class: "absolute z-10 top-2 left-2 md:top-6 md:left-6" do %>
+  <%= link_to 'javascript:history.back()', id: "back_button", class: "absolute z-10 hidden md:block md:top-6 md:left-6" do %>
     <%= render "shared/icons/back_button", class_list: "icon-medium fill-white hover:fill-gray-200" %>
   <% end %>
-  <div class="flex justify-center items-center mt-14 lg:ml-14 lg:mt-0">
+  <div class="flex justify-center items-center md:mt-14 lg:ml-14 lg:mt-0">
     <%= image_tag post.image.variant(resize_to_limit: select_image_size("large")), class:"max-h-[50vh] lg:max-h-[70vh] shadow" %>
   </div>
   <div data-controller="google-map" class="flex justify-center items-center">
