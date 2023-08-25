@@ -9,6 +9,9 @@
     <%= link_to "プロフィール", profile_path(current_user.profile.id), class: "li-link" %>
   </li>
   <li>
+    <%= link_to "プロフィール設定", edit_profile_path(current_user.profile.id), class: "li-link" %>
+  </li>
+  <li>
     <%= link_to "アカウント設定", users_show_path, class: "li-link" %>
   </li>
   <li>
