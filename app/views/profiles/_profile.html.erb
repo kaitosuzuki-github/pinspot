@@ -6,7 +6,7 @@
   </div>
   <div class="p-4 space-y-4">
     <div class="relative">
-      <div class="flex items-center justify-start md:justify-center gap-4">
+      <div class="flex items-center justify-center gap-4">
         <%= create_avatar_elements profile.avatar, "icon-x-large" %>
         <h2><%= profile.name %></h2>
       </div>
@@ -14,7 +14,7 @@
         <%= render "shared/icons/back_button", class_list: "icon-medium fill-current" %>
       <% end %>
       <% if user_signed_in? && current_user.same_user?(profile.user_id) %>
-        <%= link_to edit_profile_path,  id: "config_button", class: "absolute top-3 right-0 z-10" do %>
+        <%= link_to edit_profile_path,  id: "config_button", class: "absolute top-3 right-0 z-10 hidden md:block" do %>
           <%= render "shared/icons/config", class_list: "icon-medium fill-current" %>
         <% end %>
       <% end %>
